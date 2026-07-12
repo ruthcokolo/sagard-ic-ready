@@ -1,8 +1,3 @@
-/**
- * Pre-built analysis for the Northwind Logistics demo deal — used when
- * live AI is off or as the template for other generated analyses.
- */
-
 import type { AnalysisResult } from "./types";
 
 export const northwindAnalysis: AnalysisResult = {

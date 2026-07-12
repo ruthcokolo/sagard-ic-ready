@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * Help dialog explaining how the companies directory works.
- */
-/** Help dialog explaining the companies directory. */
 export function CompanyGuideDialog({
   open,
   onClose,

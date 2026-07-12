@@ -1,5 +1,3 @@
-/** Inline SVG icons used across navigation and action buttons. */
-
 export function NavIcon({ name, className = "h-[18px] w-[18px]" }: { name: string; className?: string }) {
   const props = { className, fill: "none", viewBox: "0 0 24 24", stroke: "currentColor", strokeWidth: 1.75 };
 
@@ -52,7 +50,6 @@ export function NavIcon({ name, className = "h-[18px] w-[18px]" }: { name: strin
   }
 }
 
-/** Renders the icon briefcase UI. */
 export function IconBriefcase({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -62,7 +59,6 @@ export function IconBriefcase({ className = "h-5 w-5" }: { className?: string })
   );
 }
 
-/** Renders the icon clock UI. */
 export function IconClock({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -72,7 +68,6 @@ export function IconClock({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-/** Renders the icon check UI. */
 export function IconCheck({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -81,7 +76,6 @@ export function IconCheck({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-/** Renders the icon chevron right UI. */
 export function IconChevronRight({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 shrink-0 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -90,7 +84,6 @@ export function IconChevronRight({ className = "h-5 w-5" }: { className?: string
   );
 }
 
-/** Renders the icon chevron left UI. */
 export function IconChevronLeft({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={`h-4 w-4 shrink-0 ${className}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -99,7 +92,6 @@ export function IconChevronLeft({ className = "h-5 w-5" }: { className?: string 
   );
 }
 
-/** Renders the icon search UI. */
 export function IconSearch({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -116,7 +108,6 @@ export function IconSearch({ className = "" }: { className?: string }) {
   );
 }
 
-/** Renders the icon filter UI. */
 export function IconFilter({ className = "" }: { className?: string }) {
   return (
     <svg
@@ -132,7 +123,6 @@ export function IconFilter({ className = "" }: { className?: string }) {
   );
 }
 
-/** Renders the icon document UI. */
 export function IconDocument({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -146,7 +136,6 @@ export function IconDocument({ className = "h-5 w-5" }: { className?: string }) 
 /** @deprecated Use IconDocument */
 export const IconDocumentSparkle = IconDocument;
 
-/** Renders the icon layers UI. */
 export function IconLayers({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -157,7 +146,6 @@ export function IconLayers({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-/** Renders the icon alert triangle UI. */
 export function IconAlertTriangle({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -171,7 +159,6 @@ export function IconAlertTriangle({ className = "h-5 w-5" }: { className?: strin
   );
 }
 
-/** Renders the icon user UI. */
 export function IconUser({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -181,7 +168,6 @@ export function IconUser({ className = "h-5 w-5" }: { className?: string }) {
   );
 }
 
-/** Renders the icon hourglass UI. */
 export function IconHourglass({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75}>
@@ -196,7 +182,6 @@ export function IconHourglass({ className = "h-5 w-5" }: { className?: string })
   );
 }
 
-/** Renders the icon edit check UI. */
 export function IconEditCheck({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -207,7 +192,6 @@ export function IconEditCheck({ className = "h-5 w-5" }: { className?: string })
   );
 }
 
-/** Renders the icon clipboard check UI. */
 export function IconClipboardCheck({ className = "h-5 w-5" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -218,7 +202,6 @@ export function IconClipboardCheck({ className = "h-5 w-5" }: { className?: stri
   );
 }
 
-/** Renders the icon refresh check UI. */
 export function IconRefreshCheck({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -228,7 +211,6 @@ export function IconRefreshCheck({ className = "h-4 w-4" }: { className?: string
   );
 }
 
-/** Renders the icon lock UI. */
 export function IconLock({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
@@ -238,7 +220,6 @@ export function IconLock({ className = "h-4 w-4" }: { className?: string }) {
   );
 }
 
-/** Renders the icon external link UI. */
 export function IconExternalLink({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>

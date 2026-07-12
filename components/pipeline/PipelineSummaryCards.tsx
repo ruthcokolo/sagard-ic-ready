@@ -1,5 +1,3 @@
-/** Summary stat cards at the top of the pipeline page. */
-
 import Link from "next/link";
 import { getPipelineSummary } from "@/lib/insights";
 
@@ -34,7 +32,6 @@ const cards = [
   },
 ] as const;
 
-/** Renders the pipeline summary cards UI. */
 export function PipelineSummaryCards() {
   const m = getPipelineSummary();
 

@@ -1,14 +1,10 @@
 "use client";
 
-/**
- * Side drawer for editing a single reporting requirement row.
- */
 import { useEffect, useMemo, useState } from "react";
 import type { MetricExpectationReasonSource, MetricRequirement } from "@/lib/portfolio/monitoring-phase-types";
 import type { EffectiveRequirementRow } from "@/lib/portfolio/reporting-requirements";
 import { RequirementBadge } from "./RequirementBadge";
 
-/** Editable form values for a reporting requirement. */
 export type EditRequirementDraft = {
   mode: "inherit" | MetricRequirement;
   reason: string;
@@ -38,7 +34,6 @@ const COMPANY_REASON_SOURCES: Array<{ value: MetricExpectationReasonSource; labe
   { value: "other", label: "Other" },
 ];
 
-/** Form drawer for editing one reporting requirement. */
 export function EditRequirementDrawer({
   open,
   row,

@@ -1,6 +1,5 @@
 "use client";
 
-/** Dropdown menu for account info, settings link, and sign out. */
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,7 +7,6 @@ import { ROLE_LABELS } from "@/lib/auth-constants";
 import { userInitials } from "@/lib/auth-session";
 import { useAuth } from "@/components/auth/AuthProvider";
 
-/** Renders the user menu UI. */
 export function UserMenu() {
   const router = useRouter();
   const { user, loading, logout } = useAuth();

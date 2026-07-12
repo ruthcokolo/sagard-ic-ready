@@ -1,7 +1,5 @@
 "use client";
 
-/** React context for session state, login, and logout. */
-
 import {
   createContext,
   useCallback,
@@ -23,7 +21,6 @@ type AuthContextValue = {
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-/** Provides auth context and hydrates the session from `/api/auth/session`. */
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [user, setUser] = useState<ICReadyUser | null>(null);
@@ -83,7 +80,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-/** Returns auth context; throws if used outside AuthProvider. */
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) {
@@ -92,7 +88,6 @@ export function useAuth() {
   return ctx;
 }
 
-/** Returns auth context or null when no provider is mounted. */
 export function useOptionalAuth() {
   return useContext(AuthContext);
 }

@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * Dismissible banner with tips at the top of the companies page.
- */
-/** Tip banner at the top of the companies page. */
 export function CompanyDirectoryBanner({
   onLearnMore,
   onDismiss,

@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Side drawer showing evidence details for a metric in the explorer.
- */
 import type { ExtractedMetric } from "@/lib/portfolio/types";
 
-/** Drawer showing PDF evidence for a metric value. */
 export function MetricEvidenceDrawer({
   metric,
   onClose,

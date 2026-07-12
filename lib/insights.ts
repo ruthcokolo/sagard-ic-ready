@@ -1,8 +1,3 @@
-/**
- * Dashboard numbers, activity feeds, and label helpers for the IC readiness
- * home screen — mostly fixed demo metrics for a realistic portfolio scale.
- */
-
 import { categories } from "@/lib/categories";
 import { ASSIGNED_STEP_COUNTS } from "@/lib/assigned-queue";
 import { countByStage, icQueueDeals } from "@/lib/deal-query";
@@ -14,12 +9,10 @@ export const CURRENT_USER = "Alex Rivera";
 export type WorkflowStep = "conflicts" | "draft" | "decision";
 export { getWorkflowStep } from "@/lib/deal-query";
 
-/** Counts deals in each pipeline stage from the live pipeline list. */
 export function getStageCounts() {
   return countByStage(pipelineDeals);
 }
 
-/** Returns the top sectors by deal count for the dashboard sector mix chart. */
 export function getSectorMix(limit = 6) {
   return categories
     .filter((c) => c.id !== "all")
@@ -33,7 +26,6 @@ export function getSectorMix(limit = 6) {
     .slice(0, limit);
 }
 
-/** Workload counts for the IC review queue — total tasks and breakdown by step. */
 export function getIcQueueCounts() {
   return {
     total: DEMO_METRICS.reviewTasksTotal,
@@ -98,7 +90,6 @@ export const RECENT_DECISION = {
   exportedAt: "May 12, 9:17 AM",
 };
 
-/** All headline numbers shown on the dashboard cards and pipeline summary. */
 export function getDashboardMetrics() {
   return {
     total: DEMO_METRICS.totalDeals,
@@ -224,7 +215,6 @@ export const recentActivity: ActivityItem[] = [
   },
 ];
 
-/** Summary stats from the overnight AI batch run for dashboard banners. */
 export function getPipelineSummary() {
   return {
     total: DEMO_METRICS.totalDeals,
@@ -234,7 +224,6 @@ export function getPipelineSummary() {
   };
 }
 
-/** Turns internal stage codes into friendly labels like "Early review". */
 export function stageLabel(stage: DealStage): string {
   const map: Record<DealStage, string> = {
     screening: "Early review",
@@ -245,7 +234,6 @@ export function stageLabel(stage: DealStage): string {
   return map[stage];
 }
 
-/** Turns readiness status codes into readable text (e.g. "in_review" → "in review"). */
 export function statusLabel(status: ReadinessStatus): string {
   return status.replace("_", " ");
 }

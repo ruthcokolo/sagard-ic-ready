@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Shows validation status with icon and label for a metric or company.
- */
 import type { ExtractedMetric } from "@/lib/portfolio/types";
 
 function formatReviewedDate(iso?: string): string | null {
@@ -12,7 +9,6 @@ function formatReviewedDate(iso?: string): string | null {
   return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
-/** Icon and label for a metric's validation status. */
 export function ValidationStatusDisplay({
   status,
   reviewedBy,

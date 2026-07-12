@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Side drawer showing history of changes to extraction rules.
- */
 import { useMemo, useState } from "react";
 import type { PortfolioAuditEvent } from "@/lib/portfolio/monitoring-phase-types";
 
@@ -41,7 +38,6 @@ function eventTitle(eventType: string) {
   }
 }
 
-/** Shows a log of who changed extraction rules and when. */
 export function ExtractionRulesAuditDrawer({
   open,
   onClose,

@@ -1,7 +1,5 @@
 "use client";
 
-/** Sticky sidebar guiding the three-step review workflow. */
-
 import type { AnalysisResult, Decision } from "@/lib/types";
 import type { ExportLockState } from "@/lib/export-lock";
 import { exportCopy } from "@/lib/plain-copy";
@@ -10,7 +8,6 @@ import { IconCheck, IconLock } from "@/components/ui/Icons";
 
 type StepState = "done" | "active" | "locked";
 
-/** Step tracker for sources, draft review, and human sign-off. */
 export function ReviewWorkflowSidebar({
   analysisPending,
   running,

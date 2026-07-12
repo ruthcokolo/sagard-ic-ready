@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * Celebration screen shown when all metrics in a package are reviewed.
- */
-/** Success screen when a package review is fully done. */
 export function ReviewCompletionState({
   companyName,
   reportPeriod,

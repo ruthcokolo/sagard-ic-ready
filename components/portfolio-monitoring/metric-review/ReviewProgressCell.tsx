@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Table cell showing how far along a package review is.
- */
 import type { CompanyReviewStatus } from "@/lib/portfolio/types";
 
-/** Table cell showing review completion progress. */
 export function ReviewProgressCell({
   reviewedCount,
   totalMetrics,

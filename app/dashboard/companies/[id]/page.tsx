@@ -1,4 +1,3 @@
-/** Route: `/dashboard/companies/[id]` — diligence detail for one deal/company. */
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
@@ -9,7 +8,6 @@ function CompanyFallback() {
   return <div className="min-h-screen bg-[#f4f2ef] p-8 text-sm text-stone-500">Loading company…</div>;
 }
 
-/** Loads the deal by ID and shows the full company diligence workspace. */
 export default async function CompanyPage({
   params,
 }: {

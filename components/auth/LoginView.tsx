@@ -1,7 +1,5 @@
 "use client";
 
-/** Login form with demo accounts and post-auth redirect. */
-
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DEMO_ACCOUNTS, DEMO_PASSWORD } from "@/lib/auth-constants";
@@ -14,7 +12,6 @@ import {
   AuthShell,
 } from "@/components/auth/AuthShell";
 
-/** Email/password sign-in; routes to onboarding or dashboard on success. */
 export function LoginView() {
   const router = useRouter();
   const searchParams = useSearchParams();

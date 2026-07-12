@@ -1,5 +1,3 @@
-/** Marketing overview of the three-step AI diligence workflow. */
-
 import { IconAlertTriangle, IconClipboardCheck, IconDocumentSparkle } from "@/components/ui/Icons";
 
 const STEPS = [
@@ -23,7 +21,6 @@ const STEPS = [
   },
 ];
 
-/** Static cards describing conflict detection, drafting, and sign-off. */
 export function AnalysisPreviewSection() {
   return (
     <section className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

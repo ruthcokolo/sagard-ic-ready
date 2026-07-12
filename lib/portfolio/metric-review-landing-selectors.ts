@@ -1,8 +1,3 @@
-/**
- * Build rows for the Metric Review landing page: one row per company with
- * review status, progress, assignee, and suggested next action.
- */
-
 import { formatCompanyDisplayName } from "./company-identity";
 import { formatPackagePeriodTitle } from "./reporting-packages-demo";
 import { getActivePortfolioSectors } from "./sector-classification";
@@ -111,7 +106,6 @@ function daysUntil(iso: string): number {
   return Math.ceil((new Date(iso).getTime() - Date.now()) / 86400000);
 }
 
-/** Return the newest report package for a company. */
 export function getLatestPackageForCompany(
   state: PortfolioState,
   companyId: string
@@ -122,7 +116,6 @@ export function getLatestPackageForCompany(
   return pkgs[0] ?? null;
 }
 
-/** Turn a numeric priority score into Urgent / High / Normal / Low. */
 export function mapPriorityScore(score: number): ReviewPriority {
   if (score >= 800) return "Urgent";
   if (score >= 400) return "High";
@@ -130,7 +123,6 @@ export function mapPriorityScore(score: number): ReviewPriority {
   return "Low";
 }
 
-/** Decide the review status label for a company based on its latest report. */
 export function getCompanyReviewStatus(
   state: PortfolioState,
   companyId: string,
@@ -162,7 +154,6 @@ export function getCompanyReviewStatus(
   return "Awaiting assignment";
 }
 
-/** Pick the button label that best matches the company's current review status. */
 export function getNextReviewAction(status: CompanyReviewStatus): LandingNextAction {
   switch (status) {
     case "In review":
@@ -183,12 +174,10 @@ export function getNextReviewAction(status: CompanyReviewStatus): LandingNextAct
   }
 }
 
-/** Return true if this report package is on the review waitlist. */
 export function isPackageWaitlisted(state: PortfolioState, packageId: string): boolean {
   return (state.reviewWaitlist ?? []).some((w) => w.packageId === packageId);
 }
 
-/** Build one landing row per company for the Metric Review home screen. */
 export function buildCompanyReviewLandingRows(
   state: PortfolioState,
   currentReviewerId: string,
@@ -266,7 +255,6 @@ export function buildCompanyReviewLandingRows(
   return rows;
 }
 
-/** Count rows in each landing tab (assigned, all, needs attention, completed). */
 export function getLandingTabCounts(
   rows: CompanyReviewLandingRow[],
   currentReviewerId: string
@@ -281,7 +269,6 @@ export function getLandingTabCounts(
   };
 }
 
-/** Count landing rows assigned to the current reviewer. */
 export function getAssignedCount(
   rows: CompanyReviewLandingRow[],
   currentReviewerId: string
@@ -358,7 +345,6 @@ function matchesLandingFilters(
   return true;
 }
 
-/** Apply tab scope, filters, and sort to the landing row list. */
 export function getFilteredLandingRows(
   state: PortfolioState,
   tab: LandingScopeTab,
@@ -432,7 +418,6 @@ function sortLandingRows(
   return copy;
 }
 
-/** List sector, period, and reviewer values available in landing filter dropdowns. */
 export function getLandingFilterOptions(state: PortfolioState) {
   const sectors = getActivePortfolioSectors(state.companies);
   const periods = Array.from(new Set(state.packages.map((p) => p.reportPeriod))).sort();
@@ -446,7 +431,6 @@ export function getLandingFilterOptions(state: PortfolioState) {
   return { sectors, periods, reviewers };
 }
 
-/** Count how many landing filters differ from their defaults. */
 export function countActiveLandingFilters(filters: LandingFilters, tab: LandingScopeTab): number {
   let n = 0;
   if (filters.search.trim()) n += 1;

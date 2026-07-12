@@ -16,7 +16,6 @@ const CURRENCY_VALUE =
 const PERCENT_VALUE = /([\d,]+(?:\.\d+)?)\s*%/;
 const COUNT_VALUE = /([\d,]+(?:\.\d+)?)\s*(?:FTE|fte|employees|employee|people|headcount)?/i;
 
-/** Convert a dollar string (with M/B/K suffix) into a number and unit. */
 export function normalizeCurrency(raw: string, multiplier?: string): { value: number; unit: string } | null {
   const cleaned = raw.replace(/,/g, "");
   const num = parseFloat(cleaned);
@@ -62,7 +61,6 @@ export function isInvalidNumericValue(
   return false;
 }
 
-/** Parse one text chunk into a raw value, normalized number, and unit for a metric. */
 export function parseValueFromSegment(segment: string, metricName: string): ParsedValue | null {
   const trimmed = segment.trim();
   if (!trimmed) return null;
@@ -132,7 +130,6 @@ export function parseValueFromSegment(segment: string, metricName: string): Pars
     return null;
   }
 
-  // Percent-style custom metrics
   const percentMatch = trimmed.match(PERCENT_VALUE);
   if (percentMatch && (metricName.toLowerCase().includes("rate") || metricName.toLowerCase().includes("%"))) {
     const normalized = parseFloat(percentMatch[1].replace(/,/g, ""));
@@ -143,7 +140,6 @@ export function parseValueFromSegment(segment: string, metricName: string): Pars
     };
   }
 
-  // Count-style custom metrics
   const countMatch = trimmed.match(COUNT_VALUE);
   if (
     countMatch &&
@@ -185,7 +181,6 @@ export function parseValueFromSegment(segment: string, metricName: string): Pars
     }
   }
 
-  // Generic numeric fallback for custom metrics
   if (!ALL_METRICS_SET.has(metricName)) {
     const generic = trimmed.match(/([\d,]+(?:\.\d+)?)\s*%?/);
     if (generic) {

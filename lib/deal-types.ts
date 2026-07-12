@@ -1,8 +1,3 @@
-/**
- * Describes a company in the investment pipeline — stage, readiness,
- * financial highlights, and how many open conflicts or tasks it has.
- */
-
 export type DealStage = "screening" | "diligence" | "ic_prep" | "passed";
 export type ReadinessStatus = "ready" | "blocked" | "in_review";
 

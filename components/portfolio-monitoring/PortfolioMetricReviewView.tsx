@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Legacy demo view for portfolio metrics extraction (separate from main review).
- */
 import { useMemo, useState } from "react";
 import {
   GITHUB_POC_URL,
@@ -34,7 +31,6 @@ function ConfidencePill({ confidence }: { confidence: number }) {
   );
 }
 
-/** Renders the portfolio metric review view UI. */
 export function PortfolioMetricReviewView() {
   const [processed, setProcessed] = useState(true);
   const [processing, setProcessing] = useState(false);

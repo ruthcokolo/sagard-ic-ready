@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Tabs for switching review scope (all, assigned to me, etc.).
- */
 import type { LandingScopeTab } from "@/lib/portfolio/metric-review-landing-selectors";
 
 const TABS: { id: LandingScopeTab; label: string }[] = [
@@ -12,7 +9,6 @@ const TABS: { id: LandingScopeTab; label: string }[] = [
   { id: "completed", label: "Completed" },
 ];
 
-/** Tabs to filter reviews by scope (mine, all, etc.). */
 export function ReviewScopeTabs({
   active,
   counts,

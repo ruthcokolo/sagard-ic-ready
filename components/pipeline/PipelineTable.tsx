@@ -1,6 +1,5 @@
 "use client";
 
-/** Sortable table of deals with stage and readiness columns. */
 import Link from "next/link";
 import type { PipelineDeal } from "@/lib/deal-types";
 import { DEMO_DEAL_ID } from "@/lib/insights";
@@ -33,7 +32,6 @@ function stageBadgeLabel(stage: PipelineDeal["stage"]) {
   return map[stage].toUpperCase();
 }
 
-/** Renders the pipeline table UI. */
 export function PipelineTable({ deals }: { deals: PipelineDeal[] }) {
   if (deals.length === 0) {
     return (

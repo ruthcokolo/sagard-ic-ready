@@ -8,7 +8,6 @@ export type MetricDefinitionMeta = {
   description: string;
 };
 
-/** Built-in descriptions for the six standard portfolio metrics. */
 export const METRIC_DEFINITION_META: Record<MetricName, MetricDefinitionMeta> = {
   Revenue: {
     id: "revenue",
@@ -42,7 +41,6 @@ export const METRIC_DEFINITION_META: Record<MetricName, MetricDefinitionMeta> = 
   },
 };
 
-/** Return display names and descriptions for all metrics, using custom rules when present. */
 export function listMetricDefinitions(rules?: ExtractionRule[]): MetricDefinitionMeta[] {
   if (rules?.length) {
     return rules.map((rule) => ({
@@ -54,7 +52,6 @@ export function listMetricDefinitions(rules?: ExtractionRule[]): MetricDefinitio
   return ALL_METRICS.map((name) => METRIC_DEFINITION_META[name]);
 }
 
-/** Look up the human-readable description for a metric by name. */
 export function getMetricDescription(
   metricName: string,
   rules?: ExtractionRule[]

@@ -1,13 +1,8 @@
-/** API route: `/api/auth/login` — authenticate and issue a session cookie. */
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { findAccount, getSessionFromRequest, serializeSession } from "@/lib/auth-session";
 import { REGISTRY_COOKIE, SESSION_COOKIE, SESSION_MAX_AGE } from "@/lib/auth-constants";
 
-/**
- * POST: receives `{ email, password }`. Returns `{ user }` and sets a session cookie,
- * or `{ error }` with 400/401 if login fails.
- */
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const email = typeof body?.email === "string" ? body.email : "";
@@ -36,7 +31,6 @@ export async function POST(request: NextRequest) {
   return response;
 }
 
-/** GET: returns `{ user }` for the current session, or `{ user: null }` with 401. */
 export async function GET(request: NextRequest) {
   const user = getSessionFromRequest(request);
   if (!user) {

@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Full workspace for reviewing all metrics in a single reporting package.
+ * Per-package metric review workspace (tabs, table, completion state).
  */
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
@@ -60,7 +60,6 @@ function packageStatusLabel(pkg: ReportingPackage, needsValidation: number): str
   return "In review";
 }
 
-/** Main review UI for going through metrics in one package. */
 export function PackageReviewWorkspace({
   state,
   pkg,

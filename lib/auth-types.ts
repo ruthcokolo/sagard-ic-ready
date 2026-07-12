@@ -1,5 +1,3 @@
-/** Auth session and account types for the demo login flow. */
-
 export type UserRole = "associate" | "principal" | "partner";
 
 export type IntegrationState = {

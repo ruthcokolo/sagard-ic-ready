@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Header bar on the company profile with name, sector, and quick actions.
- */
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
@@ -72,7 +69,6 @@ function MetaCell({
 const actionBtn =
   "inline-flex h-8 shrink-0 items-center rounded-lg border border-stone-200 bg-white px-2.5 text-[12px] font-medium text-stone-700 transition hover:border-stone-300 disabled:cursor-not-allowed disabled:opacity-50";
 
-/** Top header with company identity and profile actions. */
 export function CompanyProfileHeader({
   company,
   reportingStatus,

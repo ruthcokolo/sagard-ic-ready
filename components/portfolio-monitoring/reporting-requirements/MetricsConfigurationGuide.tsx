@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Help guide explaining how to set up reporting requirements.
- */
 const REQUIREMENTS_SECTIONS = [
   {
     title: "Metric definitions",
@@ -93,7 +90,6 @@ const EXTRACTION_SECTIONS = [
   },
 ] as const;
 
-/** Expandable help panel for setting up requirements. */
 export function MetricsConfigurationGuide({
   open,
   onClose,

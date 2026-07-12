@@ -33,7 +33,6 @@ export const SUGGESTED_ACTION_TIGHT: Record<string, string> = {
     "Compare cash and monthly spending against bank statements.",
 };
 
-/** Rewrites stiff AI-suggested actions into shorter, plainer language. */
 export function tightenSuggestedAction(action: string): string {
   if (SUGGESTED_ACTION_TIGHT[action]) return SUGGESTED_ACTION_TIGHT[action];
   return action
@@ -44,22 +43,18 @@ export function tightenSuggestedAction(action: string): string {
     .replace(/\breconciled\b/gi, "aligned");
 }
 
-/** Plain-English message when financial numbers still conflict across sources. */
 export function verdictBlockerFinancial(count: number): string {
   return `${count} financial number${count > 1 ? "s" : ""} still don't match`;
 }
 
-/** Plain-English message when important mismatches are still open. */
 export function verdictBlockerHighSeverity(count: number): string {
   return `${count} important mismatch${count > 1 ? "es" : ""} still open`;
 }
 
-/** Plain-English message when diligence checklist items are still undone. */
 export function verdictBlockerOpenItems(count: number): string {
   return `${count} research task${count > 1 ? "s" : ""} still open`;
 }
 
-/** Plain-English message when claims in the analysis still lack proof. */
 export function verdictBlockerUnsupported(count: number): string {
   return `${count} claim${count > 1 ? "s" : ""} still lack proof`;
 }

@@ -1,6 +1,5 @@
 /**
- * Creates and updates portfolio companies when PDFs are uploaded. Parses
- * filenames, assigns sectors, and keeps the company list in sync with packages.
+ * Company records created and synced when PDFs are uploaded.
  */
 
 import type { PortfolioCompany, ReportingPackage } from "./types";
@@ -11,7 +10,6 @@ import {
   extractReportPeriodFromFileName,
 } from "./pdf-filename";
 
-/** Build a URL-safe id from a company display name. */
 export function companyIdFromName(name: string): string {
   return (
     name
@@ -21,7 +19,6 @@ export function companyIdFromName(name: string): string {
   );
 }
 
-/** Parse company name and report period from a PDF filename. */
 export function parsePdfFileName(fileName: string): {
   companyName: string;
   reportPeriod: string;
@@ -32,7 +29,6 @@ export function parsePdfFileName(fileName: string): {
   };
 }
 
-/** Create a new portfolio company record with default counts and timestamps. */
 export function createPortfolioCompany(
   name: string,
   sector?: string,
@@ -56,7 +52,6 @@ export function createPortfolioCompany(
   };
 }
 
-/** Update sector on a company unless it already has a real classification. */
 export function applyCompanySector(
   company: PortfolioCompany,
   sector: string,
@@ -68,7 +63,6 @@ export function applyCompanySector(
   return { ...company, sector, updatedAt: new Date().toISOString() };
 }
 
-/** Find or create a company by name when a new report is uploaded. */
 export function ensureCompanyInState(
   companies: PortfolioCompany[],
   name: string,
@@ -118,7 +112,6 @@ export function syncCompaniesWithPackages(
   );
 }
 
-/** Reclassify legacy placeholder sectors using company id/name heuristics. */
 export function refreshLegacyCompanySectors(companies: PortfolioCompany[]): PortfolioCompany[] {
   return companies.map((company) => {
     if (company.sector !== "Portfolio" && company.sector !== "Unclassified") {

@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Filter bar on the metric review landing page.
- */
 import { useEffect, useRef, useState } from "react";
 import type {
   LandingFilters,
@@ -23,7 +20,6 @@ const STATUS_OPTIONS = [
 const selectClass =
   "h-9 rounded-lg border border-stone-200 bg-white px-2.5 text-xs text-stone-700 outline-none focus:border-[#7a3344]/40";
 
-/** Search and filter bar on the review landing page. */
 export function ReviewFilterBar({
   filters,
   onChange,

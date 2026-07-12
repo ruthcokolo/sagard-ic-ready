@@ -1,13 +1,9 @@
 "use client";
 
-/**
- * Header controls for product mode switch, greeting, and date range filter.
- */
 import Link from "next/link";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { firstName } from "@/lib/auth-session";
 
-/** Toggle between diligence and portfolio product modes. */
 export function ProductModeSwitch({ mode }: { mode: "diligence" | "portfolio" }) {
   const href = mode === "portfolio" ? "/dashboard" : "/dashboard/portfolio";
   const label = mode === "portfolio" ? "Switch to IC Diligence" : "Switch to Portfolio Monitoring";
@@ -25,7 +21,6 @@ export function ProductModeSwitch({ mode }: { mode: "diligence" | "portfolio" })
   );
 }
 
-/** Personalized greeting header on portfolio pages. */
 export function PortfolioGreetingHeader() {
   const { user } = useAuth();
   const greeting = user ? firstName(user.name) : "Alex";
@@ -49,7 +44,6 @@ export function PortfolioGreetingHeader() {
   );
 }
 
-/** Dropdown to filter dashboard data by date range. */
 export function DateRangeFilter() {
   return (
     <select className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-xs font-medium text-stone-700 shadow-sm focus:border-[#7a3344] focus:outline-none focus:ring-1 focus:ring-[#7a3344]/20">

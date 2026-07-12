@@ -1,8 +1,3 @@
-/**
- * Print-ready HTML builders and browser download triggers for IC packages
- * and archived export records (PDF via print dialog, Word via blob).
- */
-
 import type { AnalysisResult } from "./types";
 import type { ExportHistoryItem } from "./exports-mock";
 
@@ -66,7 +61,6 @@ const DOC_STYLES = `
   }
 `;
 
-/** Escapes HTML special characters so user text is safe inside export documents. */
 function escapeHtml(text: string): string {
   return text
     .replace(/&/g, "&amp;")
@@ -75,7 +69,6 @@ function escapeHtml(text: string): string {
     .replace(/"/g, "&quot;");
 }
 
-/** Maps internal decision codes to the labels shown in exported documents. */
 function formatDecision(decision: string): string {
   const map: Record<string, string> = {
     proceed: "Recommend to committee",
@@ -85,7 +78,6 @@ function formatDecision(decision: string): string {
   return map[decision] ?? decision.replace(/_/g, " ");
 }
 
-/** Wraps body HTML in a full document with shared print styles. */
 function wrapDocument(title: string, body: string): string {
   return `<!DOCTYPE html>
 <html lang="en">
@@ -98,7 +90,6 @@ function wrapDocument(title: string, body: string): string {
 </html>`;
 }
 
-/** Builds styled HTML for a live IC package from analysis and decision input. */
 export function buildIcPackageHtml(
   analysis: AnalysisResult,
   decision: string,
@@ -176,7 +167,6 @@ export function buildIcPackageHtml(
   return wrapDocument(`IC Package — ${deal.name}`, body);
 }
 
-/** Builds styled HTML for a saved export archive entry. */
 export function buildExportArchiveHtml(item: ExportHistoryItem): string {
   const exportedDate = item.exportedAt.split(" ")[0] ?? item.exportedAt;
 
@@ -203,7 +193,6 @@ export function buildExportArchiveHtml(item: ExportHistoryItem): string {
   return wrapDocument(`IC Package — ${item.company}`, body);
 }
 
-/** Opens a new browser tab and triggers the print dialog for PDF saving. */
 function openPrintDialog(html: string, title: string): void {
   const win = window.open("", "_blank");
   if (!win) return;
@@ -216,7 +205,6 @@ function openPrintDialog(html: string, title: string): void {
   }, 300);
 }
 
-/** Downloads HTML content as a Word-compatible .doc file via a blob link. */
 function downloadWord(html: string, filename: string): void {
   const wordHtml = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
     xmlns:w="urn:schemas-microsoft-com:office:word"
@@ -232,7 +220,6 @@ function downloadWord(html: string, filename: string): void {
   URL.revokeObjectURL(url);
 }
 
-/** Opens a print dialog with the live IC package HTML. */
 export function downloadIcPackagePdf(
   analysis: AnalysisResult,
   decision: string,
@@ -243,7 +230,6 @@ export function downloadIcPackagePdf(
   openPrintDialog(html, title);
 }
 
-/** Downloads the live IC package as a Word-compatible HTML document. */
 export function downloadIcPackageWord(
   analysis: AnalysisResult,
   decision: string,
@@ -254,14 +240,12 @@ export function downloadIcPackageWord(
   downloadWord(html, filename);
 }
 
-/** Opens a print dialog with a saved export archive entry. */
 export function downloadExportArchivePdf(item: ExportHistoryItem): void {
   const html = buildExportArchiveHtml(item);
   const title = `IC-Package-${item.company.replace(/\s+/g, "-")}-${item.id}`;
   openPrintDialog(html, title);
 }
 
-/** Downloads a saved export archive entry as a Word-compatible document. */
 export function downloadExportArchiveWord(item: ExportHistoryItem): void {
   const html = buildExportArchiveHtml(item);
   const filename = `IC-Package-${item.company.replace(/\s+/g, "-")}-${item.id}.doc`;

@@ -1,13 +1,9 @@
 "use client";
 
-/**
- * Portfolio monitoring settings page with configuration panels.
- */
 import { useState } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { isDemoReportsEnabled } from "@/lib/portfolio/demo-report-catalog";
 
-/** Page wrapper for portfolio monitoring settings panels. */
 export function PortfolioSettingsView() {
   const { state, updateSettings, resetDemoData, clearUploadedPackages } = usePortfolio();
   const [message, setMessage] = useState<string | null>(null);

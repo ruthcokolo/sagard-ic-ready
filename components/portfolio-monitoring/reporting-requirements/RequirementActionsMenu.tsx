@@ -1,12 +1,8 @@
 "use client";
 
-/**
- * Dropdown menu with actions for a reporting requirement row.
- */
 import { useEffect, useRef, useState } from "react";
 import type { EffectiveRequirementRow } from "@/lib/portfolio/reporting-requirements";
 
-/** Action menu for a requirement row (edit, disable, etc.). */
 export function RequirementActionsMenu({
   row,
   canEdit,

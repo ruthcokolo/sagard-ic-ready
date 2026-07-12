@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Settings panels for portfolio monitoring preferences and expectations.
- */
 import { useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -16,7 +13,6 @@ import { requirementLabel } from "@/lib/portfolio/metric-applicability";
 import type { MetricRequirement } from "@/lib/portfolio/monitoring-phase-types";
 import { hasPortfolioPermission } from "@/lib/portfolio/portfolio-permissions";
 
-/** Settings panel for default metric expectations. */
 export function MetricExpectationSettingsPanel() {
   const { user } = useAuth();
   const { state, upsertMetricExpectation } = usePortfolio();

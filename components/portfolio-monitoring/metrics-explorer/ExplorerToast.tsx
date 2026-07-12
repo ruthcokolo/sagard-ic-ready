@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Toast notification for copy/export actions in the metrics explorer.
- */
 import { useEffect } from "react";
 
-/** Brief toast message after copy or export in explorer. */
 export function ExplorerToast({
   message,
   onDismiss,

@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Tab navigation bar for switching company profile sections.
- */
 import type { CompanyProfileTab } from "@/lib/portfolio/company-profile-selectors";
 
 const TABS: { id: CompanyProfileTab; label: string }[] = [
@@ -14,7 +11,6 @@ const TABS: { id: CompanyProfileTab; label: string }[] = [
   { id: "notes", label: "Notes" },
 ];
 
-/** Tab bar for navigating company profile sections. */
 export function CompanyProfileTabs({
   active,
   onChange,

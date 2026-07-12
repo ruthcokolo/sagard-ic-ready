@@ -1,6 +1,5 @@
 "use client";
 
-/** Left sidebar navigation for the legacy deals demo layout. */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,7 +11,6 @@ const navItems = [
   { label: "Settings", href: "/deals", disabled: true },
 ];
 
-/** Renders the sidebar UI. */
 export function Sidebar() {
   const pathname = usePathname();
 

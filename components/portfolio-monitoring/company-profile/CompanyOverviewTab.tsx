@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Overview tab on the company profile with key stats and recent activity.
- */
 import { useState } from "react";
 import {
   CompanyProfileEmptyState,
@@ -116,7 +113,6 @@ function HealthStatRow({
   );
 }
 
-/** Summary tab with key stats on the company profile. */
 export function CompanyOverviewTab({
   headlines,
   changes,

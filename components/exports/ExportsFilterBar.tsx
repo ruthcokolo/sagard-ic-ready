@@ -1,6 +1,5 @@
 "use client";
 
-/** Search and filter controls for the diligence exports history page. */
 import type { ExportDecision } from "@/lib/exports-mock";
 import { categories } from "@/lib/categories";
 
@@ -13,7 +12,6 @@ const FILTERS: { value: FilterValue; label: string }[] = [
   { value: "Don't invest", label: "Don't invest" },
 ];
 
-/** Renders the exports filter bar UI. */
 export function ExportsFilterBar({
   filter,
   sectorId,

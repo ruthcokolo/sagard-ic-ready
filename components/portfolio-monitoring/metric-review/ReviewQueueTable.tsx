@@ -1,13 +1,9 @@
 "use client";
 
-/**
- * Table listing packages waiting in the review queue.
- */
 import { CompanyIdentity } from "@/components/portfolio-monitoring/company-identity";
 import type { ReviewQueueItem } from "@/lib/portfolio/metric-review-selectors";
 import { ConfidencePill } from "./shared";
 
-/** Table of packages still waiting for review. */
 export function ReviewQueueTable({
   items,
   onReview,

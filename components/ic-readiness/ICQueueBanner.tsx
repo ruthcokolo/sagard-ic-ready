@@ -1,6 +1,5 @@
 "use client";
 
-/** Banner at the top of the IC readiness page with queue stats. */
 import Link from "next/link";
 import { DEMO_DEAL_ID } from "@/lib/insights";
 import { getDealById } from "@/lib/deals-pipeline";
@@ -13,7 +12,6 @@ import {
   IconUser,
 } from "@/components/ui/Icons";
 
-/** Renders the icqueue banner UI. */
 export function ICQueueBanner() {
   const { getWorkloadCounts, isInActiveQueue, nextQueueDealId, hydrated } = useDecisions();
   const w = getWorkloadCounts();

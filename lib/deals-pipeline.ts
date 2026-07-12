@@ -1,14 +1,8 @@
-/**
- * The full deal pipeline — ten hand-picked showcase companies plus ~990
- * randomly generated ones for realistic list and filter demos.
- */
-
 import { generateDeals } from "@/lib/generate-deals";
 import type { PipelineDeal } from "@/lib/deal-types";
 
 export type { DealStage, ReadinessStatus, PipelineDeal } from "@/lib/deal-types";
 
-/** Marks a deal as having the full IC workflow UI (conflicts, draft, decision). */
 function featured(partial: Omit<PipelineDeal, "hasFullWorkflow">): PipelineDeal {
   return { ...partial, hasFullWorkflow: true };
 }
@@ -278,12 +272,10 @@ export const pipelineDeals: PipelineDeal[] = [
   ...generateDeals(GENERATED_COUNT),
 ];
 
-/** Finds a single deal by its unique id, or undefined if not in the pipeline. */
 export function getDealById(id: string): PipelineDeal | undefined {
   return pipelineDeals.find((d) => d.id === id);
 }
 
-/** Returns all deals in a sector, or every deal when categoryId is "all". */
 export function getDealsByCategory(categoryId: string): PipelineDeal[] {
   if (categoryId === "all") return pipelineDeals;
   return pipelineDeals.filter((d) => d.categoryId === categoryId);

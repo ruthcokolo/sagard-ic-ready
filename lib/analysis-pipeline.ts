@@ -1,5 +1,3 @@
-/** Simulated analysis pipeline steps shown while Northwind diligence runs. */
-
 export type PipelineStep = {
   id: string;
   label: string;
@@ -15,7 +13,6 @@ export const NORTHWIND_PIPELINE_STEPS: PipelineStep[] = [
   { id: "done", label: "Review updated", durationMs: 350 },
 ];
 
-/** Advances through pipeline steps with timed delays for UI progress display. */
 export async function runNorthwindPipeline(
   onStep: (index: number, step: PipelineStep) => void,
 ): Promise<void> {
@@ -26,7 +23,6 @@ export async function runNorthwindPipeline(
   }
 }
 
-/** Returns 0–100 progress percentage for a given pipeline step index. */
 export function pipelineProgress(index: number): number {
   const total = NORTHWIND_PIPELINE_STEPS.length;
   return Math.round(((index + 1) / total) * 100);

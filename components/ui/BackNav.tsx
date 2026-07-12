@@ -1,9 +1,6 @@
-/** Back link button used at the top of nested pages. */
-
 import Link from "next/link";
 import { IconChevronLeft } from "@/components/ui/Icons";
 
-/** Renders the back nav UI. */
 export function BackNav({ href, label }: { href: string; label: string }) {
   return (
     <Link
@@ -16,7 +13,6 @@ export function BackNav({ href, label }: { href: string; label: string }) {
   );
 }
 
-/** Renders the resolve back nav UI. */
 export function resolveBackNav(from: string | null): { href: string; label: string } {
   switch (from) {
     case "ic-readiness":

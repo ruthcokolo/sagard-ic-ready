@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Circular avatar with company initials and size variants.
- */
 import { getCompanyAvatarColor, getCompanyInitials, formatCompanyDisplayName } from "@/lib/portfolio/company-identity";
 
-/** Size options for the company avatar. */
 export type CompanyAvatarSize = "sm" | "md" | "lg";
 
 const SIZE_CLASSES: Record<CompanyAvatarSize, string> = {
@@ -14,7 +10,6 @@ const SIZE_CLASSES: Record<CompanyAvatarSize, string> = {
   lg: "h-[36px] w-[36px] text-[12px]",
 };
 
-/** Circular avatar with company initials. */
 export function CompanyAvatar({
   companyId,
   companyName,

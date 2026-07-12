@@ -1,8 +1,3 @@
-/**
- * Selectors for the company profile page: headline metrics, report history,
- * risks, notes, activity feed, and AI-style summary bullets.
- */
-
 import { formatCompanyDisplayName } from "./company-identity";
 import {
   arePeriodsComparable,
@@ -132,7 +127,6 @@ function isApproved(m: ExtractedMetric): boolean {
   return m.status === "Approved for reporting";
 }
 
-/** Look up one company by id. */
 export function getCompanyById(
   state: PortfolioState,
   companyId: string
@@ -140,7 +134,6 @@ export function getCompanyById(
   return state.companies.find((c) => c.id === companyId);
 }
 
-/** List a company's reports newest first. */
 export function getCompanyReportingPackages(
   state: PortfolioState,
   companyId: string
@@ -154,7 +147,6 @@ export function getCompanyReportingPackages(
     );
 }
 
-/** Return the company's most recently uploaded or processed report. */
 export function getLatestCompanyPackage(
   state: PortfolioState,
   companyId: string
@@ -162,7 +154,6 @@ export function getLatestCompanyPackage(
   return getCompanyReportingPackages(state, companyId)[0] ?? null;
 }
 
-/** List metrics for a company that a reviewer has approved for reporting. */
 export function getApprovedCompanyMetrics(
   state: PortfolioState,
   companyId: string
@@ -170,7 +161,6 @@ export function getApprovedCompanyMetrics(
   return state.metrics.filter((m) => m.companyId === companyId && isApproved(m));
 }
 
-/** Map each metric name to its newest approved value for a company. */
 export function getLatestApprovedMetricsByName(
   state: PortfolioState,
   companyId: string
@@ -187,7 +177,6 @@ export function getLatestApprovedMetricsByName(
   return map;
 }
 
-/** List approved values for one metric across reporting periods, oldest to newest. */
 export function getCompanyMetricHistory(
   state: PortfolioState,
   companyId: string,
@@ -204,7 +193,6 @@ export function getCompanyMetricHistory(
     .sort((a, b) => periodSortKey(a.reportPeriod) - periodSortKey(b.reportPeriod));
 }
 
-/** Find the previous approved value suitable for period-over-period comparison. */
 export function getComparablePreviousMetric(
   state: PortfolioState,
   companyId: string,
@@ -266,7 +254,6 @@ function formatChange(
   };
 }
 
-/** Pick which metrics to highlight first based on the company's sector. */
 export function getPreferredHeadlineMetricNames(sector: string): MetricName[] {
   const normalized = normalizePortfolioSector(sector) as PortfolioSector | null;
   if (normalized && SECTOR_HEADLINE_PREFS[normalized]) {
@@ -275,7 +262,6 @@ export function getPreferredHeadlineMetricNames(sector: string): MetricName[] {
   return ["Revenue", "EBITDA", "Cash", "Headcount", "ARR", "Churn"];
 }
 
-/** Build headline metric cards with values, trends, and sparklines for the profile overview. */
 export function getCompanyHeadlineMetrics(
   state: PortfolioState,
   companyId: string
@@ -322,7 +308,6 @@ export function getCompanyHeadlineMetrics(
   });
 }
 
-/** List metrics that moved meaningfully since the prior approved report. */
 export function getCompanyChangesSinceLastReport(
   state: PortfolioState,
   companyId: string
@@ -355,7 +340,6 @@ export function getCompanyChangesSinceLastReport(
   return rows;
 }
 
-/** Short label showing which two periods are being compared in change rows. */
 export function getChangesComparisonLabel(
   changes: MetricChangeRow[]
 ): string | null {
@@ -377,7 +361,6 @@ function deriveReviewStatus(
   return "Partially reviewed";
 }
 
-/** Build rows for the report history table on the company profile. */
 export function getCompanyReportHistory(
   state: PortfolioState,
   companyId: string
@@ -397,7 +380,6 @@ export function getCompanyReportHistory(
   }));
 }
 
-/** One-line reporting status for the company profile header. */
 export function getCompanyReportingStatus(
   state: PortfolioState,
   companyId: string
@@ -416,7 +398,6 @@ export function getCompanyReportingStatus(
   return "Up to date";
 }
 
-/** Aggregate reporting stats (coverage, failures, manual edits) for the profile. */
 export function getCompanyReportingHealth(
   state: PortfolioState,
   companyId: string
@@ -451,7 +432,6 @@ export function getCompanyReportingHealth(
   };
 }
 
-/** List open follow-ups and risks for a company, sorted by priority. */
 export function getCompanyOpenRisks(
   state: PortfolioState,
   companyId: string
@@ -512,7 +492,6 @@ export function getCompanyRiskCandidates(
   return candidates.slice(0, 5);
 }
 
-/** List notes attached to a company, newest first. */
 export function getCompanyNotes(
   state: PortfolioState,
   companyId: string
@@ -522,7 +501,6 @@ export function getCompanyNotes(
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 }
 
-/** Merge uploads, reviews, notes, and follow-ups into one activity timeline. */
 export function getCompanyRecentActivity(
   state: PortfolioState,
   companyId: string
@@ -602,7 +580,6 @@ export function getCompanyRecentActivity(
   );
 }
 
-/** Build bullet-point performance, risk, and next-step summaries from real portfolio data. */
 export function getCompanyAiSummary(
   state: PortfolioState,
   companyId: string
@@ -713,12 +690,10 @@ export function getCompanyAiSummary(
   };
 }
 
-/** Format a company name for display on the profile page. */
 export function getCompanyProfileDisplayName(company: PortfolioCompany): string {
   return formatCompanyDisplayName(company.name);
 }
 
-/** Turn an investment status code into a longer label for the UI. */
 export function getInvestmentStatusLabel(status: PortfolioCompany["status"]): string {
   if (status === "Active") return "Active Investment";
   if (status === "Watchlist") return "Watchlist";

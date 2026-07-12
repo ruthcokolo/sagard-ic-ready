@@ -1,8 +1,5 @@
-/** Panel to record the IC committee decision and rationale for a deal. */
-
 import type { AnalysisResult, Decision } from "@/lib/types";
 
-/** Renders the decision panel UI. */
 export function DecisionPanel({
   analysis,
   decision,

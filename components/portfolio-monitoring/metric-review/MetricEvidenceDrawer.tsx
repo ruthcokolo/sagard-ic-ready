@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Side drawer showing PDF evidence for a metric during review.
- */
 import { useEffect, useState } from "react";
 import {
   formatEvidenceDateTime,
@@ -43,7 +40,6 @@ function statusTone(status: string): string {
   return "text-stone-700";
 }
 
-/** Drawer showing PDF evidence for a metric value. */
 export function MetricEvidenceDrawer({
   metric,
   pkg,

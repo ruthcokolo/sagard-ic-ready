@@ -1,13 +1,10 @@
 "use client";
 
-/** Radio list of IC decision options with export lock messaging. */
-
 import type { AnalysisResult, Decision } from "@/lib/types";
 import { canRecommendToCommittee } from "@/lib/export-lock";
 import { decisionOptions, exportCopy } from "@/lib/plain-copy";
 import { IconLock } from "@/components/ui/Icons";
 
-/** Proceed / more diligence / pass options gated by conflict and sign-off state. */
 export function DecisionOptionsList({
   analysis,
   analysisPending,

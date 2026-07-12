@@ -122,13 +122,11 @@ export const DEMO_REPORT_CATALOG: DemoReportCatalogItem[] = [
   },
 ];
 
-/** Return the demo catalog entry for a PDF filename, if it is a known sample report. */
 export function getDemoReportByFileName(fileName: string): DemoReportCatalogItem | undefined {
   const norm = fileName.toLowerCase().trim();
   return DEMO_REPORT_CATALOG.find((i) => i.fileName.toLowerCase() === norm);
 }
 
-/** Check whether demo sample reports are turned on for this environment. */
 export function isDemoReportsEnabled(): boolean {
   if (typeof process === "undefined") return false;
   if (process.env.NEXT_PUBLIC_ENABLE_DEMO_REPORTS === "true") return true;

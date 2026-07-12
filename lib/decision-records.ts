@@ -1,8 +1,3 @@
-/**
- * Persists and formats human IC decisions — maps internal decision values
- * to export labels and derives post-submit queue step overrides.
- */
-
 import type { WorkflowStep } from "@/lib/deal-query";
 import type { ExportDecision, ExportHistoryItem } from "@/lib/exports-mock";
 import type { AnalysisResult, Decision } from "@/lib/types";
@@ -22,14 +17,12 @@ export type RecordedDecision = {
 
 export type StepOverride = WorkflowStep | "archived";
 
-/** Maps internal decision enum to the user-facing export label. */
 export function decisionToExportDecision(decision: Exclude<Decision, null>): ExportDecision {
   if (decision === "proceed") return "Proceed";
   if (decision === "more_diligence") return "Need more research";
   return "Don't invest";
 }
 
-/** Summarizes unresolved conflicts at export time for the archive record. */
 export function formatBlockersAtExport(analysis: AnalysisResult): string {
   const unresolved = analysis.contradictions.filter((c) => c.status === "unresolved");
   if (unresolved.length === 0) return "None";
@@ -38,7 +31,6 @@ export function formatBlockersAtExport(analysis: AnalysisResult): string {
   return `${unresolved.length} open`;
 }
 
-/** Formats an ISO timestamp for export history display (e.g. "May 12, 9:17 AM"). */
 export function formatExportTimestamp(iso: string): string {
   const d = new Date(iso);
   const month = d.toLocaleString("en-US", { month: "short" });
@@ -50,7 +42,6 @@ export function formatExportTimestamp(iso: string): string {
   return `${month} ${day}, ${h12}:${mins} ${ampm}`;
 }
 
-/** Converts a recorded decision into an export history list item. */
 export function toExportHistoryItem(record: RecordedDecision): ExportHistoryItem {
   const preview =
     record.rationale.length > 96 ? `${record.rationale.slice(0, 96).trim()}…` : record.rationale;
@@ -69,13 +60,11 @@ export function toExportHistoryItem(record: RecordedDecision): ExportHistoryItem
   };
 }
 
-/** Queue step after submit — more diligence returns to conflicts; others archive. */
 export function stepAfterDecision(decision: Exclude<Decision, null>): StepOverride {
   if (decision === "more_diligence") return "conflicts";
   return "archived";
 }
 
-/** Builds a new recorded decision from form input and the current analysis snapshot. */
 export function createRecordedDecision(input: {
   dealId: string;
   dealName: string;

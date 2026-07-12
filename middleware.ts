@@ -9,7 +9,6 @@ import { getSessionFromRequest } from "@/lib/auth-session";
 
 const PUBLIC_PREFIXES = ["/login", "/onboarding", "/api/auth"];
 
-/** Redirects unauthenticated users to login and incomplete onboarding to /onboarding. */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 

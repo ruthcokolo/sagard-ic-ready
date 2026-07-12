@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Table snapshot of company performance metrics over time.
- */
 import Link from "next/link";
 import { useState } from "react";
 import type { CompanyPerformanceRow } from "@/lib/portfolio/selectors";
@@ -18,7 +15,6 @@ function companyInitials(name: string) {
     .toUpperCase();
 }
 
-/** Table of company performance KPIs at a glance. */
 export function CompanyPerformanceSnapshot({ rows }: { rows: CompanyPerformanceRow[] }) {
   const { exportCsv } = usePortfolio();
   const [search, setSearch] = useState("");

@@ -1,11 +1,8 @@
-/** Horizontal strip showing deal stage, owner, and readiness status. */
-
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { AnalysisResult } from "@/lib/types";
 import type { ExportLockState } from "@/lib/export-lock";
 import { hasMaterialConflicts } from "@/lib/export-lock";
 
-/** Renders the deal status strip UI. */
 export function DealStatusStrip({
   deal,
   analysis,

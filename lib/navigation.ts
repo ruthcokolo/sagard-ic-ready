@@ -1,5 +1,3 @@
-/** Sidebar links for the main IC readiness app (dashboard, pipeline, queue, etc.). */
-
 export const navItems = [
   {
     label: "Dashboard",

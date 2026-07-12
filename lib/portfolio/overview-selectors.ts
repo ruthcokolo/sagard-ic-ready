@@ -1,8 +1,3 @@
-/**
- * Dashboard overview data: KPIs, items needing attention, activity feed,
- * reporting progress, and per-company submission status for the active cycle.
- */
-
 import { deriveValidationStatus, getCompanyMeta, inferReportType } from "./reporting-packages-demo";
 import { countByStatus } from "./selectors";
 import { getApprovedMetricChanges } from "./metric-comparison";
@@ -129,7 +124,6 @@ function getCurrentQuarterLabel(): string {
   return `Q${quarter} ${now.getFullYear()}`;
 }
 
-/** The reporting period the dashboard treats as "current" (most common in uploads). */
 export function getActiveReportingCycle(state: PortfolioState): ActiveReportingCycle {
   const periodCounts = new Map<string, number>();
   for (const pkg of state.packages) {
@@ -167,7 +161,6 @@ function submittedPackages(state: PortfolioState, period: string) {
   );
 }
 
-/** Top-level KPI numbers for the portfolio overview header cards. */
 export function getOverviewKpis(state: PortfolioState): OverviewKpis {
   const cycle = getActiveReportingCycle(state);
   const cyclePackages = packagesForCycle(state, cycle.period);
@@ -281,7 +274,6 @@ function actionForStatus(
   }
 }
 
-/** Actionable issues (missing reports, failed extraction, pending validation). */
 export function getNeedsAttentionItems(state: PortfolioState): NeedsAttentionItem[] {
   const cycle = getActiveReportingCycle(state);
   const items: NeedsAttentionItem[] = [];
@@ -381,7 +373,6 @@ export function getNeedsAttentionItems(state: PortfolioState): NeedsAttentionIte
   return items.sort((a, b) => b.sortScore - a.sortScore);
 }
 
-/** Recent uploads, completions, approvals, exports, and overdue notices. */
 export function getRecentActivity(state: PortfolioState, limit = 8): ActivityEvent[] {
   const events: ActivityEvent[] = [];
 
@@ -485,7 +476,6 @@ export function getRecentActivity(state: PortfolioState, limit = 8): ActivityEve
     .slice(0, limit);
 }
 
-/** How many companies submitted a report for the active reporting cycle. */
 export function getReportingProgress(state: PortfolioState): ReportingProgress {
   const cycle = getActiveReportingCycle(state);
   const totalExpected = state.companies.length;
@@ -503,7 +493,6 @@ export function getReportingProgress(state: PortfolioState): ReportingProgress {
   };
 }
 
-/** Breakdown of companies by reporting status for the workflow health chart. */
 export function getPortfolioWorkflowHealth(state: PortfolioState): {
   total: number;
   segments: WorkflowHealthSegment[];
@@ -541,7 +530,6 @@ export function getPortfolioWorkflowHealth(state: PortfolioState): {
   return { total, segments };
 }
 
-/** Per-metric coverage: how many submitted reports include each standard metric. */
 export function getExpectedMetricCoverage(state: PortfolioState): ExpectedMetricCoverageRow[] {
   const cycle = getActiveReportingCycle(state);
   const submitted = packagesForCycle(state, cycle.period).filter((p) => p.status === "Processed");
@@ -568,7 +556,6 @@ export function getExpectedMetricCoverage(state: PortfolioState): ExpectedMetric
   });
 }
 
-/** Extraction speed, success rate, and manual correction stats for the active cycle. */
 export function getExtractionPerformance(state: PortfolioState): ExtractionPerformance {
   const cycle = getActiveReportingCycle(state);
   const cyclePackages = packagesForCycle(state, cycle.period);
@@ -603,7 +590,6 @@ export function getExtractionPerformance(state: PortfolioState): ExtractionPerfo
   };
 }
 
-/** One row per company showing submission status, coverage, and quick actions. */
 export function getCompanySubmissionRows(state: PortfolioState): CompanySubmissionRow[] {
   const cycle = getActiveReportingCycle(state);
 
@@ -646,7 +632,6 @@ export function getCompanySubmissionRows(state: PortfolioState): CompanySubmissi
     });
 }
 
-/** Everything the overview page needs in one call (KPIs, activity, rows, etc.). */
 export function getOverviewSnapshot(state: PortfolioState) {
   return {
     cycle: getActiveReportingCycle(state),

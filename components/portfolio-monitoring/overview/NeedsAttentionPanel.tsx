@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Overview panel listing items that need immediate attention.
- */
 import Link from "next/link";
 import type { NeedsAttentionItem } from "@/lib/portfolio/overview-selectors";
 import { CompanyIdentity } from "@/components/portfolio-monitoring/company-identity";
@@ -23,7 +20,6 @@ const PRIORITY_STYLES: Record<string, string> = {
 
 const NEEDS_ATTENTION_PREVIEW_LIMIT = 3;
 
-/** Panel highlighting overdue reports and validation backlogs. */
 export function NeedsAttentionPanel({
   items,
   totalCount,

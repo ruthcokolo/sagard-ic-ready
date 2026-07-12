@@ -1,9 +1,6 @@
-/** List of AI claims that lack supporting evidence in source documents. */
-
 import type { UnsupportedClaim } from "@/lib/types";
 import { evidenceStatusLabels } from "@/lib/plain-copy";
 
-/** Renders the unsupported claims UI. */
 export function UnsupportedClaims({ claims }: { claims: UnsupportedClaim[] }) {
   if (claims.length === 0) return null;
 

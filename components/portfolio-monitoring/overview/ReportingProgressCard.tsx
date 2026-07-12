@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Overview card showing how many companies have submitted reports on time.
- */
 import type { ReportingProgress } from "@/lib/portfolio/overview-selectors";
 
-/** Card showing on-time vs overdue reporting progress. */
 export function ReportingProgressCard({ progress }: { progress: ReportingProgress }) {
   return (
     <section className="rounded-xl border border-stone-200 bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">

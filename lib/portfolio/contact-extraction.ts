@@ -1,7 +1,6 @@
 /**
- * Extract reporting contacts (name, email, role) from PDF page text.
+ * Suggest reporting contacts from PDF text — never auto-email; require confirmation.
  */
-
 import type { CompanyContact } from "./monitoring-phase-types";
 
 export type ExtractedContactSuggestion = {
@@ -13,9 +12,6 @@ export type ExtractedContactSuggestion = {
   confidence: "high" | "medium" | "low";
 };
 
-/**
- * Suggest contacts from PDF text — never auto-email; require confirmation.
- */
 export function extractContactSuggestions(
   text: string,
   page = 1
@@ -48,7 +44,6 @@ export function extractContactSuggestions(
   return [...byEmail.values()];
 }
 
-/** Verified contacts for a company. */
 export function getConfirmedCompanyContacts(
   contacts: CompanyContact[],
   companyId: string
@@ -56,7 +51,6 @@ export function getConfirmedCompanyContacts(
   return contacts.filter((c) => c.companyId === companyId && c.verified);
 }
 
-/** Unverified PDF-extracted contact suggestions. */
 export function getSuggestedCompanyContacts(
   contacts: CompanyContact[],
   companyId: string
@@ -64,7 +58,6 @@ export function getSuggestedCompanyContacts(
   return contacts.filter((c) => c.companyId === companyId && !c.verified);
 }
 
-/** Primary reporting contact for a company, if set. */
 export function getPrimaryReportingContact(
   contacts: CompanyContact[],
   companyId: string

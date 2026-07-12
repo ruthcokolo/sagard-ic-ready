@@ -1,13 +1,11 @@
 "use client";
 
-/** Personalized greeting with quick stats for the signed-in user. */
 import { useState } from "react";
 import Link from "next/link";
 import { DEMO_DEAL_ID } from "@/lib/insights";
 import { firstName } from "@/lib/auth-session";
 import { useAuth } from "@/components/auth/AuthProvider";
 
-/** Renders the welcome banner UI. */
 export function WelcomeBanner() {
   const { user } = useAuth();
   const [dismissed, setDismissed] = useState(false);

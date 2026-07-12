@@ -1,12 +1,10 @@
 "use client";
 
-/** Shared header bar with product mode toggle and user avatar menu. */
 import Link from "next/link";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { ROLE_LABELS } from "@/lib/auth-constants";
 import { userInitials } from "@/lib/auth-session";
 
-/** Renders the product mode switch UI. */
 export function ProductModeSwitch({
   mode,
   label,
@@ -55,7 +53,6 @@ function NotificationBell({ count = 3 }: { count?: number }) {
   );
 }
 
-/** Renders the associate profile chip UI. */
 export function AssociateProfileChip() {
   const { user } = useAuth();
   const name = user?.name ?? "Alex Rivera";
@@ -75,7 +72,6 @@ export function AssociateProfileChip() {
   );
 }
 
-/** Renders the mode header actions UI. */
 export function ModeHeaderActions({ mode }: { mode: "diligence" | "portfolio" }) {
   return (
     <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
@@ -86,7 +82,6 @@ export function ModeHeaderActions({ mode }: { mode: "diligence" | "portfolio" })
   );
 }
 
-/** Renders the date range filter UI. */
 export function DateRangeFilter() {
   return (
     <select className="rounded-lg border border-stone-200 bg-white px-3 py-1.5 text-xs font-medium text-stone-700 shadow-sm focus:border-[#7a3344] focus:outline-none focus:ring-1 focus:ring-[#7a3344]/20">

@@ -1,8 +1,3 @@
-/**
- * Finds download URLs for source PDFs and triggers browser downloads for
- * stored files or sample catalog entries.
- */
-
 import { COMPANY_FORMATTED_PDF_CATALOG, TEMPLATE_PDF_CATALOG } from "./sample-pdf-catalog";
 import { DEMO_PDF_LIBRARY } from "./demo-pdf-library";
 
@@ -49,7 +44,6 @@ function findCatalogEntry(sourceFile: string): CatalogLike | null {
   return null;
 }
 
-/** Resolve a download URL for a source PDF from stored URL or sample catalog. */
 export function resolveSourceDownload(input: {
   sourceFile: string;
   companyId?: string;

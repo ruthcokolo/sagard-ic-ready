@@ -1,8 +1,7 @@
 "use client";
 
 /**
- * Central data store for portfolio monitoring. Holds companies, reports, metrics,
- * and all actions like uploading PDFs, approving metrics, and managing settings.
+ * Portfolio monitoring store: companies, packages, metrics, and upload/review actions.
  */
 import {
   createContext,
@@ -115,7 +114,6 @@ type EditMetricInput = {
   approve?: boolean;
 };
 
-/** Builds a log entry when someone changes a metric's status or value. */
 function createAuditEntry(
   metric: ExtractedMetric,
   action: MetricAuditAction,
@@ -301,7 +299,7 @@ type PortfolioContextValue = {
   removeFromReviewWaitlist: (packageId: string) => void;
   /** Instantly download the source PDF for a package. Returns false if unavailable. */
   downloadPackagePdf: (packageId: string) => boolean;
-  /** Resolve a temporary object URL or catalog path for preview/download UI. */
+  /** Resolve a URL for preview/download (catalog path preferred over blob URLs). */
   resolvePackagePdfUrl: (packageId: string) => string | null;
   addCompanyNote: (input: {
     companyId: string;
@@ -386,7 +384,6 @@ type PortfolioContextValue = {
 
 const PortfolioContext = createContext<PortfolioContextValue | null>(null);
 
-/** Fills in missing lists (rules, templates, etc.) with starter demo data. */
 function withPhaseDefaults(state: PortfolioState): PortfolioState {
   const seed = createSeedPortfolioState();
   return {
@@ -407,7 +404,6 @@ function withPhaseDefaults(state: PortfolioState): PortfolioState {
   };
 }
 
-/** Reads saved portfolio data from the browser, or returns fresh demo data. */
 function loadState(): PortfolioState {
   if (typeof window === "undefined") return createSeedPortfolioState();
   try {
@@ -440,12 +436,10 @@ function loadState(): PortfolioState {
   }
 }
 
-/** Creates a unique ID string with a short prefix (e.g. "pkg-1234-abc"). */
 function uid(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
-/** Recomputes package stats and company summaries after any state change. */
 function applyDerived(state: PortfolioState): PortfolioState {
   const migrated = withPhaseDefaults(migratePortfolioState(state));
   migrated.packages = recomputePackages(migrated);
@@ -454,7 +448,6 @@ function applyDerived(state: PortfolioState): PortfolioState {
   return migrated;
 }
 
-/** Wraps the app and provides all portfolio data and actions to child screens. */
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
   const [state, setState] = useState<PortfolioState>(createSeedPortfolioState);
@@ -2637,7 +2630,6 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-/** Hook to read portfolio data and call actions from any child component. */
 export function usePortfolio() {
   const ctx = useContext(PortfolioContext);
   if (!ctx) throw new Error("usePortfolio must be used within PortfolioProvider");

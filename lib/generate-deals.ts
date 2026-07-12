@@ -1,8 +1,3 @@
-/**
- * Creates hundreds of fake pipeline deals with realistic names, sectors,
- * and readiness scores — used to fill out the demo pipeline table.
- */
-
 import { categories } from "@/lib/categories";
 import type { DealStage, PipelineDeal, ReadinessStatus } from "@/lib/deal-types";
 
@@ -28,7 +23,6 @@ const TAGLINES = [
   "Last-mile logistics intelligence",
 ];
 
-/** Creates a repeatable random number generator from a seed so deals stay stable. */
 function mulberry32(seed: number) {
   return () => {
     seed |= 0;
@@ -39,12 +33,10 @@ function mulberry32(seed: number) {
   };
 }
 
-/** Picks a random item from an array using the seeded random generator. */
 function pick<T>(rand: () => number, arr: T[]): T {
   return arr[Math.floor(rand() * arr.length)]!;
 }
 
-/** Picks a pipeline stage using weighted odds (more deals in early screening). */
 function weightedStage(rand: () => number): DealStage {
   const r = rand();
   let acc = 0;
@@ -55,19 +47,16 @@ function weightedStage(rand: () => number): DealStage {
   return "screening";
 }
 
-/** Formats ARR as a dollar string like "$12.0M". */
 function formatArr(millions: number): string {
   return `$${millions.toFixed(1)}M`;
 }
 
-/** Builds a funding round label like "$45M Series B" from amount and stage. */
 function formatAsk(millions: number, stage: DealStage): string {
   const round =
     stage === "screening" ? "Series A" : stage === "diligence" ? "Series B" : stage === "ic_prep" ? "Growth" : "Series A";
   return `$${Math.round(millions)}M ${round}`;
 }
 
-/** Turns a number of days ago into a short label like "3d ago" or "2w ago". */
 function daysAgoLabel(days: number): string {
   if (days === 0) return "Today";
   if (days === 1) return "1d ago";
@@ -118,7 +107,6 @@ function metricsForStage(stage: DealStage, rand: () => number) {
   return { readinessScore, conflictCount, openItems, readinessStatus };
 }
 
-/** Generates a list of fake deals — same seed always produces the same list. */
 export function generateDeals(count: number, seed = 42): PipelineDeal[] {
   const rand = mulberry32(seed);
   const sectorCats = categories.filter((c) => c.id !== "all");

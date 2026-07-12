@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Small badges showing metric value changes and coverage bars for overview cards.
- */
 import type { MetricChange } from "@/lib/portfolio/metric-comparison";
 
-/** Badge showing if a metric went up, down, or stayed flat. */
 export function MetricChangeBadge({ change }: { change: MetricChange }) {
   const styles =
     change.direction === "up"
@@ -21,7 +17,6 @@ export function MetricChangeBadge({ change }: { change: MetricChange }) {
   );
 }
 
-/** Thin coverage progress bar used on overview cards. */
 export function OverviewCoverageBar({ value }: { value: number }) {
   const color =
     value >= 85 ? "bg-emerald-500" : value >= 70 ? "bg-amber-500" : value > 0 ? "bg-red-400" : "bg-stone-200";

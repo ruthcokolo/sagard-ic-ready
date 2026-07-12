@@ -1,12 +1,9 @@
-/** Quick snapshot of company facts and deal context at the top of the detail page. */
-
 import type { ReactNode } from "react";
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { AnalysisResult } from "@/lib/types";
 import { formatAnalyzedAgo, formatStageLabel } from "@/lib/enrich-analysis";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 
-/** Renders the company snapshot UI. */
 export function CompanySnapshot({
   deal,
   analysis,

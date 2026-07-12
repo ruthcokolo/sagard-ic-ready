@@ -49,7 +49,6 @@ function aliasesForMetric(metricName?: string): string[] {
   return METRIC_ALIASES[metricName] ?? [metricName.toLowerCase()];
 }
 
-/** Normalize for phrase comparison. */
 export function normalizeEvidencePhrase(value: string): string {
   return value
     .toLowerCase()
@@ -358,7 +357,6 @@ function findLabelValueWindow(
   return best ? { matchStart: best.matchStart, matchEnd: best.matchEnd } : null;
 }
 
-/** Compute screen position and size for highlighting one PDF text item. */
 export function itemViewportGeometry(
   transform: number[],
   viewport: { transform: number[] },

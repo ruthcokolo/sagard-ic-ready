@@ -1,8 +1,5 @@
-/** Summary counts of open conflicts grouped by severity. */
-
 import type { Contradiction } from "@/lib/types";
 
-/** Renders the conflicts summary UI. */
 export function ConflictsSummary({ contradictions }: { contradictions: Contradiction[] }) {
   if (contradictions.length === 0) return null;
 

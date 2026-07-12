@@ -1,6 +1,5 @@
 /**
- * Manage multi-file PDF upload batches: create batches, inspect each file,
- * and track whether it is ready, duplicate, or needs user input.
+ * Multi-file upload batches: inspect each PDF and track ready / duplicate / needs-input state.
  */
 
 import { hashFile, normalizeFileName } from "./file-hashing";
@@ -15,7 +14,6 @@ import type {
 } from "./monitoring-phase-types";
 import type { PortfolioCompany } from "./types";
 
-/** Create a new empty upload batch owned by the current user. */
 export function createUploadBatch(createdBy: string): UploadBatch {
   return {
     id: `batch-${Date.now()}`,
@@ -26,7 +24,6 @@ export function createUploadBatch(createdBy: string): UploadBatch {
   };
 }
 
-/** Count files in each state (ready, duplicate, failed, etc.) for batch summary UI. */
 export function summarizeUploadBatch(batch: UploadBatch) {
   const total = batch.files.length;
   const ready = batch.files.filter((f) => f.state === "ready").length;
@@ -56,7 +53,6 @@ export function summarizeUploadBatch(batch: UploadBatch) {
   };
 }
 
-/** Pick the overall batch state from how its individual files are doing. */
 export function deriveBatchState(batch: UploadBatch): UploadBatchState {
   const s = summarizeUploadBatch(batch);
   if (s.total === 0) return "draft";
@@ -69,12 +65,10 @@ export function deriveBatchState(batch: UploadBatch): UploadBatchState {
   return "validating";
 }
 
-/** List files that passed checks and are cleared to process. */
 export function getReadyFilesForBatch(batch: UploadBatch): UploadQueueFile[] {
   return batch.files.filter((f) => f.state === "ready" && f.decision !== "skip");
 }
 
-/** List files flagged as possible duplicates of an existing report. */
 export function getDuplicateFilesForBatch(batch: UploadBatch): UploadQueueFile[] {
   return batch.files.filter((f) => f.state === "duplicate_found");
 }
@@ -117,7 +111,6 @@ function readinessFor(file: UploadQueueFile): { readinessLabel: string; actionLa
   }
 }
 
-/** Inspect one PDF file and build a queue row with company, period, and duplicate info. */
 export async function buildUploadQueueFile(
   file: File,
   packages: DuplicateCandidatePackage[],

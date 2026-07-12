@@ -1,12 +1,8 @@
 "use client";
 
-/**
- * Empty states for the metric review landing page in different scenarios.
- */
 import Link from "next/link";
 import type { LandingScopeTab } from "@/lib/portfolio/metric-review-landing-selectors";
 
-/** Empty state on the review landing page. */
 export function ReviewLandingEmptyState({
   kind,
   onViewAll,
@@ -110,10 +106,8 @@ export function ReviewLandingEmptyState({
   );
 }
 
-/** Which empty state variant to show on review landing. */
 export type EmptyKind = Parameters<typeof ReviewLandingEmptyState>[0]["kind"];
 
-/** Picks the right empty state based on filters and data. */
 export function resolveLandingEmptyKind(input: {
   totalCompanies: number;
   tab: LandingScopeTab;

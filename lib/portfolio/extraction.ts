@@ -384,7 +384,6 @@ function extractMetricsFlexible(
   return results;
 }
 
-/** Route to template or flexible extraction based on document marker. */
 export function extractMetricsFromPages(
   pages: PageText[],
   rules: ExtractionRule[],
@@ -396,7 +395,6 @@ export function extractMetricsFromPages(
   return extractMetricsFlexible(pages, rules, reportPeriod);
 }
 
-/** Metric names from enabled rules that were not found in the extracted candidates. */
 export function buildMissingCandidates(
   extracted: ExtractionCandidate[],
   rules: ExtractionRule[]

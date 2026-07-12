@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Visual display of a review item's current status.
- */
 import type { CompanyReviewStatus, ReviewPriority } from "@/lib/portfolio/types";
 
 const STATUS_STYLES: Record<CompanyReviewStatus, string> = {
@@ -29,7 +26,6 @@ const PRIORITY_LABEL: Record<ReviewPriority, string> = {
   Low: "Low priority",
 };
 
-/** Badge and label for a review item's status. */
 export function ReviewStatusDisplay({
   status,
   priority,

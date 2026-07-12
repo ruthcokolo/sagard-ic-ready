@@ -1,4 +1,3 @@
-/** CLI test: runs portfolio monitoring logic checks (duplicates, templates, batches, etc.). */
 import assert from "node:assert/strict";
 import { detectPackageDuplicate } from "../lib/portfolio/duplicate-detection";
 import {

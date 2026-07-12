@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Side drawer form for adding a new portfolio company.
- */
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { PORTFOLIO_SECTORS } from "@/lib/portfolio/sector-classification";
@@ -15,7 +12,6 @@ import type { PortfolioCompany } from "@/lib/portfolio/types";
 import { getPortfolioReviewerOptions } from "@/lib/portfolio/bulk-assignment";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 
-/** Form input shape for adding a company. */
 export type AddCompanyInput = {
   name: string;
   sector: string;
@@ -29,7 +25,6 @@ export type AddCompanyInput = {
   matchedCompanyIds?: string[];
 };
 
-/** Form drawer for creating a new company. */
 export function AddCompanyDrawer({
   open,
   onClose,

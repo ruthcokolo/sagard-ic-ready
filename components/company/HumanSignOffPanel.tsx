@@ -1,11 +1,8 @@
-/** Checklist for required human sign-offs before IC submission. */
-
 import type { AnalysisResult, Decision } from "@/lib/types";
 import type { ExportLockState } from "@/lib/export-lock";
 import { exportCopy } from "@/lib/plain-copy";
 import { DecisionOptionsList } from "@/components/company/DecisionOptionsList";
 
-/** Renders the human sign off panel UI. */
 export function HumanSignOffPanel({
   analysis,
   decision,

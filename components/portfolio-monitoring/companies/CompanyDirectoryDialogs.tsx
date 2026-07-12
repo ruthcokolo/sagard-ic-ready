@@ -1,14 +1,10 @@
 "use client";
 
-/**
- * Dialogs for assigning an owner and managing sector labels.
- */
 import { useMemo, useState } from "react";
 import { getPortfolioReviewerOptions } from "@/lib/portfolio/bulk-assignment";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { PORTFOLIO_SECTORS } from "@/lib/portfolio/sector-classification";
 
-/** Dialog for assigning a portfolio owner to a company. */
 export function AssignOwnerDialog({
   companyId,
   open,
@@ -71,7 +67,6 @@ export function AssignOwnerDialog({
   );
 }
 
-/** Dialog for adding or editing sector labels. */
 export function ManageSectorsDialog({
   open,
   onClose,

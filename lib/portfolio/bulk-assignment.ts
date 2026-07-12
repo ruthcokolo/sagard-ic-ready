@@ -1,8 +1,3 @@
-/**
- * Helpers for assigning reviewers to companies and report packages in bulk.
- * Resolves who can assign, which packages to target, and reviewer dropdown options.
- */
-
 import { DEMO_ACCOUNTS, ROLE_LABELS } from "@/lib/auth-constants";
 import type { UserRole } from "@/lib/auth-types";
 import type { CompanyReviewLandingRow } from "./metric-review-landing-selectors";
@@ -72,12 +67,10 @@ export function resolvePortfolioAssociateIdentity(name: string): {
   };
 }
 
-/** Return true if this role may assign or reassign portfolio reviews. */
 export function canAssignPortfolioReviews(role: UserRole | undefined | null): boolean {
   return role === "associate" || role === "principal" || role === "partner";
 }
 
-/** Check whether a company (or its latest report) can receive a reviewer assignment. */
 export function isCompanyAssignable(
   reviewStatus: CompanyReviewStatus,
   hasPackage: boolean
@@ -92,7 +85,6 @@ export function isCompanyAssignable(
   return { assignable: true };
 }
 
-/** Check whether one Metric Review landing row can be assigned to a reviewer. */
 export function isLandingRowAssignable(row: CompanyReviewLandingRow): {
   assignable: boolean;
   reason?: string;
@@ -120,7 +112,6 @@ export function getActivePackagesForCompany(
     );
 }
 
-/** List report packages for a company that still need review or re-processing. */
 export function resolveAssignmentPackages(
   state: PortfolioState,
   companyIds: string[],
@@ -151,7 +142,6 @@ export function resolveAssignmentPackages(
   return targets;
 }
 
-/** Count selected companies that have more than one active report package. */
 export function countCompaniesWithMultipleActivePackages(
   state: PortfolioState,
   companyIds: string[]
@@ -245,7 +235,6 @@ export function getPortfolioReviewerOptions(
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-/** Label for the bulk assign button based on how many rows already have owners. */
 export function getBulkAssignButtonLabel(rows: CompanyReviewLandingRow[]): string {
   const assigned = rows.filter((r) => Boolean(r.assigneeId)).length;
   const unassigned = rows.length - assigned;
@@ -254,7 +243,6 @@ export function getBulkAssignButtonLabel(rows: CompanyReviewLandingRow[]): strin
   return "Assign";
 }
 
-/** ISO timestamp for end of the current week (Friday 5pm) — common default due date. */
 export function endOfWeekIso(): string {
   const d = new Date();
   const day = d.getDay();
@@ -264,7 +252,6 @@ export function endOfWeekIso(): string {
   return d.toISOString();
 }
 
-/** ISO timestamp for 5pm on a day offset from today — used as due date presets. */
 export function startOfDayIso(offsetDays = 0): string {
   const d = new Date();
   d.setDate(d.getDate() + offsetDays);

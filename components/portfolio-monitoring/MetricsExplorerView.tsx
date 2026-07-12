@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Compare metrics across companies with charts, filters, and evidence drawers.
- */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import type { ExtractedMetric, MetricName } from "@/lib/portfolio/types";
@@ -28,7 +25,6 @@ import { MetricsExplorerEmptyState } from "./metrics-explorer/MetricsExplorerEmp
 import { MetricEvidenceDrawer } from "./metrics-explorer/MetricEvidenceDrawer";
 import { ExplorerToast } from "./metrics-explorer/ExplorerToast";
 
-/** Builds a friendly message when selected companies are removed by a filter change. */
 function filterReasonMessage(
   filters: EligibilityFilters,
   removedCount: number,
@@ -47,7 +43,6 @@ function filterReasonMessage(
   return `${removedCount} selected ${noun} removed because they no longer match the current filters.`;
 }
 
-/** Page for comparing metrics across companies with charts and filters. */
 export function MetricsExplorerView() {
   const { state, exportCsv } = usePortfolio();
 

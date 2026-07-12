@@ -1,10 +1,8 @@
 "use client";
 
-/** Legacy deals list with summary cards, filters, and links to company detail pages. */
 import Link from "next/link";
 import { pipelineDeals, type PipelineDeal, type ReadinessStatus } from "@/lib/deals-pipeline";
 
-/** Renders the deals pipeline UI. */
 export function DealsPipeline() {
   const myDeals = pipelineDeals.filter((d) => d.owner === "Alex Rivera");
   const blocked = myDeals.filter((d) => d.readinessStatus === "blocked").length;

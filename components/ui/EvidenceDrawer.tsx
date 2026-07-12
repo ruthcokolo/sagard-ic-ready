@@ -1,10 +1,8 @@
 "use client";
 
-/** Slide-out drawer showing source evidence for a claim or metric. */
 import { useEffect } from "react";
 import type { SourceEvidence } from "@/lib/source-evidence";
 
-/** Side drawer that shows linked source documents and quotes. */
 export function EvidenceDrawer({
   open,
   evidence,

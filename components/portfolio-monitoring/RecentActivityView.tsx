@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Full-page view of recent portfolio activity, grouped by day with type filters.
- */
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -28,7 +25,6 @@ const TYPE_FILTERS: { id: "all" | ActivityEventType; label: string }[] = [
   { id: "overdue", label: "Overdue" },
 ];
 
-/** Full activity feed page with day grouping and event type filters. */
 export function RecentActivityView() {
   const { state, hydrated } = usePortfolio();
   const [typeFilter, setTypeFilter] = useState<"all" | ActivityEventType>("all");

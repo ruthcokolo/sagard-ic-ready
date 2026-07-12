@@ -1,13 +1,9 @@
 "use client";
 
-/**
- * Modal for adding or editing a metric waitlist entry.
- */
 import { useEffect, useState } from "react";
 import { resolvePortfolioAssociateIdentity } from "@/lib/portfolio/bulk-assignment";
 import type { ReviewPriority, ReviewWaitlistItem } from "@/lib/portfolio/types";
 
-/** Form values for a waitlist entry. */
 export type WaitlistFormValues = {
   scheduledDate: string;
   priority: ReviewPriority;
@@ -17,7 +13,6 @@ export type WaitlistFormValues = {
   reminder: boolean;
 };
 
-/** Modal to add or edit a metric waitlist entry. */
 export function AddToWaitlistModal({
   open,
   mode,

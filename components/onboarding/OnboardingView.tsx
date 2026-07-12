@@ -1,6 +1,5 @@
 "use client";
 
-/** Multi-step onboarding wizard for role, integrations, and first-run setup. */
 import { useCallback, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -33,7 +32,6 @@ const INTEGRATIONS: {
   { key: "claude", name: "Claude", role: "Cross-source analysis and drafting" },
 ];
 
-/** Step-by-step first-run setup wizard for new users. */
 export function OnboardingView() {
   const router = useRouter();
   const { user, refreshSession } = useAuth();

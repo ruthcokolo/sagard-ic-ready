@@ -1,4 +1,4 @@
-/** API route: `/api/portfolio/extract` — pull metrics from an uploaded PDF. */
+/** POST /api/portfolio/extract — extract metrics from an uploaded PDF. */
 import { NextRequest, NextResponse } from "next/server";
 import { DEFAULT_EXTRACTION_RULES } from "@/lib/portfolio/extraction-rules-default";
 import {
@@ -9,10 +9,6 @@ import type { ExtractionRule } from "@/lib/portfolio/types";
 
 export const runtime = "nodejs";
 
-/**
- * Accepts a PDF file (form field `file`), optional `rules` JSON, and optional `companyName`.
- * Returns extracted metric candidates, missing metrics, sector, and any warnings.
- */
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();

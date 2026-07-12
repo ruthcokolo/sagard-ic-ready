@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Main portfolio overview dashboard that assembles KPI cards, panels, and tables.
- */
 import { useMemo } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { getOverviewSnapshot } from "@/lib/portfolio/overview-selectors";
@@ -23,7 +20,6 @@ import { ExpectedMetricsCoverageCard } from "@/components/portfolio-monitoring/o
 import { ExtractionPerformanceCard } from "@/components/portfolio-monitoring/overview/ExtractionPerformanceCard";
 import { CompanySubmissionTable } from "@/components/portfolio-monitoring/overview/CompanySubmissionTable";
 
-/** Assembles all overview cards, panels, and tables into the main dashboard. */
 export function PortfolioOverviewDashboard() {
   const { state, hydrated } = usePortfolio();
 

@@ -1,9 +1,5 @@
 "use client";
 
-/**
- * Dropdown filter to narrow companies by sector in the explorer.
- */
-/** Sector dropdown filter for the metrics explorer. */
 export function SectorFilter({
   sectors,
   value,

@@ -1,9 +1,7 @@
 "use client";
 
-/** Top header for IC diligence mode with product switcher and user menu. */
 import { ModeHeaderActions } from "@/components/layout/ProductModeHeaderBar";
 
-/** Renders the diligence mode header UI. */
 export function DiligenceModeHeader() {
   return (
     <header className="sticky top-0 z-20 border-b border-stone-200/80 bg-white">

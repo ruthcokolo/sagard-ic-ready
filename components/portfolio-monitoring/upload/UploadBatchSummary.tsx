@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Upload batch summary, file queue rows, and status badges during bulk upload.
- */
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { UploadBatch, UploadQueueFile } from "@/lib/portfolio/monitoring-phase-types";
@@ -40,7 +37,6 @@ function StatusDot({
   );
 }
 
-/** Summary header for an upload batch with counts. */
 export function UploadBatchSummary({ batch }: { batch: UploadBatch }) {
   const s = summarizeUploadBatch(batch);
   if (s.total === 0) return null;
@@ -103,7 +99,6 @@ function badgeClass(kind: string) {
   }
 }
 
-/** Badge showing one file's upload/processing status. */
 export function UploadFileStatusBadge({
   children,
   kind,
@@ -185,7 +180,6 @@ function readinessBadge(file: UploadQueueFile) {
   return <UploadFileStatusBadge kind="needs">{label}</UploadFileStatusBadge>;
 }
 
-/** Returns the label for the main action on a queued file. */
 export function primaryActionLabel(file: UploadQueueFile): string | null {
   if (file.passwordProtected) return "Remove";
   if (file.state === "processing") return null;
@@ -399,7 +393,6 @@ function FormatCell({ sourceFormat }: { sourceFormat?: string }) {
   );
 }
 
-/** Single row in the upload file queue. */
 export function UploadFileQueueRow({
   file,
   menuOpen,
@@ -531,7 +524,6 @@ function UploadFileCard({
   );
 }
 
-/** List of files waiting to be processed in a batch. */
 export function UploadFileQueue({
   batch,
   menuFileId,

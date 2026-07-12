@@ -1,7 +1,3 @@
-/**
- * Fuzzy company name matching against portfolio records and aliases.
- */
-
 import type { CompanyAlias } from "./monitoring-phase-types";
 import type { PortfolioCompany } from "./types";
 
@@ -16,7 +12,6 @@ export type CompanyMatchCandidate = {
   reason: "exact" | "alias" | "fuzzy" | "filename";
 };
 
-/** Rank possible company matches for an upload candidate. */
 export function getPossibleCompanyMatches(
   query: string,
   companies: PortfolioCompany[],

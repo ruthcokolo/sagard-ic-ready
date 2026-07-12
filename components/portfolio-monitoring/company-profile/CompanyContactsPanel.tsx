@@ -1,15 +1,11 @@
 "use client";
 
-/**
- * Panel listing contacts for a company with add/edit actions.
- */
 import { useMemo, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { hasPortfolioPermission } from "@/lib/portfolio/portfolio-permissions";
 import type { CompanyContact } from "@/lib/portfolio/monitoring-phase-types";
 
-/** Lists and manages contacts for a company profile. */
 export function CompanyContactsPanel({ companyId }: { companyId: string }) {
   const { user } = useAuth();
   const { state, upsertCompanyContact } = usePortfolio();

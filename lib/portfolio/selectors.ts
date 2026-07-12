@@ -1,8 +1,3 @@
-/**
- * Read-only helpers that turn raw portfolio state into dashboard numbers and table rows.
- * Used by overview screens to count metrics, compute coverage, and build KPI summaries.
- */
-
 import { ALL_METRICS } from "./types";
 import type {
   ExtractedMetric,
@@ -13,12 +8,10 @@ import type {
   ReportingPackage,
 } from "./types";
 
-/** Count how many metrics have a given review status. */
 export function countByStatus(metrics: ExtractedMetric[], status: MetricStatus) {
   return metrics.filter((m) => m.status === status).length;
 }
 
-/** Summarize approved, pending, and missing metrics for one company from its latest report. */
 export function computeCompanyStats(
   companyId: string,
   metrics: ExtractedMetric[],
@@ -50,7 +43,6 @@ export function computeCompanyStats(
   };
 }
 
-/** Refresh each company's metric counts and latest report date from current packages. */
 export function recomputeCompanies(state: PortfolioState): PortfolioCompany[] {
   return state.companies.map((company) => {
     const stats = computeCompanyStats(company.id, state.metrics, state.packages);
@@ -72,7 +64,6 @@ export function recomputeCompanies(state: PortfolioState): PortfolioCompany[] {
   });
 }
 
-/** Summarize extraction results for a single uploaded report package. */
 export function computePackageStats(
   packageId: string,
   metrics: ExtractedMetric[]
@@ -96,7 +87,6 @@ export function computePackageStats(
   };
 }
 
-/** Refresh each package's metric counts; mark empty processed packages as failed. */
 export function recomputePackages(state: PortfolioState): ReportingPackage[] {
   return state.packages.map((pkg) => {
     const stats = computePackageStats(pkg.id, state.metrics);
@@ -117,7 +107,6 @@ export function recomputePackages(state: PortfolioState): ReportingPackage[] {
   });
 }
 
-/** Top-level portfolio counts for the main dashboard tiles. */
 export function getPortfolioKpis(state: PortfolioState) {
   const { metrics, packages, companies } = state;
   return {
@@ -130,7 +119,6 @@ export function getPortfolioKpis(state: PortfolioState) {
   };
 }
 
-/** Break down metrics by validation status with counts and percentages. */
 export function getValidationSummary(state: PortfolioState) {
   const { metrics } = state;
   const approved = countByStatus(metrics, "Approved for reporting");
@@ -150,7 +138,6 @@ export function getValidationSummary(state: PortfolioState) {
   };
 }
 
-/** Demo-style month-by-month extraction trend for charts (scaled from current totals). */
 export function getExtractionTrend(state: PortfolioState) {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
   const base = getPortfolioKpis(state);
@@ -203,7 +190,6 @@ function validationLabel(metrics: ExtractedMetric[], companyId: string): string 
   return "Approved for reporting";
 }
 
-/** Build one table row per company with latest metric values and validation status. */
 export function getCompanyPerformanceRows(state: PortfolioState): CompanyPerformanceRow[] {
   return state.companies.map((company) => ({
     companyId: company.id,
@@ -225,7 +211,6 @@ export function getCompanyPerformanceRows(state: PortfolioState): CompanyPerform
   }));
 }
 
-/** List the five metric names that most often need human review. */
 export function getTopMetricsNeedingValidation(state: PortfolioState) {
   const counts = new Map<string, number>();
   for (const m of state.metrics) {
@@ -239,14 +224,12 @@ export function getTopMetricsNeedingValidation(state: PortfolioState) {
     .slice(0, 5);
 }
 
-/** Sort companies by how complete their latest metric extraction is. */
 export function getCoverageByCompany(state: PortfolioState) {
   return state.companies
     .map((c) => ({ company: c.name, companyId: c.id, coverage: c.coverage }))
     .sort((a, b) => b.coverage - a.coverage);
 }
 
-/** Return the most recently processed packages for a quick-look list. */
 export function getRecentPackages(state: PortfolioState, limit = 5) {
   return [...state.packages]
     .sort(
@@ -266,7 +249,6 @@ export function getRecentPackages(state: PortfolioState, limit = 5) {
     }));
 }
 
-/** Load one company with its reports and metrics, or null if not found. */
 export function getCompanyDetail(state: PortfolioState, companyId: string) {
   const company = state.companies.find((c) => c.id === companyId);
   if (!company) return null;
@@ -280,19 +262,16 @@ export function getCompanyDetail(state: PortfolioState, companyId: string) {
   return { company, packages, metrics };
 }
 
-/** Turn a metric record into the text shown in tables and cards. */
 export function formatMetricDisplay(metric: ExtractedMetric): string {
   if (metric.status === "Missing from report") return "Missing from report";
   if (!metric.extractedValue) return "—";
   return metric.extractedValue;
 }
 
-/** Count metrics waiting for a reviewer to approve or fix them. */
 export function needsValidationBadgeCount(state: PortfolioState): number {
   return countByStatus(state.metrics, "Needs validation");
 }
 
-/** Summarize how well extraction is working across all metrics. */
 export function getExtractionQualitySummary(state: PortfolioState) {
   const { metrics } = state;
   const extracted = metrics.filter((m) => m.status !== "Missing from report").length;
@@ -342,7 +321,6 @@ const DEMO_QUALITY: ExtractionQualityRow[] = [
   },
 ];
 
-/** Compare extraction quality between company PDFs and ICReady template PDFs. */
 export function getExtractionQualityBySourceFormat(state: PortfolioState): ExtractionQualityRow[] {
   const processed = state.packages.filter((p) => p.status === "Processed");
   if (processed.length === 0) return DEMO_QUALITY;

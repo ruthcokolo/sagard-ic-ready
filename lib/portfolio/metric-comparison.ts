@@ -1,8 +1,3 @@
-/**
- * Compares approved metrics between reporting periods and formats change
- * labels (up, down, flat) for company overview and submission views.
- */
-
 import type { ExtractedMetric, MetricName } from "./types";
 
 export type MetricChangeDirection = "up" | "down" | "flat";
@@ -36,7 +31,6 @@ function parsePeriod(period: string): ParsedPeriod | null {
   return null;
 }
 
-/** Numeric sort order for reporting periods (earlier periods sort lower). */
 function periodSortKey(period: string): number {
   const parsed = parsePeriod(period);
   if (!parsed) return 0;
@@ -44,7 +38,6 @@ function periodSortKey(period: string): number {
   return parsed.year * 10 + parsed.quarter;
 }
 
-/** True when two periods are the same kind (both quarters or both fiscal years). */
 function arePeriodsComparable(current: string, previous: string): boolean {
   const a = parsePeriod(current);
   const b = parsePeriod(previous);
@@ -53,7 +46,6 @@ function arePeriodsComparable(current: string, previous: string): boolean {
   return true;
 }
 
-/** The reporting period immediately before this one (Q2 → Q1, Q1 → Q4 prior year). */
 function getPreviousPeriod(period: string): string | null {
   const parsed = parsePeriod(period);
   if (!parsed) return null;
@@ -189,7 +181,6 @@ export function getApprovedMetricChanges(
   return changes.slice(0, limit);
 }
 
-/** All period-over-period changes for one company (no limit). */
 export function getAllApprovedMetricChanges(
   metrics: ExtractedMetric[],
   companyId: string,

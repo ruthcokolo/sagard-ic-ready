@@ -1,8 +1,3 @@
-/**
- * Builds a structured evidence card for a source document quote —
- * location, excerpt, and metadata shown in the conflict detail panel.
- */
-
 export type SourceEvidence = {
   sourceName: string;
   location: string;
@@ -10,7 +5,6 @@ export type SourceEvidence = {
   meta: string[];
 };
 
-/** Formats a source quote into a card with location and metadata for the evidence panel. */
 export function buildSourceEvidence(
   sourceName: string,
   quote: string,

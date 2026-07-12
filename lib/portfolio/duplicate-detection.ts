@@ -1,5 +1,5 @@
 /**
- * Duplicate package detection by hash, fingerprint, filename, and period signals.
+ * Duplicate package detection: exact hash, filename, period, and content similarity.
  */
 
 import { normalizeFileName } from "./file-hashing";
@@ -191,7 +191,6 @@ function uniqueReasons(reasons: DuplicateMatchReason[]): DuplicateMatchReason[] 
   return [...new Set(reasons)];
 }
 
-/** Human-readable reason labels for the duplicate dialog. */
 export function duplicateReasonLabels(reasons: DuplicateMatchReason[]): string[] {
   const labels: Record<DuplicateMatchReason, string> = {
     same_file_hash: "Identical file contents",

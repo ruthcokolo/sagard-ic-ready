@@ -1,5 +1,3 @@
-/** Lightweight document fingerprint / similarity for PDF text. */
-
 export function buildDocumentFingerprint(text: string): string {
   const tokens = tokenize(text);
   const top = [...tokens.entries()]
@@ -9,7 +7,6 @@ export function buildDocumentFingerprint(text: string): string {
   return top.join("|");
 }
 
-/** Jaccard-like token overlap score between two document texts. */
 export function documentSimilarity(a: string, b: string): number {
   if (!a.trim() || !b.trim()) return 0;
   const ta = new Set(tokenize(a).keys());

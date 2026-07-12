@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Dialog asking what to do when the same PDF file is uploaded again.
- */
 import { duplicateReasonLabels } from "@/lib/portfolio/duplicate-detection";
 import type { DuplicateDetectionResult } from "@/lib/portfolio/monitoring-phase-types";
 
@@ -15,7 +12,6 @@ function formatWhen(iso?: string) {
   });
 }
 
-/** Prompts the user when the same file is uploaded twice. */
 export function DuplicateFileDialog({
   fileName,
   actorName = "Alex",

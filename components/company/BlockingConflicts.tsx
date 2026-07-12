@@ -1,6 +1,5 @@
 "use client";
 
-/** Lists deal-blocking issues that must be resolved before IC submission. */
 import { useState } from "react";
 import type { AnalysisResult, Contradiction } from "@/lib/types";
 import { conflictHeadline } from "@/lib/conflict-headline";
@@ -9,7 +8,6 @@ import { buildSourceEvidence } from "@/lib/source-evidence";
 import type { SourceEvidence } from "@/lib/source-evidence";
 import { EvidenceDrawer } from "@/components/ui/EvidenceDrawer";
 
-/** Renders the blocking conflicts UI. */
 export function BlockingConflicts({
   analysis,
   loading,

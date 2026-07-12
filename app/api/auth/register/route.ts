@@ -1,4 +1,3 @@
-/** API route: `/api/auth/register` — create or update demo accounts. */
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import type { AccountRecord, ICReadyUser, IntegrationState, UserRole } from "@/lib/auth-types";
@@ -22,10 +21,6 @@ function parseIntegrations(value: unknown): IntegrationState {
   };
 }
 
-/**
- * POST: receives `{ name, email, password, role?, integrations?, complete? }`.
- * Creates the account, returns `{ user }`, and sets session + registry cookies.
- */
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
 
@@ -76,10 +71,6 @@ export async function POST(request: NextRequest) {
   return response;
 }
 
-/**
- * PATCH: receives `{ email, password, integrations?, complete? }`.
- * Updates an existing account and returns `{ user }`, or `{ error }` if not found.
- */
 export async function PATCH(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";

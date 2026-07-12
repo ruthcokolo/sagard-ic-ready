@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Row of KPI summary cards and loading skeleton for the overview dashboard.
- */
 import type { OverviewKpis } from "@/lib/portfolio/overview-selectors";
 
-/** Picks the right small icon for each KPI card type. */
 function StatIcon({ kind }: { kind: string }) {
   const shell = "flex h-7 w-7 shrink-0 items-center justify-center rounded-md";
   const iconProps = {
@@ -69,7 +65,6 @@ function StatIcon({ kind }: { kind: string }) {
   return icons[kind] ?? icons.companies;
 }
 
-/** Formats a KPI number for display (adds commas, percent signs, etc.). */
 function formatValue(id: string, kpis: OverviewKpis): string {
   if (id === "success") {
     return kpis.extractionSuccessRate != null ? `${kpis.extractionSuccessRate}%` : "—";
@@ -86,7 +81,6 @@ function formatValue(id: string, kpis: OverviewKpis): string {
   return (map[id] ?? 0).toLocaleString();
 }
 
-/** Grid of KPI cards across the top of the overview. */
 export function PortfolioKpiSummary({ kpis }: { kpis: OverviewKpis }) {
   const cards = [
     { id: "companies", label: "Portfolio companies", helper: "Across all portfolio companies" },
@@ -124,7 +118,6 @@ export function PortfolioKpiSummary({ kpis }: { kpis: OverviewKpis }) {
   );
 }
 
-/** Loading placeholder skeleton for the overview dashboard. */
 export function OverviewSkeleton() {
   return (
     <div className="animate-pulse space-y-6 px-4 py-6 sm:px-6 lg:px-8">

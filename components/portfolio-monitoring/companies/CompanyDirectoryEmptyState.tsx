@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Empty state shown when no companies match filters or none exist yet.
- */
 import Link from "next/link";
 
-/** Empty state when the company list is empty or filtered out. */
 export function CompanyDirectoryEmptyState({
   variant,
   onAddCompany,

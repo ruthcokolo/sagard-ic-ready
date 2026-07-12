@@ -1,6 +1,5 @@
 "use client";
 
-/** Full company diligence page: profile, analysis, conflicts, and decision workflow. */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getDealById } from "@/lib/deals-pipeline";
@@ -41,7 +40,6 @@ import { resolveBackNav } from "@/components/ui/BackNav";
 const NORTHWIND_ID = "northwind-logistics";
 const NORTHWIND_PIPELINE_START = "Checking 4 sources (Google Sheets via n8n)…";
 
-/** Orchestrates all company diligence panels for a single deal ID. */
 export function CompanyDetailView({ dealId }: { dealId: string }) {
   const searchParams = useSearchParams();
   const from = searchParams.get("from");

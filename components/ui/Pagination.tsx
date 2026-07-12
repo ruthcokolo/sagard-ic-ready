@@ -1,6 +1,5 @@
 "use client";
 
-/** Reusable pagination controls for data tables. */
 type PaginationProps = {
   page: number;
   totalPages: number;
@@ -13,7 +12,6 @@ type PaginationProps = {
   pageSizes?: readonly number[];
 };
 
-/** Renders the pagination UI. */
 export function Pagination({
   page,
   totalPages,

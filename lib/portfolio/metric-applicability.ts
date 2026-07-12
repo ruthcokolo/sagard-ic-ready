@@ -1,7 +1,6 @@
 /**
- * Metric applicability labels, suggestions, and requirement display helpers.
+ * Metric applicability suggestions — never auto-mutates expectations.
  */
-
 import type { ConfidenceLevel } from "./types";
 import type {
   MetricApplicabilitySuggestion,
@@ -10,9 +9,6 @@ import type {
 } from "./monitoring-phase-types";
 import { getMetricExpectation } from "./metric-expectations";
 
-/**
- * AI-style applicability suggestion — never auto-mutates expectations.
- */
 export function suggestMetricApplicability(input: {
   companyId: string;
   companyName: string;
@@ -84,7 +80,6 @@ export function suggestMetricApplicability(input: {
   return null;
 }
 
-/** Human-readable label for a MetricRequirement enum value. */
 export function requirementLabel(requirement: MetricRequirement): string {
   switch (requirement) {
     case "required":

@@ -1,6 +1,5 @@
 "use client";
 
-/** Main dashboard: welcome banner, AI findings, deal table, and portfolio promo. */
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import {
@@ -35,7 +34,6 @@ const STAGE_STYLES: Record<DealStage, string> = {
 
 const STAGE_ORDER: DealStage[] = ["screening", "diligence", "ic_prep", "passed"];
 
-/** Composes dashboard sections into the main home screen. */
 export function DashboardView() {
   const searchParams = useSearchParams();
   const { user } = useAuth();

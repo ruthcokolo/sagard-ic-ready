@@ -3,7 +3,6 @@
  * that reviewers can see next to each extracted metric.
  */
 
-/** Turn PDF.js text fragments into readable lines grouped by vertical position. */
 export function pdfItemsToPageText(items: unknown[]): string {
   type Row = { y: number; x: number; str: string };
 
@@ -51,7 +50,6 @@ export function pdfItemsToPageText(items: unknown[]): string {
     .join("\n");
 }
 
-/** One concise sentence from source text that captures the metric and value. */
 export function extractMetricEvidenceSentence(
   sourceText: string,
   matchedLabel: string,

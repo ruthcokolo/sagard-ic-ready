@@ -1,8 +1,3 @@
-/**
- * Fills in missing analysis details — plain-English conflict explanations,
- * unsupported claims, package section status, and audit trail events.
- */
-
 import type { PipelineDeal } from "@/lib/deal-types";
 import type {
   AnalysisResult,
@@ -24,7 +19,6 @@ import {
   WHY_IT_MATTERS,
 } from "@/lib/plain-copy";
 
-/** Adds plain-English "why it matters" text and tightens the suggested fix for a conflict. */
 export function enrichContradiction(
   c: Omit<Contradiction, "whyItMatters" | "whyItBlocksIC" | "status"> &
     Partial<Pick<Contradiction, "whyItMatters" | "whyItBlocksIC" | "status">>,
@@ -39,7 +33,6 @@ export function enrichContradiction(
   };
 }
 
-/** Builds the list of claims that still need supporting evidence for a deal. */
 function buildUnsupportedClaims(deal: PipelineDeal, contradictions: Contradiction[]): UnsupportedClaim[] {
   const claims: UnsupportedClaim[] = [
     {
@@ -71,7 +64,6 @@ function buildUnsupportedClaims(deal: PipelineDeal, contradictions: Contradictio
   return claims.slice(0, Math.min(3, 1 + deal.conflictCount));
 }
 
-/** Builds the key facts row (ARR, growth, headcount) with confidence levels. */
 function buildKeyFacts(deal: PipelineDeal, contradictions: Contradiction[]): KeyFact[] {
   const arrConflict = contradictions.some((c) => c.field.includes("ARR"));
   const growthConflict = contradictions.some((c) => c.field.includes("growth") || c.field.includes("ARR"));
@@ -98,7 +90,6 @@ function buildKeyFacts(deal: PipelineDeal, contradictions: Contradiction[]): Key
   ];
 }
 
-/** Decides whether each IC package section is ready, blocked, or needs more proof. */
 function buildPackageSections(
   deal: PipelineDeal,
   contradictions: Contradiction[],
@@ -135,7 +126,6 @@ function buildPackageSections(
   ];
 }
 
-/** Lists plain-English reasons the deal is not committee-ready yet. */
 function buildVerdictBlockers(
   contradictions: Contradiction[],
   checklist: ChecklistItem[],
@@ -165,7 +155,6 @@ function buildVerdictBlockers(
   return blockers;
 }
 
-/** Creates the timeline of AI and human events shown in the audit trail. */
 function buildAuditTrail(deal: PipelineDeal, contradictions: Contradiction[], analyzedAt: string): AuditEvent[] {
   const events: AuditEvent[] = [
     {
@@ -203,7 +192,6 @@ function buildAuditTrail(deal: PipelineDeal, contradictions: Contradiction[], an
   return events;
 }
 
-/** Fills in default owners and linked issues on checklist items. */
 function enrichChecklist(items: ChecklistItem[], deal: PipelineDeal): ChecklistItem[] {
   return items.map((item) => ({
     ...item,
@@ -212,7 +200,6 @@ function enrichChecklist(items: ChecklistItem[], deal: PipelineDeal): ChecklistI
   }));
 }
 
-/** Fills in any missing pieces of an analysis result so the UI always has complete data. */
 export function enrichAnalysis(deal: PipelineDeal, base: AnalysisResult): AnalysisResult {
   const contradictions = base.contradictions.map((c) => enrichContradiction(c));
   const unsupportedClaims = base.unsupportedClaims?.length
@@ -247,7 +234,6 @@ export function enrichAnalysis(deal: PipelineDeal, base: AnalysisResult): Analys
   };
 }
 
-/** Turns a deal's stage into a short label like "Series B" or "Committee prep". */
 export function formatStageLabel(deal: PipelineDeal): string {
   const match = deal.askAmount.match(/Series [A-D]|Seed|Growth/i);
   if (match) return match[0];
@@ -260,7 +246,6 @@ export function formatStageLabel(deal: PipelineDeal): string {
   return labels[deal.stage] ?? deal.stage;
 }
 
-/** Converts an ISO timestamp into a friendly "2 min ago" style string. */
 export function formatAnalyzedAgo(iso: string, fallback = "2 min ago"): string {
   try {
     const diff = Date.now() - new Date(iso).getTime();

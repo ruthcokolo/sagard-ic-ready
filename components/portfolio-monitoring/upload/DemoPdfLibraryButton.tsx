@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Button to pick sample demo PDFs for quick testing uploads.
- */
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   DEMO_PDF_LIBRARY,
@@ -13,7 +10,6 @@ import {
 
 type FilterId = "all" | "company_formatted" | "icready_template";
 
-/** Opens a picker of demo PDFs for quick test uploads. */
 export function DemoPdfLibraryButton({
   disabled,
   onLoad,

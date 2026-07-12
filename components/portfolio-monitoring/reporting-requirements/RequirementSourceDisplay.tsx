@@ -1,11 +1,7 @@
 "use client";
 
-/**
- * Shows where a reporting requirement setting comes from (fund, company, etc.).
- */
 import type { EffectiveRequirementRow } from "@/lib/portfolio/reporting-requirements";
 
-/** Shows whether a requirement comes from fund defaults or overrides. */
 export function RequirementSourceDisplay({ row }: { row: EffectiveRequirementRow }) {
   const primaryClass =
     row.ruleSourceKind === "company_override" ? "font-semibold text-[#7a3344]" : "font-medium text-stone-800";

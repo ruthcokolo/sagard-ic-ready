@@ -1,9 +1,6 @@
-/** Grid of synced source documents with type and freshness. */
-
 import type { PipelineDeal } from "@/lib/deal-types";
 import { getCompanySourceDocuments } from "@/lib/company-sources";
 
-/** Lists diligence source files linked to the deal. */
 export function SourceEvidenceGrid({ deal }: { deal: PipelineDeal }) {
   const sources = getCompanySourceDocuments(deal);
 

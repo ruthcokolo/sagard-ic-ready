@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Slide-out drawer for uploading multiple reporting package PDFs at once.
+ * Bulk PDF upload drawer — queue, duplicate checks, and batch processing.
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -29,7 +29,6 @@ import { UploadBatchSummary, UploadFileQueue } from "./UploadBatchSummary";
 
 const PROCESS_CONCURRENCY = 3;
 
-/** Drawer UI for selecting and uploading many PDFs at once. */
 export function BatchUploadDrawer({
   open,
   onClose,
@@ -788,7 +787,6 @@ export function BatchUploadDrawer({
   );
 }
 
-/** Alias matching the planned component name. */
 export const UploadReportingPackagesDrawer = BatchUploadDrawer;
 
 function FooterMenuItem({

@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Configure how metrics are extracted from reports and view rule audit history.
- */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -24,7 +21,6 @@ import { ExtractionRulesAuditDrawer } from "@/components/portfolio-monitoring/ex
 const PAGE_SIZES = [10, 20, 50] as const;
 type SortKey = "metric" | "type" | "status" | "usage";
 
-/** Small icon showing the data type of a metric (money, percent, count, etc.). */
 function TypeIcon({ type }: { type: MetricDataType }) {
   const label = METRIC_DATA_TYPE_LABELS[type];
   return (
@@ -45,7 +41,6 @@ function TypeIcon({ type }: { type: MetricDataType }) {
   );
 }
 
-/** Green or amber pill showing if a metric definition is turned on or off. */
 function StatusBadge({ active }: { active: boolean }) {
   return (
     <span
@@ -62,7 +57,6 @@ function StatusBadge({ active }: { active: boolean }) {
   );
 }
 
-/** Page for viewing and editing metric extraction rules. */
 export function ExtractionRulesView() {
   const { user } = useAuth();
   const {
@@ -703,7 +697,6 @@ export function ExtractionRulesView() {
   );
 }
 
-/** Shows how many packages and companies use a metric definition. */
 function UsageCell({ usage }: { usage: MetricUsageSummary }) {
   if (usage.sectorCount === 0 && usage.companyCount === 0) {
     return <p className="text-[12px] text-stone-400">Not currently used</p>;
@@ -736,7 +729,6 @@ function UsageCell({ usage }: { usage: MetricUsageSummary }) {
   );
 }
 
-/** Dropdown menu for editing, enabling, or deleting one metric row. */
 function RowMenu({
   rule,
   onManageAliases,
@@ -808,7 +800,6 @@ function RowMenu({
   );
 }
 
-/** Clickable column header that toggles table sorting. */
 function HeaderBtn({
   children,
   onClick,
@@ -840,7 +831,6 @@ function HeaderBtn({
   );
 }
 
-/** Centered message when the extraction rules table has no rows to show. */
 function EmptyState({
   title,
   copy,
@@ -867,7 +857,6 @@ function EmptyState({
   );
 }
 
-/** Popup that asks the user to confirm a destructive action. */
 function ConfirmDialog({
   title,
   children,

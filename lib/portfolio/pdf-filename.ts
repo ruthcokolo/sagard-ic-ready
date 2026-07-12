@@ -53,7 +53,6 @@ export function formatReportPeriod(raw: string): string {
   return cleaned;
 }
 
-/** Pull a reporting period like "Q2 2026" out of a PDF filename. */
 export function extractReportPeriodFromFileName(fileName: string): string | undefined {
   const normalized = normalizeFileNameTokens(fileName);
   const match = normalized.match(PERIOD_PATTERN);
@@ -142,14 +141,12 @@ export function inferCompanyNameFromFileName(fileName: string): string {
   return extractCompanyNameFromFileName(fileName);
 }
 
-/** Green / yellow / red band for coverage percentage display. */
 export function coverageTone(value: number): "green" | "yellow" | "red" {
   if (value >= 80) return "green";
   if (value >= 65) return "yellow";
   return "red";
 }
 
-/** Hex stroke color for a coverage ring chart at this percentage. */
 export function coverageStrokeColor(value: number): string {
   switch (coverageTone(value)) {
     case "green":
@@ -161,7 +158,6 @@ export function coverageStrokeColor(value: number): string {
   }
 }
 
-/** Tailwind background class for a coverage progress bar. */
 export function coverageBarClass(value: number): string {
   switch (coverageTone(value)) {
     case "green":

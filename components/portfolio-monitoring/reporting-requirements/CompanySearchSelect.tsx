@@ -1,13 +1,9 @@
 "use client";
 
-/**
- * Searchable dropdown for picking a company when editing requirements.
- */
 import { useEffect, useMemo, useRef, useState } from "react";
 
 type CompanyOption = { id: string; name: string };
 
-/** Searchable company picker used in requirement forms. */
 export function CompanySearchSelect({
   companies,
   value,

@@ -1,9 +1,6 @@
-/** Final readiness verdict badge (ready, blocked, or needs work). */
-
 import type { AnalysisResult } from "@/lib/types";
 import { hasMaterialConflicts } from "@/lib/export-lock";
 
-/** Renders the readiness verdict UI. */
 export function ReadinessVerdict({
   analysis,
   analysisPending = false,

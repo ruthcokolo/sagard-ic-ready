@@ -1,8 +1,3 @@
-/**
- * Fake export history for the demo — past IC decisions with company,
- * rationale preview, and blocker counts at the time of download.
- */
-
 import { getDealById } from "@/lib/deals-pipeline";
 
 const companies: { name: string; id: string }[] = [
@@ -73,7 +68,6 @@ export function getBaseExportHistory(): ExportHistoryItem[] {
   );
 }
 
-/** Counts proceed / more research / pass decisions in the static export archive. */
 export function getExportSummary() {
   const history = getBaseExportHistory();
   return {

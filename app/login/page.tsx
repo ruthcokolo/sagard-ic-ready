@@ -1,4 +1,3 @@
-/** Route: `/login` — email/password sign-in view. */
 import { Suspense } from "react";
 import { LoginView } from "@/components/auth/LoginView";
 
@@ -10,7 +9,6 @@ function LoginFallback() {
   );
 }
 
-/** Renders the login form inside a Suspense boundary. */
 export default function LoginPage() {
   return (
     <Suspense fallback={<LoginFallback />}>

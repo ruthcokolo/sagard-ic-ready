@@ -1,6 +1,3 @@
-/**
- * Line chart showing extraction success trends over recent periods.
- */
 import { DateRangeFilter } from "@/components/portfolio-monitoring/PortfolioModeHeader";
 
 type TrendPoint = {
@@ -32,7 +29,6 @@ function scaleX(index: number, count: number) {
   return PAD.left + (index / Math.max(count - 1, 1)) * innerW;
 }
 
-/** Line chart of extraction results over time. */
 export function ExtractionTrendChart({ data }: { data: TrendPoint[] }) {
   const maxY = Math.max(
     ...data.flatMap((d) => [d.extracted, d.approved, d.needsValidation, d.missing]),

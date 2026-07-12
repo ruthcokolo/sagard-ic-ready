@@ -1,12 +1,8 @@
 /**
- * Detect when a company communication implies a follow-up or outbound request.
+ * Detect open outbound missing-metric requests that overlap a new follow-up.
  */
-
 import type { CompanyCommunication } from "./monitoring-phase-types";
 
-/**
- * Detect open outbound requests that overlap with the metrics being requested.
- */
 export function findOpenMissingMetricRequests(
   communications: CompanyCommunication[],
   input: {
@@ -31,7 +27,6 @@ export function findOpenMissingMetricRequests(
   });
 }
 
-/** Describe a duplicate-detection scenario for user messaging. */
 export function describeDuplicateRequest(existing: CompanyCommunication[]): string {
   if (existing.length === 0) return "";
   const latest = existing[0];

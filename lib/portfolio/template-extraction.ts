@@ -1,6 +1,5 @@
 /**
- * Extracts metrics from ICReady template PDFs that use fixed field labels
- * instead of free-form company report layouts.
+ * ICReady template PDFs use fixed field labels instead of free-form report layouts.
  */
 
 import type { ExtractionCandidate, MetricName, PageText } from "./types";
@@ -19,7 +18,6 @@ const TEMPLATE_FIELD_MAP: { label: string; metricName: MetricName }[] = [
 
 const ALL_TEMPLATE_LABELS = TEMPLATE_FIELD_MAP.map((f) => f.label);
 
-/** True when the PDF text contains the ICReady template marker string. */
 export function isIcReadyTemplateDocument(pages: PageText[]): boolean {
   const full = pages.map((p) => p.text).join(" ");
   return full.includes(ICReady_TEMPLATE_MARKER);
@@ -62,7 +60,6 @@ function evidenceLine(fullText: string, label: string, rawValue: string): string
   return segment.replace(/\s+/g, " ");
 }
 
-/** Read fixed-label fields from ICReady template pages into extraction candidates. */
 export function extractMetricsFromTemplatePages(pages: PageText[]): ExtractionCandidate[] {
   const results: ExtractionCandidate[] = [];
   const found = new Set<MetricName>();
@@ -98,7 +95,6 @@ export function extractMetricsFromTemplatePages(pages: PageText[]): ExtractionCa
   return results;
 }
 
-/** Tell whether a PDF is an ICReady template or a company-formatted report. */
 export function detectSourceFormat(
   pages: PageText[],
   fileName?: string

@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Tab view listing all reporting packages for a company.
- */
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
@@ -31,7 +28,6 @@ type Props = {
   onDownload: (packageId: string) => void;
 };
 
-/** Reporting packages tab on the company profile. */
 export function CompanyReportsView({
   state,
   companyId,

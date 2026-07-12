@@ -1,6 +1,6 @@
 /**
- * Guess company name, report period, and other details from a PDF filename
- * and a small text sample before full extraction runs.
+ * Heuristic metadata from filename + text sample before full extraction runs.
+ * Does not replace PDF extraction — used for upload queue readiness.
  */
 
 import type { DetectedPackageMetadata } from "./monitoring-phase-types";
@@ -19,10 +19,6 @@ function normalizeForMatch(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
 
-/**
- * Heuristic metadata detection from filename + optional extracted text.
- * Does not replace PDF extraction — used for upload queue readiness.
- */
 export function detectPackageMetadata(input: {
   fileName: string;
   textSample?: string;
@@ -111,7 +107,6 @@ export function detectPackageMetadata(input: {
   };
 }
 
-/** Return true when two period strings clearly refer to different reporting periods. */
 export function periodsConflict(a?: string, b?: string): boolean {
   if (!a || !b) return false;
   const na = a.toLowerCase().replace(/\s+/g, "");

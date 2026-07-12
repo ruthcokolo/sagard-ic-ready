@@ -1,24 +1,16 @@
-/**
- * Per-deal source document cards and snapshot metrics for the evidence panel.
- * Northwind uses curated docs; other deals get seeded cross-source values.
- */
-
 import type { PipelineDeal } from "@/lib/deal-types";
 import { NORTHWIND_SOURCE_DOCUMENTS, type SourceDocument } from "@/lib/northwind-sources";
 
-/** Turns a deal id into a stable number seed for generating consistent fake values. */
 function seedFromId(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
   return Math.abs(h);
 }
 
-/** Parses a dollar string like "$12.0M" into a number of millions. */
 function parseArrM(arr: string): number {
   return parseFloat(arr.replace(/[^0-9.]/g, "")) || 0;
 }
 
-/** Picks a repeatable pseudo-random number from a seed and index. */
 function rand(seed: number, n: number): number {
   const x = Math.sin(seed * 9999 + n * 7919) * 10000;
   return x - Math.floor(x);
@@ -90,7 +82,6 @@ export type SnapshotMetric = {
   confidence: "verified" | "needs_verification" | "solid";
 };
 
-/** Key metrics for the deal snapshot header with confidence badges. */
 export function getDealSnapshotMetrics(
   deal: PipelineDeal,
   analysisPending: boolean,
@@ -124,7 +115,6 @@ export function getDealSnapshotMetrics(
   ];
 }
 
-/** Short funding-round label parsed from ask amount or stage. */
 export function formatAskStage(deal: PipelineDeal): string {
   if (deal.askAmount.toLowerCase().includes("series b")) return "Series B";
   if (deal.askAmount.toLowerCase().includes("series a")) return "Series A";

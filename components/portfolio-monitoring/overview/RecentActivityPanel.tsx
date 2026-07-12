@@ -1,17 +1,12 @@
 "use client";
 
-/**
- * Overview panel with the latest portfolio activity events.
- */
 import Link from "next/link";
 import type { ActivityEvent } from "@/lib/portfolio/overview-selectors";
 import { ActivityIcon, formatActivityTime } from "./activity-shared";
 
 const RECENT_ACTIVITY_PREVIEW_LIMIT = 3;
-/** URL path to the full recent activity page. */
 export const RECENT_ACTIVITY_HREF = "/dashboard/portfolio/activity";
 
-/** Compact recent activity list on the overview. */
 export function RecentActivityPanel({ events }: { events: ActivityEvent[] }) {
   const visible = events.slice(0, RECENT_ACTIVITY_PREVIEW_LIMIT);
   const remaining = events.length - visible.length;

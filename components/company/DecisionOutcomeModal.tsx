@@ -1,16 +1,12 @@
 "use client";
 
-/** Post-decision confirmation modal with next-step links. */
-
 import Link from "next/link";
 
-/** Discriminated union describing the recorded IC decision outcome. */
 export type DecisionOutcome =
   | { type: "proceed"; dealName: string }
   | { type: "more_diligence"; dealName: string; tasks: string[] }
   | { type: "pass"; dealName: string };
 
-/** Success modal shown after proceed, diligence, or pass decisions. */
 export function DecisionOutcomeModal({
   outcome,
   onClose,
@@ -145,7 +141,6 @@ function OutcomeContent({
   );
 }
 
-/** Derives follow-up diligence tasks from free-text rationale bullets. */
 export function buildDiligenceTasksFromRationale(rationale: string): string[] {
   const trimmed = rationale.trim();
   if (trimmed.length >= 20) {

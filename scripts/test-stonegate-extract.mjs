@@ -1,4 +1,3 @@
-/** CLI test: extracts metrics from a Stonegate PDF using page-level parsing. */
 import { readFileSync } from "fs";
 import { DEFAULT_EXTRACTION_RULES } from "../lib/portfolio/extraction-rules-default.ts";
 import { extractMetricsFromPages } from "../lib/portfolio/extraction.ts";

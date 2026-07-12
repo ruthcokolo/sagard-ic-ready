@@ -1,6 +1,3 @@
-/**
- * Donut chart showing how many metrics are approved, need review, or are missing.
- */
 import Link from "next/link";
 
 type ValidationSummary = {
@@ -16,7 +13,6 @@ const SEGMENTS = [
   { key: "missing" as const, label: "Missing from report", color: "#cbd5e1" },
 ];
 
-/** Renders a donut chart of approved vs needs-review vs missing metrics. */
 export function ValidationStatusDonut({ data }: { data: ValidationSummary }) {
   const r = 48;
   const c = 2 * Math.PI * r;

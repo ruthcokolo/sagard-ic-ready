@@ -1,8 +1,3 @@
-/**
- * Normalize and validate company website URLs, extract sites from PDFs,
- * and apply them to company records without overwriting conflicts silently.
- */
-
 import type {
   CompanyWebsiteConfidence,
   CompanyWebsiteSource,
@@ -142,7 +137,6 @@ export function extractWebsiteFromDocumentText(
   return extractWebsiteFromPages([{ page: 1, text: documentText }], companyName);
 }
 
-/** Save a website on a company, flag conflicts instead of overwriting silently. */
 export function applyWebsiteToCompany(
   company: PortfolioCompany,
   input: {
@@ -213,7 +207,6 @@ export function applyWebsiteToCompany(
   };
 }
 
-/** Short text explaining where a company's website value came from. */
 export function formatWebsiteProvenance(company: PortfolioCompany): string | null {
   if (!company.websiteUrl) return null;
   if (company.websiteSource === "manual") return "Added manually";

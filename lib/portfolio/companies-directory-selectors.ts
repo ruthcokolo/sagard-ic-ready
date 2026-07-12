@@ -1,8 +1,3 @@
-/**
- * Build rows and filters for the Companies directory: search, sort,
- * reporting health, and CSV export.
- */
-
 import { formatCompanyDisplayName } from "./company-identity";
 import { normalizeCompanyName } from "./company-normalize";
 import { periodSortKey } from "./metric-comparison";
@@ -71,12 +66,10 @@ const HEALTH_SORT_RANK: Record<DirectoryReportingHealth, number> = {
   "On track": 5,
 };
 
-/** Return every company in the portfolio. */
 export function getAllCompanies(state: PortfolioState): PortfolioCompany[] {
   return state.companies;
 }
 
-/** List all report packages uploaded for one company. */
 export function getCompanyPackages(
   state: PortfolioState,
   companyId: string
@@ -101,7 +94,6 @@ export function getCompanyLatestPackage(
   })[0];
 }
 
-/** Return the most recent report period label for a company. */
 export function getCompanyLatestReportPeriod(
   state: PortfolioState,
   companyId: string
@@ -109,7 +101,6 @@ export function getCompanyLatestReportPeriod(
   return getCompanyLatestPackage(state, companyId)?.reportPeriod ?? null;
 }
 
-/** Count how many reports a company has uploaded. */
 export function getCompanyReportsReceivedCount(
   state: PortfolioState,
   companyId: string
@@ -117,7 +108,6 @@ export function getCompanyReportsReceivedCount(
   return getCompanyPackages(state, companyId).length;
 }
 
-/** Return metric coverage from the company's latest successfully processed report. */
 export function getCompanyLatestCoverage(
   state: PortfolioState,
   companyId: string
@@ -127,7 +117,6 @@ export function getCompanyLatestCoverage(
   return latest.coverage;
 }
 
-/** Count metrics still waiting for review on the company's latest report. */
 export function getCompanyNeedsValidationCount(
   state: PortfolioState,
   companyId: string
@@ -137,7 +126,6 @@ export function getCompanyNeedsValidationCount(
   return getPackageReviewSummary(state, latest.id).needsValidation;
 }
 
-/** Decide whether a company is on track, overdue, missing reports, or needs review. */
 export function getCompanyReportingHealth(
   state: PortfolioState,
   companyId: string
@@ -165,7 +153,6 @@ export function getCompanyReportingHealth(
   return "On track";
 }
 
-/** Return true if a company has validation, processing, or website issues to fix. */
 export function companyNeedsAttention(
   state: PortfolioState,
   companyId: string
@@ -183,7 +170,6 @@ export function companyNeedsAttention(
   return false;
 }
 
-/** Build one row of data for the companies directory table. */
 export function buildCompanyDirectoryRow(
   state: PortfolioState,
   company: PortfolioCompany
@@ -205,7 +191,6 @@ export function buildCompanyDirectoryRow(
   };
 }
 
-/** Build headline counts for the companies directory (total, active, needs attention). */
 export function getCompanyDirectorySummary(state: PortfolioState) {
   const companies = state.companies;
   const total = companies.length;
@@ -244,7 +229,6 @@ function matchesSearch(row: CompanyDirectoryRow, search: string): boolean {
   return haystacks.some((h) => h.includes(q));
 }
 
-/** Apply search, filters, and sort to produce the visible directory rows. */
 export function getFilteredCompanyDirectoryRows(
   state: PortfolioState,
   filters: CompanyDirectoryFilters
@@ -296,7 +280,6 @@ export function getFilteredCompanyDirectoryRows(
   return rows;
 }
 
-/** List investment statuses that at least one company in the portfolio uses. */
 export function getInvestmentStatusesInUse(
   companies: PortfolioCompany[]
 ): PortfolioCompany["status"][] {
@@ -311,7 +294,6 @@ export function getInvestmentStatusesInUse(
   return order.filter((s) => present.has(s));
 }
 
-/** Turn directory rows into a CSV string for download. */
 export function buildCompanyDirectoryCsv(rows: CompanyDirectoryRow[]): string {
   const headers = [
     "company_name",
@@ -352,7 +334,6 @@ export function buildCompanyDirectoryCsv(rows: CompanyDirectoryRow[]): string {
   return lines.join("\n");
 }
 
-/** Fill in normalizedName on a company if it is missing (for duplicate matching). */
 export function ensureNormalizedCompanyName(
   company: PortfolioCompany
 ): PortfolioCompany {

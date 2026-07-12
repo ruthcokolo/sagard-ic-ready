@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Table comparing the same metric across multiple companies side by side.
- */
 import { useEffect, useMemo, useState } from "react";
 import type { ComparableMetricRow } from "@/lib/portfolio/metrics-explorer-selectors";
 import { metricRowDedupeKey } from "@/lib/portfolio/metrics-explorer-selectors";
@@ -121,7 +118,6 @@ function MobileResultCard({
   );
 }
 
-/** Side-by-side metric comparison table across companies. */
 export function MetricsComparisonTable({
   rows,
   onViewEvidence,

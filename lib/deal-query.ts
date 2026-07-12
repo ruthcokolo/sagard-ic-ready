@@ -1,8 +1,3 @@
-/**
- * Filter, sort, and paginate pipeline deals — plus helpers for
- * figuring out which workflow step a deal is on.
- */
-
 import type { DealStage, PipelineDeal, ReadinessStatus } from "@/lib/deal-types";
 
 export type SortField = "newest" | "name" | "readiness" | "arr" | "updated";
@@ -39,20 +34,17 @@ export const DEMO_PAGE_SIZES = {
   icQueue: [6, 25, 50] as const,
 };
 
-/** Figures out whether a deal needs blocker fixes, draft review, or a final decision. */
 export function getWorkflowStep(deal: PipelineDeal): WorkflowStep {
   if (deal.conflictCount > 0 || deal.readinessStatus === "blocked") return "conflicts";
   if (deal.readinessStatus === "ready") return "decision";
   return "draft";
 }
 
-/** Pulls the dollar amount out of strings like "$12.0M" so deals can be sorted by ARR. */
 export function parseArr(arr: string): number {
   const n = parseFloat(arr.replace(/[^0-9.]/g, ""));
   return Number.isFinite(n) ? n : 0;
 }
 
-/** Returns true when a deal matches a free-text search across name, sector, owner, and tags. */
 export function matchesQuery(deal: PipelineDeal, q: string): boolean {
   const query = q.trim().toLowerCase();
   if (!query) return true;
@@ -65,7 +57,6 @@ export function matchesQuery(deal: PipelineDeal, q: string): boolean {
   );
 }
 
-/** Keeps only deals that pass all active filter settings (stage, owner, readiness, etc.). */
 export function filterDeals(deals: PipelineDeal[], f: DealFilters, currentUser?: string): PipelineDeal[] {
   return deals.filter((d) => {
     if (!matchesQuery(d, f.q)) return false;
@@ -80,7 +71,6 @@ export function filterDeals(deals: PipelineDeal[], f: DealFilters, currentUser?:
   });
 }
 
-/** Orders deals by name, readiness score, ARR, or how recently they were added. */
 export function sortDeals(deals: PipelineDeal[], field: SortField, dir: SortDir): PipelineDeal[] {
   const sorted = [...deals];
   const mul = dir === "asc" ? 1 : -1;
@@ -102,7 +92,6 @@ export function sortDeals(deals: PipelineDeal[], field: SortField, dir: SortDir)
   return sorted;
 }
 
-/** Splits a list into pages and returns the current slice plus page metadata. */
 export function paginate<T>(items: T[], page: number, pageSize: number) {
   const total = items.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
@@ -118,7 +107,6 @@ export function paginate<T>(items: T[], page: number, pageSize: number) {
   };
 }
 
-/** Counts how many deals sit in each pipeline stage (screening, diligence, etc.). */
 export function countByStage(deals: PipelineDeal[]): Record<DealStage, number> {
   return {
     screening: deals.filter((d) => d.stage === "screening").length,
@@ -128,7 +116,6 @@ export function countByStage(deals: PipelineDeal[]): Record<DealStage, number> {
   };
 }
 
-/** Returns deals that belong in the IC review queue (blocked, ready, or in committee prep). */
 export function icQueueDeals(deals: PipelineDeal[]): PipelineDeal[] {
   return deals.filter(
     (d) =>

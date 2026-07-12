@@ -1,7 +1,3 @@
-/**
- * Cookie names, session TTL, and seeded demo accounts for local authentication.
- */
-
 import type { AccountRecord } from "./auth-types";
 
 export const SESSION_COOKIE = "icready_session";

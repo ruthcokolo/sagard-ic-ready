@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Missing-metric card and company message composer for outreach emails.
- */
 import { useMemo, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -19,7 +16,6 @@ import {
 import { hasPortfolioPermission } from "@/lib/portfolio/portfolio-permissions";
 import type { CompanyCommunication } from "@/lib/portfolio/monitoring-phase-types";
 
-/** Renders the missing metric card UI. */
 export function MissingMetricCard({
   companyId,
   companyName,
@@ -85,7 +81,6 @@ export function MissingMetricCard({
   );
 }
 
-/** Renders the company message composer UI. */
 export function CompanyMessageComposer({
   open,
   onClose,

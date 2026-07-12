@@ -37,7 +37,6 @@ export type PdfExtractionResult = {
  */
 let pdfExtractQueue: Promise<void> = Promise.resolve();
 
-/** Run one PDF read at a time so the PDF library does not mix up page counts. */
 function withPdfExtractLock<T>(fn: () => Promise<T>): Promise<T> {
   const run = pdfExtractQueue.then(fn, fn);
   pdfExtractQueue = run.then(
@@ -85,7 +84,6 @@ async function readPdfPagesFromBuffer(buffer: Uint8Array): Promise<PageText[]> {
   });
 }
 
-/** Server-side PDF metric extraction — no web worker required. */
 export async function extractMetricsFromPdfBuffer(
   buffer: Uint8Array,
   fileName: string,

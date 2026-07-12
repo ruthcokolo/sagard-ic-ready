@@ -1,9 +1,6 @@
-/** Key deal metrics grid (revenue, growth, etc.) from synced sources. */
-
 import type { PipelineDeal } from "@/lib/deal-types";
 import { getDealSnapshotMetrics, type SnapshotMetric } from "@/lib/company-sources";
 
-/** Renders snapshot KPI tiles with pending-state placeholders. */
 export function DealSnapshotSection({
   deal,
   analysisPending,

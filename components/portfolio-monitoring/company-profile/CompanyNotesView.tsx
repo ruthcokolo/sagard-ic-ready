@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Tab view for internal notes about a company.
- */
 import { useState } from "react";
 import {
   CompanyProfileEmptyState,
@@ -21,7 +18,6 @@ type Props = {
   autoFocusCompose?: boolean;
 };
 
-/** Internal notes tab on the company profile. */
 export function CompanyNotesView({
   notes,
   currentUserId,

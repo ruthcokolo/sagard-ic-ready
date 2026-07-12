@@ -1,8 +1,3 @@
-/**
- * Selectors for the metrics explorer: filter companies and periods, compare
- * approved metrics across the portfolio, and build comparison table rows.
- */
-
 import type {
   ExtractedMetric,
   MetricName,
@@ -71,7 +66,6 @@ function unitProfile(unit: string): UnitProfile {
   return { kind: "other", normalized: trimmed.toLowerCase() };
 }
 
-/** True when two unit strings mean the same kind of value (e.g. both USD). */
 export function areUnitsCompatible(a: string, b: string): boolean {
   const pa = unitProfile(a);
   const pb = unitProfile(b);
@@ -89,7 +83,6 @@ function getDominantUnit(rows: ExtractedMetric[]): string | null {
   return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? null;
 }
 
-/** Packages that finished extraction successfully. */
 export function getProcessedPackages(state: PortfolioState): ReportingPackage[] {
   return state.packages.filter((p) => p.status === "Processed");
 }
@@ -103,7 +96,6 @@ function processedMetrics(state: PortfolioState): ExtractedMetric[] {
   return state.metrics.filter((m) => ids.has(m.packageId));
 }
 
-/** True when the portfolio has at least one processed package with metrics. */
 export function hasProcessedPortfolioData(state: PortfolioState): boolean {
   const packages = getProcessedPackages(state);
   if (packages.length === 0) return false;
@@ -111,7 +103,6 @@ export function hasProcessedPortfolioData(state: PortfolioState): boolean {
   return state.metrics.some((m) => ids.has(m.packageId));
 }
 
-/** Companies that have at least one successfully processed report. */
 export function getProcessedCompanies(state: PortfolioState): PortfolioCompany[] {
   const processedIds = new Set(getProcessedPackages(state).map((p) => p.companyId));
   return state.companies.filter((c) => processedIds.has(c.id));
@@ -179,7 +170,6 @@ export function dedupeMetricRows(rows: ComparableMetricRow[]): ComparableMetricR
   return [...byKey.values()];
 }
 
-/** Metric names that have at least one eligible row in processed packages. */
 export function getAvailableMetrics(state: PortfolioState): string[] {
   const found = new Set<string>();
   for (const metric of processedMetrics(state)) {
@@ -193,7 +183,6 @@ export function getAvailableMetrics(state: PortfolioState): string[] {
   return catalog.filter((name) => found.has(name));
 }
 
-/** Reporting periods present in processed packages and metrics, newest first. */
 export function getAvailablePeriods(state: PortfolioState): string[] {
   const periods = new Set<string>();
   for (const pkg of getProcessedPackages(state)) {
@@ -205,7 +194,6 @@ export function getAvailablePeriods(state: PortfolioState): string[] {
   return [...periods].sort().reverse();
 }
 
-/** Sectors that appear among companies with processed reports. */
 export function getAvailableSectors(state: PortfolioState): string[] {
   return getActivePortfolioSectors(getProcessedCompanies(state));
 }
@@ -243,7 +231,6 @@ export function getEligibleCompanies(
     .sort((a, b) => a.name.localeCompare(b.name));
 }
 
-/** Company ids that match the current metric, period, and sector filters. */
 export function getAvailableCompanyIds(
   state: PortfolioState,
   filters: EligibilityFilters
@@ -259,7 +246,6 @@ export function getEffectiveCompanyIds(
   return selectedCompanyIds.length > 0 ? selectedCompanyIds : availableCompanyIds;
 }
 
-/** Drop selected companies that no longer match filters; return what was removed. */
 export function pruneIneligibleSelections(
   state: PortfolioState,
   selectedCompanyIds: string[],
@@ -282,7 +268,6 @@ export function pruneIneligibleSelections(
   return { nextIds, removed };
 }
 
-/** Build comparison table rows, chart data, and excluded-company messages. */
 export function getComparisonResults(
   state: PortfolioState,
   options: EligibilityFilters & {
@@ -393,7 +378,6 @@ function sortComparableRows(
   }
 }
 
-/** Rows safe to export — only metrics approved for reporting. */
 export function getApprovedExportRows(rows: ComparableMetricRow[]): ComparableMetricRow[] {
   return rows.filter((row) => row.status === "Approved for reporting");
 }

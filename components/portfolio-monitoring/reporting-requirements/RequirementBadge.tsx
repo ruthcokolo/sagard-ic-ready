@@ -1,8 +1,5 @@
 "use client";
 
-/**
- * Colored badge showing requirement status (required, optional, etc.).
- */
 import type { MetricRequirement } from "@/lib/portfolio/monitoring-phase-types";
 import { requirementLabel } from "@/lib/portfolio/metric-applicability";
 
@@ -13,7 +10,6 @@ const BADGE: Record<MetricRequirement, string> = {
   not_configured: "bg-stone-100 text-stone-600 ring-stone-200",
 };
 
-/** Badge showing if a metric is required, optional, or not configured. */
 export function RequirementBadge({
   requirement,
   className = "",

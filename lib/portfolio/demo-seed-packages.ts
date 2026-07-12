@@ -1,7 +1,3 @@
-/**
- * Seed demo reporting packages into portfolio state when demo mode is enabled.
- */
-
 import type { PortfolioCompany, ReportingPackage } from "./types";
 import { getDemoReportByFileName } from "./demo-report-catalog";
 

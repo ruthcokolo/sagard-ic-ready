@@ -1,8 +1,3 @@
-/**
- * Rules for which metrics each company should report: sector defaults,
- * company overrides, and how missing values are labeled.
- */
-
 import type { MetricName } from "./types";
 import { ALL_METRICS } from "./types";
 import type {
@@ -106,7 +101,6 @@ export const SECTOR_METRIC_DEFAULTS: Record<
   },
 };
 
-/** Build default expectation records for every metric in one sector. */
 export function buildSectorDefaultExpectations(sector: string): MetricExpectation[] {
   const key = mapPortfolioSectorToExpectationKey(sector);
   const defaults = SECTOR_METRIC_DEFAULTS[key] ?? {};
@@ -163,7 +157,6 @@ export function getMetricExpectation(
   );
 }
 
-/** List the effective expectation for every standard metric at one company. */
 export function getExpectedMetricsForCompany(
   expectations: MetricExpectation[],
   companyId: string,
@@ -174,7 +167,6 @@ export function getExpectedMetricsForCompany(
   );
 }
 
-/** Decide the status label when a metric was or was not found, given what was required. */
 export function classifyMetricResolution(input: {
   requirement: MetricRequirement;
   found: boolean;
@@ -205,7 +197,6 @@ export function classifyMetricResolution(input: {
   return "Needs clarification";
 }
 
-/** Create a company-specific override for one metric's reporting requirement. */
 export function createCompanyOverride(input: {
   companyId: string;
   metricName: string;
@@ -227,7 +218,6 @@ export function createCompanyOverride(input: {
   };
 }
 
-/** Create or update a sector-wide default requirement for one metric. */
 export function createSectorRequirement(input: {
   sector: string;
   metricName: string;

@@ -1,6 +1,5 @@
 "use client";
 
-/** Pipeline page composing summary cards, filters, table, and pagination. */
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { pipelineDeals } from "@/lib/deals-pipeline";
@@ -20,7 +19,6 @@ import { PipelineFilterBar } from "@/components/pipeline/PipelineFilterBar";
 import { PipelineTable } from "@/components/pipeline/PipelineTable";
 import { PipelinePagination } from "@/components/pipeline/PipelinePagination";
 
-/** Full pipeline page with cards, filters, and deal table. */
 export function PipelineBoardView() {
   const searchParams = useSearchParams();
   const [filters, setFilters] = useState<DealFilters>(DEFAULT_FILTERS);

@@ -1,13 +1,10 @@
 "use client";
 
-/** Company header with back nav, run-analysis action, and readiness badges. */
-
 import Link from "next/link";
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { AnalysisResult } from "@/lib/types";
 import { IconClock } from "@/components/ui/Icons";
 
-/** Top-of-page header for company diligence with status and actions. */
 export function CompanyPortfolioHeader({
   deal,
   analysis,

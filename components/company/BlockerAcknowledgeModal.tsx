@@ -1,5 +1,3 @@
-/** Modal to acknowledge a blocking conflict before proceeding with IC review. */
-
 export function BlockerAcknowledgeModal({
   open,
   blockerCount,

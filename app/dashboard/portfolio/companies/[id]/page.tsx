@@ -1,8 +1,6 @@
-/** Route: `/dashboard/portfolio/companies/[id]` — one company's profile and metrics. */
 import { Suspense } from "react";
 import { CompanyDetailView } from "@/components/portfolio-monitoring/CompanyDetailView";
 
-/** Loads a single portfolio company profile by ID. */
 export default async function PortfolioCompanyDetailPage({
   params,
 }: {

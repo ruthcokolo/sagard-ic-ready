@@ -1,8 +1,5 @@
-/** AI-generated one-pager draft for the IC package. */
-
 import type { AnalysisResult } from "@/lib/types";
 
-/** Renders the draft one pager UI. */
 export function DraftOnePager({ analysis }: { analysis: AnalysisResult }) {
   const { onePager } = analysis;
 

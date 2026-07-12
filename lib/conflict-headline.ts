@@ -1,17 +1,10 @@
-/**
- * Turns a raw conflict into a short headline like "Annual revenue mismatch: $12M vs $9M"
- * so users can scan the queue without reading full details.
- */
-
 import type { Contradiction } from "@/lib/types";
 
-/** Pulls a percentage out of a value string (e.g. "42% revenue" → "42%"). */
 function extractPercent(value: string): string | null {
   const match = value.match(/(\d+(?:\.\d+)?)\s*%/);
   return match ? `${match[1]}%` : null;
 }
 
-/** Pulls a runway length in months from strings like "22mo runway". */
 function extractRunwayMonths(value: string): string | null {
   const mo = value.match(/(\d+)\s*mo(?:nth)?(?:\s|$|runway)/i);
   if (mo) return `${mo[1]} months`;
@@ -20,7 +13,6 @@ function extractRunwayMonths(value: string): string | null {
   return null;
 }
 
-/** Maps a conflict field name to a plain-English mismatch label. */
 function mismatchLabel(field: string): string {
   const f = field.toLowerCase();
   if (f.includes("arr")) return "Annual revenue mismatch";

@@ -4,6 +4,9 @@
  */
 
 import "./dom-matrix-polyfill";
+import path from "path";
+import { createRequire } from "module";
+import { pathToFileURL } from "url";
 import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 import { pdfItemsToPageText } from "./pdf-text";
 import {
@@ -31,6 +34,24 @@ export type PdfExtractionResult = {
   sector: string;
   warning?: string;
 };
+
+/** Point pdf.js at its worker file so Node/Vercel can parse PDFs. */
+function ensurePdfWorker(): void {
+  if (pdfjs.GlobalWorkerOptions.workerSrc) return;
+  try {
+    const require = createRequire(import.meta.url);
+    const workerPath = require.resolve("pdfjs-dist/legacy/build/pdf.worker.mjs");
+    pdfjs.GlobalWorkerOptions.workerSrc = pathToFileURL(workerPath).href;
+  } catch {
+    const fallback = path.join(
+      process.cwd(),
+      "node_modules/pdfjs-dist/legacy/build/pdf.worker.mjs"
+    );
+    pdfjs.GlobalWorkerOptions.workerSrc = pathToFileURL(fallback).href;
+  }
+}
+
+ensurePdfWorker();
 
 /**
  * Only one PDF can be read at a time in this process.

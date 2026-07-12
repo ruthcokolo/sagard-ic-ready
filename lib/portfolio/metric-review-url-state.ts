@@ -228,8 +228,9 @@ export function queueFilterSummaryChips(filters: ReviewQueueFilters): string[] {
   if (filters.extractionFailuresOnly) chips.push("Extraction failures");
   if (filters.sector !== "all") chips.push(filters.sector);
   if (filters.status !== "all") chips.push(filters.status);
-  if (filters.quickView === "remaining") chips.push("Remaining");
-  if (filters.quickView === "in-review") chips.push("In review");
+  if (filters.quickView === "remaining" || filters.quickView === "in-review") {
+    chips.push("In review");
+  }
   if (filters.quickView === "blocked") chips.push("Blocked");
   if (filters.quickView === "completed") chips.push("Completed");
   return chips;

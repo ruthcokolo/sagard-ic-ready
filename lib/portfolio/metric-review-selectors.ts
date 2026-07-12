@@ -279,13 +279,11 @@ function packageMatchesFilters(
   const isInReview = unresolvedCount > 0 && pkg.status !== "Failed";
 
   const quickView = filters.quickView ?? "all";
-  if (quickView === "remaining" && isComplete) return false;
-  if (quickView === "remaining" && !isInReview && !isBlocked && pkg.status !== "Processing") {
-    return false;
-  }
-  if (quickView === "in-review" && !isInReview) return false;
-  if (quickView === "blocked" && !isBlocked) return false;
-  if (quickView === "completed" && !isComplete) return false;
+  // Legacy "remaining" is the same as "in-review" — keep both keys for old URLs/state.
+  const effectiveQuickView = quickView === "remaining" ? "in-review" : quickView;
+  if (effectiveQuickView === "in-review" && !isInReview) return false;
+  if (effectiveQuickView === "blocked" && !isBlocked) return false;
+  if (effectiveQuickView === "completed" && !isComplete) return false;
 
   if (filters.status !== "all") {
     const unresolved = unresolvedCount > 0;
@@ -388,7 +386,8 @@ export function getQueueQuickViewCounts(
     );
   return {
     all: countFor("all"),
-    remaining: countFor("remaining"),
+    // Kept for type compatibility; same meaning as in-review.
+    remaining: countFor("in-review"),
     "in-review": countFor("in-review"),
     blocked: countFor("blocked"),
     completed: countFor("completed"),

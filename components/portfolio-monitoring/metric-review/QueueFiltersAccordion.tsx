@@ -15,7 +15,6 @@ const selectClass =
 type Chip = { key: string; label: string; clear: Partial<ReviewQueueFilters> };
 
 const QUICK_VIEW_CHIP_LABELS: Partial<Record<ReviewQueueQuickView, string>> = {
-  remaining: "Remaining",
   "in-review": "In review",
   blocked: "Blocked",
   completed: "Completed",
@@ -99,7 +98,6 @@ export function QueueFiltersAccordion({
 
   const quickViews: { id: ReviewQueueQuickView; label: string }[] = [
     { id: "all", label: "All" },
-    { id: "remaining", label: "Remaining" },
     { id: "in-review", label: "In review" },
     { id: "blocked", label: "Blocked" },
     { id: "completed", label: "Completed" },

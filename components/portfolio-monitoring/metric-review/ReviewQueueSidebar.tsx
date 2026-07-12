@@ -189,7 +189,7 @@ export function ReviewQueueSidebar({
               {assignedCount > 0
                 ? `${assignedCount} assigned to you`
                 : unresolvedTotal > 0
-                  ? `${unresolvedTotal} remaining`
+                  ? `${unresolvedTotal} in review`
                   : "No items in queue"}
             </p>
             <p className="mt-0.5 text-[11px] text-stone-500">

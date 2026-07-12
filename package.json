@@ -1,0 +1,36 @@
+{
+  "name": "sagard-ic-ready",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "npm run copy:pdf-worker && next build",
+    "copy:pdf-worker": "mkdir -p public/pdf && cp node_modules/pdfjs-dist/legacy/build/pdf.worker.min.mjs public/pdf/pdf.worker.min.mjs && cp node_modules/pdfjs-dist/legacy/build/pdf.min.mjs public/pdf/pdf.min.mjs",
+    "postinstall": "npm run copy:pdf-worker",
+    "start": "next start",
+    "lint": "next lint",
+    "generate:sample-pdfs": "tsx scripts/generate-sample-pdfs.ts",
+    "generate:template-pdfs": "tsx scripts/generate-template-pdfs.ts",
+    "generate:demo-reports": "tsx scripts/generate-demo-reports.ts",
+    "generate:all-pdfs": "npm run generate:sample-pdfs && npm run generate:template-pdfs && npm run generate:demo-reports",
+    "test:monitoring": "tsx scripts/test-monitoring-phase.ts"
+  },
+  "dependencies": {
+    "jszip": "^3.10.1",
+    "next": "^15.1.0",
+    "pdfjs-dist": "^5.4.624",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "pdf-lib": "^1.17.1",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.16",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

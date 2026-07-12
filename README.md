@@ -24,6 +24,8 @@ This repository implements the **crawl** phase of a crawl → walk → run roadm
 
 **GitHub:** [https://github.com/ruthcokolo/sagard-ic-ready](https://github.com/ruthcokolo/sagard-ic-ready)
 
+**Short written note (approach · assumptions · next steps):** [SUBMISSION.md](./SUBMISSION.md)
+
 > **Reviewer path:** **Use demo account (Alex Rivera)** → **Sign in** → **Switch to Portfolio**
 
 ---

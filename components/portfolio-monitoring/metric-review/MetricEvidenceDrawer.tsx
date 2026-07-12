@@ -90,6 +90,7 @@ export function MetricEvidenceDrawer({
   });
   const page = metric.sourcePage || 1;
   const hasEvidence = Boolean(metric.evidenceText?.trim());
+  const needsReview = metric.status === "Needs validation";
   const isFoundValue = ![
     "Missing from report",
     "Optional metric not reported",
@@ -127,16 +128,20 @@ export function MetricEvidenceDrawer({
         if (dialog) setDialog(null);
         else onClose();
       } else if (e.key === "a" || e.key === "A") {
+        if (!needsReview) return;
         if (isFoundValue && hasEvidence && !evidenceLocated) return;
         e.preventDefault();
         onApprove();
       } else if (e.key === "e" || e.key === "E") {
+        if (!needsReview) return;
         e.preventDefault();
         onEdit();
       } else if (e.key === "r" || e.key === "R") {
+        if (!needsReview) return;
         e.preventDefault();
         setDialog("reject");
       } else if (e.key === "m" || e.key === "M") {
+        if (!needsReview) return;
         e.preventDefault();
         setDialog("missing");
       } else if (e.key === "j" || e.key === "J") {
@@ -147,7 +152,7 @@ export function MetricEvidenceDrawer({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [dialog, onApprove, onClose, onEdit, onNextUnresolved, onPrevUnresolved, isFoundValue, hasEvidence, evidenceLocated]);
+  }, [dialog, onApprove, onClose, onEdit, onNextUnresolved, onPrevUnresolved, isFoundValue, hasEvidence, evidenceLocated, needsReview]);
 
   return (
     <>
@@ -391,48 +396,63 @@ export function MetricEvidenceDrawer({
 
         {/* Sticky footer */}
         <footer className="sticky bottom-0 z-10 border-t border-stone-200 bg-white/95 px-4 py-3 backdrop-blur">
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <button
-              type="button"
-              onClick={onApprove}
-              disabled={isFoundValue && hasEvidence && !evidenceLocated}
-              title={
-                isFoundValue && hasEvidence && !evidenceLocated
-                  ? "Approve is blocked until evidence is highlighted on the PDF"
-                  : undefined
-              }
-              className="rounded-lg bg-emerald-700 px-3 py-2 text-[12px] font-semibold text-white hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-40 sm:col-span-1"
-            >
-              Approve
-            </button>
-            <button
-              type="button"
-              onClick={onEdit}
-              className="rounded-lg border border-stone-200 bg-white px-3 py-2 text-[12px] font-semibold text-stone-800 hover:bg-stone-50"
-            >
-              Edit value
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setReason("");
-                setDialog("reject");
-              }}
-              className="rounded-lg border border-red-200 bg-white px-3 py-2 text-[12px] font-semibold text-red-700 hover:bg-red-50"
-            >
-              Reject
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setReason("");
-                setDialog("missing");
-              }}
-              className="rounded-lg border border-stone-200 bg-white px-3 py-2 text-[12px] font-semibold text-stone-800 hover:bg-stone-50"
-            >
-              Mark missing
-            </button>
-          </div>
+          {needsReview ? (
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <button
+                type="button"
+                onClick={onApprove}
+                disabled={isFoundValue && hasEvidence && !evidenceLocated}
+                title={
+                  isFoundValue && hasEvidence && !evidenceLocated
+                    ? "Approve is blocked until evidence is highlighted on the PDF"
+                    : undefined
+                }
+                className="rounded-lg bg-emerald-700 px-3 py-2 text-[12px] font-semibold text-white hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-40 sm:col-span-1"
+              >
+                Approve
+              </button>
+              <button
+                type="button"
+                onClick={onEdit}
+                className="rounded-lg border border-stone-200 bg-white px-3 py-2 text-[12px] font-semibold text-stone-800 hover:bg-stone-50"
+              >
+                Edit value
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setReason("");
+                  setDialog("reject");
+                }}
+                className="rounded-lg border border-red-200 bg-white px-3 py-2 text-[12px] font-semibold text-red-700 hover:bg-red-50"
+              >
+                Reject
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setReason("");
+                  setDialog("missing");
+                }}
+                className="rounded-lg border border-stone-200 bg-white px-3 py-2 text-[12px] font-semibold text-stone-800 hover:bg-stone-50"
+              >
+                Mark missing
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between gap-3">
+              <p className={`text-[12px] font-semibold ${statusTone(displayStatus)}`}>
+                {displayStatus}
+              </p>
+              <button
+                type="button"
+                onClick={onClose}
+                className="rounded-lg bg-[#7a3344] px-3 py-2 text-[12px] font-semibold text-white hover:bg-[#63202e]"
+              >
+                Close
+              </button>
+            </div>
+          )}
         </footer>
       </aside>
 

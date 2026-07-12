@@ -495,7 +495,8 @@ export function getNextUnresolvedMetric(
   packageId: string,
   state: PortfolioState,
   currentMetricId?: string | null,
-  preferLowConfidence = false
+  preferLowConfidence = false,
+  wrap = false
 ): ExtractedMetric | null {
   let pool = getPackageMetrics(state, packageId).filter(isUnresolved);
   if (preferLowConfidence) {
@@ -505,7 +506,15 @@ export function getNextUnresolvedMetric(
   if (pool.length === 0) return null;
   if (!currentMetricId) return pool[0];
   const idx = pool.findIndex((m) => m.id === currentMetricId);
-  return pool[idx + 1] ?? pool[0];
+  if (idx === -1) return pool[0];
+  if (idx + 1 < pool.length) return pool[idx + 1];
+  // At the end of the queue: optionally wrap to another metric, never to the same one.
+  // (Important after approve — state can still list the current metric as unresolved.)
+  if (wrap) {
+    const others = pool.filter((m) => m.id !== currentMetricId);
+    return others[0] ?? null;
+  }
+  return null;
 }
 
 export function getPreviousUnresolvedMetric(

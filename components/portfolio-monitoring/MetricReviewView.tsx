@@ -13,10 +13,12 @@ import {
   getFilteredPackageMetrics,
   getNextUnresolvedMetric,
   getPreviousUnresolvedMetric,
+  getPackageMetrics,
   getPackageReviewItem,
   getPackageReviewSummary,
   getNextReviewPackage,
   getPreviousReviewPackage,
+  isUnresolved,
   type MetricReviewTab,
   type NavigatorSort,
   type ReviewQueueFilters,
@@ -348,6 +350,8 @@ export function MetricReviewView() {
     }
     if (!completionDismissed) {
       setShowCompletion(true);
+      // Close evidence so completion and the Approve footer are not both visible.
+      setSelectedMetricId(null);
     }
   }, [state, selectedPackageId, selectedPackage, completionDismissed]);
 
@@ -382,9 +386,18 @@ export function MetricReviewView() {
 
   const advanceAfterAction = useCallback(
     (packageId: string, currentMetricId: string | null) => {
-      if (!autoAdvance) return;
+      const remainingOthers = getPackageMetrics(state, packageId).filter(
+        (m) => m.id !== currentMetricId && isUnresolved(m)
+      );
+
+      if (!autoAdvance) {
+        // Stay on the current metric unless the package is now fully reviewed.
+        if (remainingOthers.length === 0) setSelectedMetricId(null);
+        return;
+      }
+
       const next = getNextUnresolvedMetric(packageId, state, currentMetricId);
-      if (next) setSelectedMetricId(next.id);
+      if (next && next.id !== currentMetricId) setSelectedMetricId(next.id);
       else setSelectedMetricId(null);
     },
     [autoAdvance, state]
@@ -673,6 +686,7 @@ export function MetricReviewView() {
                     selectedPackageId,
                     state,
                     selectedMetricId,
+                    true,
                     true
                   );
                   if (next) setSelectedMetricId(next.id);
@@ -729,7 +743,9 @@ export function MetricReviewView() {
                 const next = getNextUnresolvedMetric(
                   selectedPackageId,
                   state,
-                  selectedMetricId
+                  selectedMetricId,
+                  false,
+                  true
                 );
                 if (next) setSelectedMetricId(next.id);
               }}

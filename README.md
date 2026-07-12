@@ -3,9 +3,11 @@
 **Sagard Forward Deployed Engineer (FDE) technical challenge**  
 *Portfolio Metrics Extraction — crawl-phase proof of concept*
 
-ICReady is a working end-to-end demonstration of how Sagard can turn messy portfolio-company PDF reporting packages into structured, reviewable metrics — then validate evidence and export approved numbers for analysis.
+ICReady is an end-to-end proof of concept for turning portfolio-company PDF reports into structured, reviewable metrics. It ingests reporting packages, extracts six core metrics with source evidence, routes results through human validation, and exports approved values for analysis.
 
 This repository implements the **crawl** phase of a crawl → walk → run roadmap: extract a meaningful subset of metrics from real PDFs, organize them for associate review, and make the next-step path to production obvious.
+
+**Core metrics:** Revenue, ARR, EBITDA, Cash, Headcount, and Churn.
 
 ---
 
@@ -38,17 +40,7 @@ Open **[http://localhost:3001](http://localhost:3001)**.
 
 Alternate account: `jordan.lee@sagard.com` / `ICReady`.
 
-### How to navigate to Portfolio Monitoring
-
-> **Reviewer path (exact clicks):**  
-> **Use demo account (Alex Rivera)** → **Sign in** → **Switch to Portfolio**
-
-1. On the login screen, click **Use demo account (Alex Rivera)** — this fills the demo credentials.
-2. Click **Sign in**.
-3. On the IC Diligence dashboard, click **Switch to Portfolio** (top right).
-4. You land on **Portfolio Overview** at `/dashboard/portfolio` — this is the challenge deliverable surface.
-
-From there:
+After sign-in, click **Switch to Portfolio** (top right) to open Portfolio Monitoring at `/dashboard/portfolio`.
 
 | Go to | To do |
 |-------|--------|
@@ -77,11 +69,11 @@ This POC shows how software can:
 
 ### Design principles
 
-1. **Focused scope, complete workflow** — ICReady extracts six core metrics from selectable-text PDFs, routes each result through human validation, and flags uncertain or unsupported cases for review rather than making assumptions.
-2. **Evidence-first extraction** — every suggested value links back to the exact source page and supporting text, so associates can verify it before approval.
-3. **Designed for messy reporting** — company-specific layouts, metric aliases, missing values, duplicates, and uncertain company matches are treated as core workflow states rather than exceptions.
-4. **A product-shaped POC** — a reviewable interface demonstrates the full associate workflow more clearly than a notebook output, from extraction to evidence review and approval.
-5. **Honest boundaries** — no fake OCR, no pretend email send, no fabricated production database. What looks real *is* real extraction; what is mocked is labeled.
+1. **Focused scope, complete workflow** — ICReady extracts six core metrics from selectable-text PDFs, routes every result through human validation, and flags uncertain or unsupported cases instead of guessing.
+2. **Evidence-first extraction** — every suggested value links to the exact source page and supporting text, so associates can verify it before approval.
+3. **Designed for messy reporting** — company-specific layouts, aliases, missing values, duplicates, and uncertain company matches are treated as core workflow states rather than exceptions.
+4. **A product-shaped POC** — the interface demonstrates how an associate would actually ingest, inspect, validate, and export metrics, rather than stopping at a notebook or raw JSON output.
+5. **Honest boundaries** — PDF text extraction, evidence matching, review, duplicate detection, and CSV export are implemented. OCR, outbound email, shared backend persistence, and production authentication are intentionally out of scope.
 
 ### Pipeline (high level)
 
@@ -159,12 +151,23 @@ IC Diligence mode (pipeline / IC readiness / Northwind demo) is included so the 
 
 ---
 
+## Out of scope for the crawl POC
+
+- OCR for scanned or image-only PDFs
+- Shared production database
+- Real outbound email delivery
+- Production-grade authentication and permissions
+- Full metric coverage across all sectors
+- Background job orchestration and monitoring
+
+---
+
 ## Assumptions
 
-1. **Selectable text PDFs** are the crawl baseline. Scanned/image-only PDFs are detected and flagged (`OCR required` / lower confidence); this POC does **not** run a real OCR engine.
+1. **Selectable-text PDFs are the crawl baseline.** Image-only or scanned PDFs are detected and flagged for future OCR processing; this POC does not attempt to extract metrics from them.
 2. **Core metrics appear with recognizable labels** somewhere in the document (tables, bullets, or prose). Exotic custom KPIs are out of scope until added as rules.
 3. **One active reporting package per company + period** is the default operating model; duplicates and revisions require an explicit associate decision.
-4. **Human validation is required** before metrics are export-trusted — automation proposes; associates dispose.
+4. **Human validation is required** before metrics are export-trusted — automation proposes; associates verify and approve.
 5. **Browser-local persistence is acceptable for a POC** (localStorage state, IndexedDB PDF blobs). Production would use a proper store and object storage.
 6. **Demo accounts are fixed** for interviewer convenience; password is `ICReady`.
 7. **Communications are templates**, not a mailer — the value is the workflow and copy, not inbox delivery.
@@ -277,4 +280,4 @@ Root directory of the Vercel project should be `sagard-ic-ready`.
 
 ---
 
-Built as a Sagard FDE take-home to show how a Forward Deployed Engineer turns an open-ended document problem into a scoped, demoable product with a clear path to production.
+Built as a Sagard FDE take-home to demonstrate how a Forward Deployed Engineer can turn an ambiguous document-processing problem into a scoped, evidence-driven workflow with a credible path to production.

@@ -1,15 +1,20 @@
 "use client";
 
 import Link from "next/link";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { ProductModeSwitch } from "@/components/portfolio-monitoring/PortfolioModeHeader";
+import { firstName } from "@/lib/auth-session";
 
 export function PortfolioOverviewHeader() {
+  const { user } = useAuth();
+  const name = user ? firstName(user.name) : "there";
+
   return (
     <header className="border-b border-stone-200/60 bg-white px-4 py-6 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="max-w-3xl">
           <h1 className="font-display text-[2.25rem] leading-tight text-stone-900 sm:text-[2.75rem] sm:leading-none">
-            Good morning, Alex 👋
+            Good morning, {name} 👋
           </h1>
           <p className="mt-2 text-[15px] leading-relaxed text-stone-500">
             Here&apos;s your portfolio reporting snapshot. Review priority items, track progress,

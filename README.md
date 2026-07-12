@@ -77,10 +77,10 @@ This POC shows how software can:
 
 ### Design principles
 
-1. **Crawl, don’t boil the ocean** — six core metrics, selectable-text PDFs, explicit human validation. Edge cases are surfaced, not silently guessed.
-2. **Evidence over magic** — every suggested value should be inspectable against the source page. Associates should never approve a number they cannot locate.
-3. **Messy documents are the product** — company-formatted layouts, alias dictionaries, missing metrics, duplicates, and low-confidence company matches are first-class.
-4. **Product-shaped POC** — a reviewable UI beats a notebook dump for FDE work: it shows how an associate would actually use the system.
+1. **Focused scope, complete workflow** — ICReady extracts six core metrics from selectable-text PDFs, routes each result through human validation, and flags uncertain or unsupported cases for review rather than making assumptions.
+2. **Evidence-first extraction** — every suggested value links back to the exact source page and supporting text, so associates can verify it before approval.
+3. **Designed for messy reporting** — company-specific layouts, metric aliases, missing values, duplicates, and uncertain company matches are treated as core workflow states rather than exceptions.
+4. **A product-shaped POC** — a reviewable interface demonstrates the full associate workflow more clearly than a notebook output, from extraction to evidence review and approval.
 5. **Honest boundaries** — no fake OCR, no pretend email send, no fabricated production database. What looks real *is* real extraction; what is mocked is labeled.
 
 ### Pipeline (high level)

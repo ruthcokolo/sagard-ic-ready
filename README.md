@@ -3,9 +3,16 @@
 **Sagard Forward Deployed Engineer (FDE) technical challenge**  
 *Portfolio Metrics Extraction — crawl-phase proof of concept*
 
-ICReady is an end-to-end proof of concept for turning portfolio-company PDF reports into structured, reviewable metrics. It ingests reporting packages, extracts six core metrics with source evidence, routes results through human validation, and exports approved values for analysis.
+**ICReady** is an associate workspace for Sagard-style investment workflows. It includes two product modes:
 
-This repository implements the **crawl** phase of a crawl → walk → run roadmap: extract a meaningful subset of metrics from real PDFs, organize them for associate review, and make the next-step path to production obvious.
+| Mode | What it is | Role in this submission |
+|------|------------|-------------------------|
+| **Portfolio Monitoring** | Turn portfolio-company PDF reporting packages into structured, reviewable metrics | **Challenge deliverable** — the crawl POC to evaluate |
+| **IC Diligence** | Deal pipeline, IC readiness, and diligence review (e.g. Northwind demo) | Supporting product context in the same app |
+
+**Portfolio Monitoring** is the feature built for this challenge: it ingests reporting packages, extracts six core metrics with source evidence, routes results through human validation, and exports approved values for analysis.
+
+This repository implements the **crawl** phase of a crawl → walk → run roadmap for Portfolio Monitoring: extract a meaningful subset of metrics from real PDFs, organize them for associate review, and make the next-step path to production obvious.
 
 **Core metrics:** Revenue, ARR, EBITDA, Cash, Headcount, and Churn.
 
@@ -69,7 +76,7 @@ This POC shows how software can:
 
 ### Design principles
 
-1. **Focused scope, complete workflow** — ICReady extracts six core metrics from selectable-text PDFs, routes every result through human validation, and flags uncertain or unsupported cases instead of guessing.
+1. **Focused scope, complete workflow** — Portfolio Monitoring extracts six core metrics from selectable-text PDFs, routes every result through human validation, and flags uncertain or unsupported cases instead of guessing.
 2. **Evidence-first extraction** — every suggested value links to the exact source page and supporting text, so associates can verify it before approval.
 3. **Designed for messy reporting** — company-specific layouts, aliases, missing values, duplicates, and uncertain company matches are treated as core workflow states rather than exceptions.
 4. **A product-shaped POC** — the interface demonstrates how an associate would actually ingest, inspect, validate, and export metrics, rather than stopping at a notebook or raw JSON output.
@@ -145,9 +152,11 @@ Reporting Requirements encode that not every metric applies to every sector (e.g
 - **Communication templates** — copy-ready follow-ups (clipboard; not SMTP)  
 - **Activity** — full recent-activity feed  
 
-### Secondary (same app shell)
+### IC Diligence (same product, not the challenge core)
 
-IC Diligence mode (pipeline / IC readiness / Northwind demo) is included so the product can show a full associate workspace. **The challenge evaluation path is Portfolio Monitoring** via **Switch to Portfolio**.
+IC Diligence (pipeline, IC readiness, Northwind diligence demo) lives in the same ICReady app so associates can move between **pre-deal diligence** and **post-investment portfolio monitoring**. It is supporting product context.
+
+**For evaluation of this take-home, use Portfolio Monitoring** via **Switch to Portfolio**.
 
 ---
 

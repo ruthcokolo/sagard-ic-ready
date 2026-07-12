@@ -9,6 +9,16 @@ This repository implements the **crawl** phase of a crawl → walk → run roadm
 
 ---
 
+## Live demo
+
+**Production:** [https://sagard-ic-ready.vercel.app](https://sagard-ic-ready.vercel.app)
+
+**GitHub:** [https://github.com/ruthcokolo/sagard-ic-ready](https://github.com/ruthcokolo/sagard-ic-ready)
+
+> **Reviewer path:** **Use demo account (Alex Rivera)** → **Sign in** → **Switch to Portfolio**
+
+---
+
 ## Quick start
 
 ```bash

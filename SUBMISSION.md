@@ -14,7 +14,7 @@
 
 I focused on proving the complete workflow rather than supporting every possible metric or document type.
 
-ICReady can process a batch of portfolio company PDF reports, find six key business metrics, show where each suggested value came from in the original document, route the results through human review, and export approved values as a CSV file.
+ICReady can process a batch of portfolio company PDF reports, find six key business metrics, show where each suggested value came from in the original document, let a person review the results, and export approved values as a CSV file.
 
 The six metrics are Revenue, ARR, EBITDA, Cash, Headcount, and Churn.
 
@@ -28,7 +28,7 @@ The six metrics are Revenue, ARR, EBITDA, Cash, Headcount, and Churn.
 
 ## Potential next steps
 
-The next phase would add support for scanned PDFs, shared database and file storage, stronger permissions and audit history, more company- and sector-specific metrics, and AI assistance for uncertain results while keeping the original source visible for review.
+The next phase would add support for scanned PDFs, shared storage for data and files, stronger permissions and audit history, more company- and sector-specific metrics, and AI assistance for uncertain results while keeping the original source visible for review.
 
 The goal was to demonstrate a practical and trustworthy workflow that can start small and expand as reporting needs grow.
 

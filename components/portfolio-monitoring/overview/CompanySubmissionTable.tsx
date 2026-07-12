@@ -231,8 +231,8 @@ export function CompanySubmissionTable({
               <th className="px-4 py-2.5 font-medium">Company</th>
               <th className="whitespace-nowrap px-3 py-2.5 font-medium">Report period</th>
               <th className="whitespace-nowrap px-3 py-2.5 font-medium">Reporting status</th>
-              <th className="px-3 py-2.5 font-medium">Coverage</th>
-              <th className="whitespace-nowrap px-3 py-2.5 font-medium">Last updated</th>
+              <th className="px-3 py-2.5 pr-6 font-medium">Coverage</th>
+              <th className="whitespace-nowrap px-3 py-2.5 pl-5 font-medium">Last updated</th>
               <th className="px-3 py-2.5 font-medium">Changes since last report</th>
               <th className="px-3 py-2.5 font-medium">Action</th>
             </tr>
@@ -269,10 +269,10 @@ export function CompanySubmissionTable({
                         {row.reportingStatus}
                       </span>
                     </td>
-                    <td className="px-3 py-3 align-middle">
+                    <td className="px-3 py-3 pr-6 align-middle">
                       <OverviewCoverageBar value={row.coverage} />
                     </td>
-                    <td className="max-w-0 overflow-hidden px-3 py-3 align-middle">
+                    <td className="max-w-0 overflow-hidden px-3 py-3 pl-5 align-middle">
                       <p className="truncate text-stone-800" title={updated.date}>
                         {updated.date}
                       </p>

@@ -22,9 +22,9 @@ export function OverviewCoverageBar({ value }: { value: number }) {
     value >= 85 ? "bg-emerald-500" : value >= 70 ? "bg-amber-500" : value > 0 ? "bg-red-400" : "bg-stone-200";
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex max-w-[7.5rem] items-center gap-2">
       <span className="w-10 shrink-0 text-right text-xs tabular-nums text-stone-700">{value}%</span>
-      <div className="h-1.5 min-w-[4rem] flex-1 overflow-hidden rounded-full bg-stone-100">
+      <div className="h-1.5 w-16 shrink-0 overflow-hidden rounded-full bg-stone-100">
         <div className={`h-full rounded-full ${color}`} style={{ width: `${Math.min(100, value)}%` }} />
       </div>
     </div>

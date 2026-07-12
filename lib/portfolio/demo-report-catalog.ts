@@ -127,9 +127,9 @@ export function getDemoReportByFileName(fileName: string): DemoReportCatalogItem
   return DEMO_REPORT_CATALOG.find((i) => i.fileName.toLowerCase() === norm);
 }
 
+/** Demo PDF library is on by default for this POC (including production demos). Set NEXT_PUBLIC_ENABLE_DEMO_REPORTS=false to hide it. */
 export function isDemoReportsEnabled(): boolean {
-  if (typeof process === "undefined") return false;
-  if (process.env.NEXT_PUBLIC_ENABLE_DEMO_REPORTS === "true") return true;
+  if (typeof process === "undefined") return true;
   if (process.env.NEXT_PUBLIC_ENABLE_DEMO_REPORTS === "false") return false;
-  return process.env.NODE_ENV !== "production";
+  return true;
 }

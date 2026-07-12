@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Notice banner explaining comparison limitations or data gaps.
+ */
 import { useState } from "react";
 
+/** Banner explaining data gaps in a comparison. */
 export function ComparisonNotice({
   message,
   excludedCompanies,

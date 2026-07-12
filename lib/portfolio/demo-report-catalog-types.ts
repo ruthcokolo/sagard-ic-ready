@@ -1,3 +1,7 @@
+/**
+ * Type definitions for the demo report catalog and expected metric fixtures.
+ */
+
 export type DemoReportExpectedMetric = {
   name: string;
   expectedValue?: string | number;

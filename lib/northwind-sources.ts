@@ -1,3 +1,5 @@
+/** Curated Northwind source documents with known cross-source mismatches. */
+
 export type SourceDocumentField = {
   label: string;
   value: string;

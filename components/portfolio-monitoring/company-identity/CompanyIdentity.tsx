@@ -1,8 +1,12 @@
 "use client";
 
+/**
+ * Combined company name, avatar, and sector display.
+ */
 import { formatCompanyDisplayName } from "@/lib/portfolio/company-identity";
 import { CompanyAvatar, type CompanyAvatarSize } from "./CompanyAvatar";
 
+/** Combined display of company avatar, name, and sector. */
 export function CompanyIdentity({
   companyId,
   companyName,

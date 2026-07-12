@@ -1,5 +1,6 @@
 "use client";
 
+/** Shared pipeline UI pieces: stage badges, owner avatars, and status chips. */
 import Link from "next/link";
 import { categories } from "@/lib/categories";
 import type { PipelineDeal } from "@/lib/deals-pipeline";
@@ -7,6 +8,7 @@ import { pipelineDeals } from "@/lib/deals-pipeline";
 import { IconChevronRight } from "@/components/ui/Icons";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 
+/** Renders the sector sidebar UI. */
 export function SectorSidebar({
   activeCategory,
   onCategoryChange,
@@ -48,6 +50,7 @@ export function SectorSidebar({
   );
 }
 
+/** Renders the company pipeline list UI. */
 export function CompanyPipelineList({
   deals,
   search = "",

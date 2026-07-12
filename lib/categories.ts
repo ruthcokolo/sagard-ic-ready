@@ -1,3 +1,5 @@
+/** Investment sector categories used to filter and label deals in the pipeline. */
+
 export interface Category {
   id: string;
   label: string;
@@ -51,6 +53,7 @@ export const categories: Category[] = [
   },
 ];
 
+/** Looks up a sector by id, or returns "All sectors" when the id is unknown. */
 export function getCategoryById(id: string) {
   return categories.find((c) => c.id === id) ?? categories[0];
 }

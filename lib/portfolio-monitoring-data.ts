@@ -1,3 +1,8 @@
+/**
+ * Mock data for the portfolio monitoring dashboard — KPIs, extraction trends,
+ * company performance rows, and validation summaries (used before live store data).
+ */
+
 export type TrendDirection = "up" | "down" | "neutral";
 
 export type PortfolioKpi = {

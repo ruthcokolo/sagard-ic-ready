@@ -1,3 +1,8 @@
+/**
+ * SVG icons for each item in the portfolio sidebar navigation menu.
+ */
+
+/** Picks and renders the right icon for a sidebar menu item name. */
 export function PortfolioNavIcon({
   name,
   className = "h-[18px] w-[18px]",

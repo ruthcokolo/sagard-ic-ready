@@ -1,3 +1,8 @@
+/**
+ * Check which portfolio actions a user role is allowed to perform
+ * (upload reports, edit requirements, send messages, etc.).
+ */
+
 import type { UserRole } from "@/lib/auth-types";
 import type { PortfolioPermission } from "./monitoring-phase-types";
 
@@ -23,6 +28,7 @@ const ROLE_PERMISSIONS: Record<UserRole, PortfolioPermission[]> = {
   partner: [...SHARED],
 };
 
+/** Return true if this role may perform the given portfolio action. */
 export function hasPortfolioPermission(
   role: UserRole | undefined | null,
   permission: PortfolioPermission
@@ -31,6 +37,7 @@ export function hasPortfolioPermission(
   return ROLE_PERMISSIONS[role]?.includes(permission) ?? false;
 }
 
+/** List every portfolio action this role is allowed to do. */
 export function getPortfolioPermissions(role: UserRole | undefined | null): PortfolioPermission[] {
   if (!role) return [];
   return [...(ROLE_PERMISSIONS[role] ?? [])];

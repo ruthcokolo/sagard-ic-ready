@@ -1,11 +1,15 @@
 "use client";
 
+/**
+ * Short text summary of active review queue filters.
+ */
 import {
   countActiveQueueFilters,
   queueFilterSummaryChips,
 } from "@/lib/portfolio/metric-review-url-state";
 import type { ReviewQueueFilters } from "@/lib/portfolio/metric-review-selectors";
 
+/** One-line summary of active queue filters. */
 export function QueueFilterSummary({
   filters,
   onExpand,

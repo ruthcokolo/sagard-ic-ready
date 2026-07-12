@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Badges and action buttons showing package status, format, and coverage.
+ */
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { ReportingPackageRow } from "@/lib/portfolio/reporting-packages-demo";
@@ -8,6 +11,7 @@ import {
   getPackagePrimaryAction,
 } from "@/lib/portfolio/reporting-packages-selectors";
 
+/** Colored badge for a package's processing status. */
 export function PackageStatusBadge({
   row,
 }: {
@@ -57,6 +61,7 @@ export function PackageStatusBadge({
   );
 }
 
+/** Badge showing the PDF source format type. */
 export function SourceFormatBadge({ format }: { format: string }) {
   const normalized = format.toLowerCase();
   const isTemplate =
@@ -80,6 +85,7 @@ export function SourceFormatBadge({ format }: { format: string }) {
   );
 }
 
+/** Horizontal bar showing metric coverage percentage. */
 export function CoverageBar({ value, available }: { value: number; available: boolean }) {
   if (!available) {
     return <span className="text-[13px] text-stone-400">—</span>;
@@ -99,6 +105,7 @@ export function CoverageBar({ value, available }: { value: number; available: bo
   );
 }
 
+/** Main action button for a package row (review, view, etc.). */
 export function PackagePrimaryAction({
   row,
   onRetry,
@@ -160,6 +167,7 @@ export function PackagePrimaryAction({
   );
 }
 
+/** Dropdown of secondary actions for a package row. */
 export function PackageActionsMenu({
   row,
   onDownload,

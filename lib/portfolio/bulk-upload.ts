@@ -2,6 +2,7 @@
 
 const PDF_MIME = "application/pdf";
 
+/** True when a file looks like a PDF by type or extension. */
 export function isPdfFile(file: File): boolean {
   return (
     file.type === PDF_MIME ||
@@ -9,6 +10,7 @@ export function isPdfFile(file: File): boolean {
   );
 }
 
+/** True when a file looks like a ZIP archive by type or extension. */
 export function isZipFile(file: File): boolean {
   return (
     file.type === "application/zip" ||
@@ -56,6 +58,7 @@ export async function collectPdfFilesFromUpload(files: File[]): Promise<File[]> 
   return pdfs;
 }
 
+/** Remove duplicate PDFs from a list (same name and file size). */
 export function uniquePdfFiles(files: File[]): File[] {
   const seen = new Set<string>();
   const out: File[] = [];

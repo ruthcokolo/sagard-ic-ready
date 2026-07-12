@@ -1,5 +1,6 @@
 "use client";
 
+/** Main app layout: sidebar, header bar, and scrollable page content. */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { createContext, useContext, useState } from "react";
@@ -17,10 +18,12 @@ const SidebarContext = createContext<SidebarContextValue>({
   toggle: () => {},
 });
 
+/** Hook to read app sidebar state. */
 export function useAppSidebar() {
   return useContext(SidebarContext);
 }
 
+/** Page layout with sidebar navigation and header. */
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);

@@ -1,5 +1,6 @@
 "use client";
 
+/** Three-step IC readiness workspace: review analysis, pick a decision, and export the package. */
 import Link from "next/link";
 import { useState } from "react";
 import type { AnalysisResult, Decision } from "@/lib/types";
@@ -18,6 +19,7 @@ interface Props {
 
 type ReviewStep = 1 | 2 | 3;
 
+/** Three-step review UI: analysis summary, decision form, and export. */
 export function ICReadyDashboard({
   analysis,
   loading,

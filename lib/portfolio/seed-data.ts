@@ -1,8 +1,14 @@
+/**
+ * Default starting data for a new portfolio: empty companies and reports,
+ * plus built-in extraction rules and communication templates.
+ */
+
 import { DEFAULT_EXTRACTION_RULES } from "./extraction-rules-default";
 import { createDefaultCommunicationTemplates } from "./communication-templates";
 import { buildSectorDefaultExpectations } from "./metric-expectations";
 import type { PortfolioSettings, PortfolioState } from "./types";
 
+/** Default app settings for a fresh portfolio (validation required, PDF-only uploads). */
 export const DEFAULT_PORTFOLIO_SETTINGS: PortfolioSettings = {
   requireHumanValidation: true,
   defaultConfidenceThreshold: "Medium",

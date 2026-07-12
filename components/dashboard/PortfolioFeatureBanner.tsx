@@ -1,6 +1,9 @@
+/** Promotional card linking users to the portfolio monitoring product area. */
+
 import Link from "next/link";
 import { IconExternalLink } from "@/components/ui/Icons";
 
+/** Renders the portfolio feature banner UI. */
 export function PortfolioFeatureBanner() {
   return (
     <section className="mx-8 mb-6 overflow-hidden rounded-2xl border border-emerald-200/80 bg-gradient-to-br from-emerald-50 via-white to-[#fdf2f4] shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

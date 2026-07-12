@@ -1,3 +1,7 @@
+/**
+ * Helpers for metric setup: guess data types from units, show labels, and check if a metric can be deleted.
+ */
+
 import type {
   ExtractionRule,
   MetricDataType,
@@ -23,6 +27,7 @@ export const METRIC_CONTEXT_LABELS: Record<MetricValueContext, string> = {
   prior_period: "Prior period",
 };
 
+/** Guess whether a metric is money, a percent, a count, etc. from its unit and name. */
 export function inferMetricDataType(
   expectedUnit: string,
   metricName?: string
@@ -61,6 +66,7 @@ export function inferMetricDataType(
   return "currency";
 }
 
+/** List the unit choices shown in the UI for each metric data type. */
 export function unitsForType(type: MetricDataType): string[] {
   switch (type) {
     case "currency":
@@ -78,12 +84,14 @@ export function unitsForType(type: MetricDataType): string[] {
   }
 }
 
+/** Format a unit for display (e.g. show "%" instead of the word "percent"). */
 export function displayUnit(unit: string, type?: MetricDataType): string {
   if (type === "percentage" || unit.toLowerCase() === "percent") return "%";
   if (unit.toLowerCase() === "not applicable") return "—";
   return unit;
 }
 
+/** Fill in missing type, description, and unit defaults on extraction rules. */
 export function normalizeExtractionRules(rules: ExtractionRule[]): ExtractionRule[] {
   return rules.map((rule) => {
     const type = rule.type ?? inferMetricDataType(rule.expectedUnit, rule.metricName);
@@ -183,6 +191,7 @@ export function getMetricUsage(
   };
 }
 
+/** Find other metrics that already use the same search alias. */
 export function findAliasConflicts(
   rules: ExtractionRule[],
   alias: string,

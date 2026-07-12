@@ -1,3 +1,8 @@
+/**
+ * Client-side decision state: merges assigned queue with user submissions,
+ * step overrides, and export history for the review workflow.
+ */
+
 import {
   assignedQueueDeals,
   getAssignedStep,
@@ -26,6 +31,7 @@ export const EMPTY_DECISION_STATE: DecisionAppState = {
   queueAdditions: [],
 };
 
+/** Resolves the effective workflow step, accounting for overrides and archives. */
 export function getEffectiveStep(
   dealId: string,
   state: DecisionAppState,
@@ -40,6 +46,7 @@ export function getEffectiveStep(
   return undefined;
 }
 
+/** Marks a deal as blocked and assigns it to Alex when added to the review queue. */
 function applyConflictsReturn(deal: PipelineDeal): PipelineDeal {
   return {
     ...deal,
@@ -51,6 +58,7 @@ function applyConflictsReturn(deal: PipelineDeal): PipelineDeal {
   };
 }
 
+/** Active queue deals after applying step overrides and filtering archived entries. */
 export function getEffectiveQueueDeals(state: DecisionAppState): PipelineDeal[] {
   const byId = new Map<string, PipelineDeal>();
 
@@ -83,6 +91,7 @@ export function getEffectiveQueueDeals(state: DecisionAppState): PipelineDeal[] 
   });
 }
 
+/** Live workload counts by workflow step from the effective queue. */
 export function countEffectiveWorkload(state: DecisionAppState) {
   const deals = getEffectiveQueueDeals(state);
   let conflicts = 0;
@@ -104,6 +113,7 @@ export function countEffectiveWorkload(state: DecisionAppState) {
   };
 }
 
+/** Filters the effective queue with standard deal filter dimensions. */
 export function filterEffectiveQueue(
   state: DecisionAppState,
   filters: DealFilters,
@@ -128,6 +138,7 @@ export function filterEffectiveQueue(
   });
 }
 
+/** Sorts the effective queue, preserving Northwind-first ordering. */
 export function sortEffectiveQueue(
   state: DecisionAppState,
   deals: PipelineDeal[],
@@ -137,6 +148,7 @@ export function sortEffectiveQueue(
   return sortAssignedDeals(deals, field, dir);
 }
 
+/** Merges user-submitted exports with the static demo archive. */
 export function getMergedExportHistory(state: DecisionAppState): ExportHistoryItem[] {
   const userExports = dedupeSubmissions(state.submissions).map(toExportHistoryItem);
   const base = getBaseExportHistory().filter(
@@ -145,6 +157,7 @@ export function getMergedExportHistory(state: DecisionAppState): ExportHistoryIt
   return [...userExports, ...base];
 }
 
+/** Decision breakdown counts from the merged export history. */
 export function getExportSummaryFromState(state: DecisionAppState) {
   const history = getMergedExportHistory(state);
   return {
@@ -155,6 +168,7 @@ export function getExportSummaryFromState(state: DecisionAppState) {
   };
 }
 
+/** Latest recorded submission for a deal, if any. */
 export function getSubmissionForDeal(
   state: DecisionAppState,
   dealId: string,
@@ -162,17 +176,20 @@ export function getSubmissionForDeal(
   return dedupeSubmissions(state.submissions).find((s) => s.dealId === dealId);
 }
 
+/** Whether a deal is still in the active (non-archived) review queue. */
 export function isDealInActiveQueue(state: DecisionAppState, dealId: string): boolean {
   const step = getEffectiveStep(dealId, state);
   return !!step && step !== "archived";
 }
 
+/** Creates a blocked deal entry when a pipeline deal is added to the queue. */
 export function buildQueueAddition(dealId: string): PipelineDeal | null {
   const deal = getDealById(dealId);
   if (!deal) return null;
   return applyConflictsReturn({ ...deal, owner: "Alex Rivera", hasFullWorkflow: true });
 }
 
+/** Id of the first deal in the effective queue, for "next up" navigation. */
 export function getNextQueueDealId(state: DecisionAppState): string | null {
   const deals = getEffectiveQueueDeals(state);
   return deals[0]?.id ?? null;

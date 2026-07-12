@@ -1,3 +1,5 @@
+/** Sidebar links for the portfolio monitoring section of the dashboard. */
+
 export type PortfolioNavItem = {
   label: string;
   hint: string;

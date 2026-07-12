@@ -1,3 +1,8 @@
+/**
+ * Shared TypeScript shapes for deal diligence: conflicts, checklists,
+ * analysis results, and the human decision recorded at export time.
+ */
+
 export type Decision = "proceed" | "more_diligence" | "pass" | null;
 
 export type Severity = "high" | "medium" | "low";

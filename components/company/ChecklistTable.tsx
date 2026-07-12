@@ -1,5 +1,8 @@
+/** Diligence checklist table with completion status per item. */
+
 import type { ChecklistItem } from "@/lib/types";
 
+/** Renders the checklist table UI. */
 export function ChecklistTable({ checklist }: { checklist: ChecklistItem[] }) {
   const open = checklist.filter((i) => !i.done);
   const done = checklist.filter((i) => i.done);

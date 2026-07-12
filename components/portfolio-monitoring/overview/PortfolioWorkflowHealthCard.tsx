@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Overview card showing workflow stage breakdown as a stacked bar.
+ */
 import type { WorkflowHealthSegment } from "@/lib/portfolio/overview-selectors";
 
+/** Stacked bar showing packages at each workflow stage. */
 export function PortfolioWorkflowHealthCard({
   total,
   segments,

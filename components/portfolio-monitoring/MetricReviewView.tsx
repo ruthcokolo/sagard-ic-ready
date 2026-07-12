@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Main metric review page — landing list and per-package review workspace.
+ */
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -81,6 +84,7 @@ type WaitlistModalState = {
   row: CompanyReviewLandingRow;
 } | null;
 
+/** Orchestrates the metric review landing page and per-package review workspace. */
 export function MetricReviewView() {
   const router = useRouter();
   const { user } = useAuth();
@@ -566,6 +570,7 @@ export function MetricReviewView() {
     );
   }
 
+  /** Package review workspace — sidebar, metric table, and evidence drawer */
   if (workspaceOpen && selectedPackage && selectedPackageItem) {
     return (
       <div className="flex h-full min-h-0 flex-col overflow-hidden bg-[#f7f4f1]">
@@ -812,6 +817,7 @@ export function MetricReviewView() {
     );
   }
 
+  /** Landing page — company list, filters, and bulk assignment actions */
   return (
     <div className="flex h-full min-h-0 flex-col bg-[#f4f2ef] px-6 py-6">
       <div className="mx-auto flex min-h-0 w-full max-w-[1400px] flex-1 flex-col gap-5">

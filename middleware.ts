@@ -1,9 +1,15 @@
+/**
+ * Next.js edge middleware — enforces login and onboarding completion
+ * before allowing access to dashboard routes.
+ */
+
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getSessionFromRequest } from "@/lib/auth-session";
 
 const PUBLIC_PREFIXES = ["/login", "/onboarding", "/api/auth"];
 
+/** Redirects unauthenticated users to login and incomplete onboarding to /onboarding. */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 

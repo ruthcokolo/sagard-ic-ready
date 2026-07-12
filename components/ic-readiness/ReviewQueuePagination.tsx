@@ -1,5 +1,6 @@
 "use client";
 
+/** Pagination for the IC review queue table. */
 function pageNumbers(current: number, total: number): (number | "ellipsis")[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
   if (current <= 4) return [1, 2, 3, 4, 5, "ellipsis", total];
@@ -7,6 +8,7 @@ function pageNumbers(current: number, total: number): (number | "ellipsis")[] {
   return [1, "ellipsis", current - 1, current, current + 1, "ellipsis", total];
 }
 
+/** Renders the review queue pagination UI. */
 export function ReviewQueuePagination({
   page,
   totalPages,

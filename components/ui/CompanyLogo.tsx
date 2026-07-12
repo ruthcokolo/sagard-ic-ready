@@ -1,3 +1,5 @@
+/** Company logo or initials avatar with fallback colors. */
+
 import type { ReactNode } from "react";
 
 type LogoSize = "sm" | "md" | "lg" | "xl";
@@ -99,6 +101,7 @@ function generatedShell(id: string) {
   return `text-white [background:linear-gradient(135deg,hsl(${hue},45%,42%),hsl(${(hue + 40) % 360},50%,28%))]`;
 }
 
+/** Renders the company logo UI. */
 export function CompanyLogo({
   companyId,
   name,

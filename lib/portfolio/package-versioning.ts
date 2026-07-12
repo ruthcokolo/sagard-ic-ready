@@ -1,3 +1,7 @@
+/**
+ * Reporting package version chains: supersede, replace, supplement relationships.
+ */
+
 import type {
   PackageRelationship,
   ReportingPackageVersion,
@@ -13,6 +17,7 @@ export type VersionedPackage = ReportingPackage & {
   versionGroupId?: string;
 };
 
+/** Version chain entries for a package version group. */
 export function getPackageVersions(
   packages: VersionedPackage[],
   packageId: string
@@ -46,6 +51,7 @@ export function getPackageVersions(
     }));
 }
 
+/** Next version number in a package version chain. */
 export function nextVersionNumber(
   packages: VersionedPackage[],
   previousPackageId: string
@@ -55,6 +61,7 @@ export function nextVersionNumber(
   return max + 1;
 }
 
+/** Fields to apply when registering a package revision. */
 export function buildRevisionPackageFields(input: {
   previous: VersionedPackage;
   relationship: PackageRelationship;
@@ -70,6 +77,7 @@ export function buildRevisionPackageFields(input: {
   };
 }
 
+/** Mark prior package versions as superseded in a version chain. */
 export function markSuperseded(
   packages: VersionedPackage[],
   previousPackageId: string

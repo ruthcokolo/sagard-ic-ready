@@ -1,3 +1,8 @@
+/**
+ * Alex Rivera's assigned review queue — 73 deals with fixed step counts
+ * and showcase entries pinned to specific workflow stages.
+ */
+
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { DealFilters, SortField, SortDir, WorkflowStep } from "@/lib/deal-query";
 import { matchesQuery, sortDeals } from "@/lib/deal-query";
@@ -106,6 +111,7 @@ const SYNTHETIC_NAMES = [
 
 const stepByDealId = new Map<string, WorkflowStep>();
 
+/** Picks readiness scores and conflict counts that match each workflow step. */
 function metricsForStep(step: WorkflowStep, index: number) {
   const mod = index % 5;
   switch (step) {
@@ -133,6 +139,7 @@ function metricsForStep(step: WorkflowStep, index: number) {
   }
 }
 
+/** Creates a fake deal entry for Alex's queue when showcase deals run out. */
 function buildSyntheticDeal(name: string, step: WorkflowStep, index: number): PipelineDeal {
   const id = `assigned-${step}-${index + 1}`;
   const m = metricsForStep(step, index);
@@ -174,10 +181,12 @@ function buildSyntheticDeal(name: string, step: WorkflowStep, index: number): Pi
   };
 }
 
+/** Copies a pipeline deal into Alex's assigned queue with the right owner. */
 function cloneForQueue(source: PipelineDeal): PipelineDeal {
   return { ...source, owner: ASSIGNED_OWNER };
 }
 
+/** Assembles Alex's 73-deal queue with fixed step counts and Northwind pinned first. */
 function buildAssignedQueue(): PipelineDeal[] {
   stepByDealId.clear();
   const pipelineById = new Map(pipelineDeals.map((d) => [d.id, d]));
@@ -227,14 +236,17 @@ function buildAssignedQueue(): PipelineDeal[] {
 
 export const assignedQueueDeals = buildAssignedQueue();
 
+/** Returns the assigned workflow step for a deal in Alex's queue. */
 export function getAssignedStep(dealId: string): WorkflowStep | undefined {
   return stepByDealId.get(dealId);
 }
 
+/** Whether a deal id belongs to the pre-built assigned queue. */
 export function isAssignedQueueDeal(dealId: string): boolean {
   return stepByDealId.has(dealId);
 }
 
+/** Filters assigned deals using the shared filter shape and step override map. */
 export function filterAssignedDeals(
   deals: PipelineDeal[],
   f: DealFilters,
@@ -256,6 +268,7 @@ export function filterAssignedDeals(
   });
 }
 
+/** Sorts assigned deals, keeping Northwind pinned to the top. */
 export function sortAssignedDeals(deals: PipelineDeal[], field: SortField, dir: SortDir): PipelineDeal[] {
   const sorted = sortDeals(deals, field, dir);
   const northwind = sorted.find((d) => d.id === "northwind-logistics");
@@ -265,6 +278,7 @@ export function sortAssignedDeals(deals: PipelineDeal[], field: SortField, dir: 
   return sorted;
 }
 
+/** Fixed step counts for Alex's assigned workload badges. */
 export function countAssignedByStep(): Record<WorkflowStep, number> {
   return {
     conflicts: ASSIGNED_STEP_COUNTS.conflicts,

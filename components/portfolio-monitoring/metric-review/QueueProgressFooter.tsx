@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Footer showing review queue progress (done vs remaining).
+ */
+/** Shows how many packages are done vs left in the queue. */
 export function QueueProgressFooter({
   reviewedCount,
   totalCount,

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Tab view with performance charts and metrics for a company.
+ */
 import { useMemo, useState } from "react";
 import {
   CompanyProfileEmptyState,
@@ -25,6 +28,7 @@ type Props = {
   hasApproved: boolean;
 };
 
+/** Performance metrics tab on the company profile. */
 export function CompanyPerformanceView({
   state,
   companyId,

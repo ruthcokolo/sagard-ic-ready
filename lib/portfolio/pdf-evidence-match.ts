@@ -358,6 +358,7 @@ function findLabelValueWindow(
   return best ? { matchStart: best.matchStart, matchEnd: best.matchEnd } : null;
 }
 
+/** Compute screen position and size for highlighting one PDF text item. */
 export function itemViewportGeometry(
   transform: number[],
   viewport: { transform: number[] },

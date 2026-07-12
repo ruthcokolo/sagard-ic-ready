@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Small reusable UI pieces shared across portfolio screens (badges, empty states, bars).
+ */
 import type { ExtractedMetric, MetricStatus } from "@/lib/portfolio/types";
 
+/** Colored pill showing where a metric stands (approved, needs review, missing, etc.). */
 export function MetricStatusBadge({ status }: { status: MetricStatus }) {
   const styles: Record<MetricStatus, string> = {
     "Approved for reporting": "bg-emerald-50 text-emerald-700 ring-emerald-200/80",
@@ -25,6 +29,7 @@ export function MetricStatusBadge({ status }: { status: MetricStatus }) {
   );
 }
 
+/** Colored pill showing how sure the system is about an extracted value. */
 export function ConfidenceBadge({ confidence }: { confidence: ExtractedMetric["confidence"] }) {
   const styles = {
     High: "bg-emerald-50 text-emerald-700",
@@ -39,6 +44,7 @@ export function ConfidenceBadge({ confidence }: { confidence: ExtractedMetric["c
   );
 }
 
+/** Centered message shown when a list or section has nothing to display. */
 export function EmptyState({
   title,
   description,
@@ -62,6 +68,7 @@ export function EmptyState({
   );
 }
 
+/** Horizontal bar showing what percent of expected metrics were found. */
 export function CoverageBar({ value }: { value: number }) {
   const barColor =
     value >= 80 ? "bg-emerald-500" : value >= 65 ? "bg-amber-500" : "bg-red-500";

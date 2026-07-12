@@ -1,5 +1,6 @@
 "use client";
 
+/** Filter controls for the deal pipeline (stage, owner, readiness). */
 import { categories } from "@/lib/categories";
 import type { DealFilters, SortField } from "@/lib/deal-query";
 import type { DealStage } from "@/lib/deal-types";
@@ -22,6 +23,7 @@ const SORT_LABELS: Record<SortField, string> = {
   updated: "Updated",
 };
 
+/** Renders the pipeline filter bar UI. */
 export function PipelineFilterBar({
   filters,
   onChange,

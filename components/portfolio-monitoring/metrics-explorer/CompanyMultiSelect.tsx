@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Multi-select dropdown for picking companies to compare.
+ */
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
 import type { ExplorerCompanyOption } from "@/lib/portfolio/metrics-explorer-selectors";
@@ -10,6 +13,7 @@ function selectionLabel(selectedIds: string[], selectedOptions: ExplorerCompanyO
   return `${selectedIds.length} companies selected`;
 }
 
+/** Multi-select for picking companies to compare. */
 export function CompanyMultiSelect({
   options,
   selectedIds,

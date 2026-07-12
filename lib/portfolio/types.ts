@@ -1,3 +1,8 @@
+/**
+ * Shared shapes for portfolio data: companies, reports, metrics, settings, and audit logs.
+ * Other modules import these types so the app uses one consistent vocabulary.
+ */
+
 export type MetricName =
   | "Revenue"
   | "ARR"

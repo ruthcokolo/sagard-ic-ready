@@ -1,5 +1,6 @@
 "use client";
 
+/** React context storing IC decisions per deal in browser storage. */
 import {
   createContext,
   useCallback,
@@ -84,6 +85,7 @@ function persistState(state: DecisionAppState) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 }
 
+/** Stores and loads IC decisions per deal from browser local storage. */
 export function DecisionProvider({ children }: { children: React.ReactNode }) {
   const [state, setState] = useState<DecisionAppState>(EMPTY_DECISION_STATE);
   const [hydrated, setHydrated] = useState(false);
@@ -160,6 +162,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
   return <DecisionContext.Provider value={value}>{children}</DecisionContext.Provider>;
 }
 
+/** Hook to read decisions state. */
 export function useDecisions() {
   const ctx = useContext(DecisionContext);
   if (!ctx) {

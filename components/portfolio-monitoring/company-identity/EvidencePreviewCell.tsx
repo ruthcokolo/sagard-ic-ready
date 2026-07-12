@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Table cell with a small preview snippet of metric evidence text.
+ */
 import type { ExtractedMetric } from "@/lib/portfolio/types";
 
+/** Table cell with a truncated evidence text preview. */
 export function EvidencePreviewCell({
   row,
   onViewEvidence,

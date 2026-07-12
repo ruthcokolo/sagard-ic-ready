@@ -1,11 +1,15 @@
 "use client";
 
+/**
+ * Filter controls and sort options for the metrics explorer page.
+ */
 import type { MetricName } from "@/lib/portfolio/types";
 import type { ComparisonSort } from "@/lib/portfolio/metrics-explorer-selectors";
 import { SectorFilter } from "./SectorFilter";
 import { CompanyMultiSelect } from "./CompanyMultiSelect";
 import type { ExplorerCompanyOption } from "@/lib/portfolio/metrics-explorer-selectors";
 
+/** Main filter bar for the metrics explorer page. */
 export function MetricsExplorerFilters({
   metrics,
   selectedMetric,
@@ -112,6 +116,7 @@ export function MetricsExplorerFilters({
   );
 }
 
+/** Sort dropdown for the comparison table/chart. */
 export function ComparisonSortControl({
   value,
   onChange,

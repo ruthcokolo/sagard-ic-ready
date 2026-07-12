@@ -1,5 +1,6 @@
 "use client";
 
+/** Filter bar for the IC review queue (stage, owner, readiness). */
 import type { DealFilters, WorkflowStep } from "@/lib/deal-query";
 import { categories } from "@/lib/categories";
 import { IconSearch } from "@/components/ui/Icons";
@@ -33,6 +34,7 @@ const WORKFLOW_TABS: { step: WorkflowStep | "all"; label: string }[] = [
   { step: "decision", label: "Record decision" },
 ];
 
+/** Renders the review queue filter bar UI. */
 export function ReviewQueueFilterBar({
   filters,
   onChange,

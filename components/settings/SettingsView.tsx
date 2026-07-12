@@ -1,5 +1,6 @@
 "use client";
 
+/** Settings page for profile, integrations, and notification preferences. */
 import { useState } from "react";
 import Link from "next/link";
 import { pipelineStats } from "@/lib/deals-pipeline";
@@ -47,6 +48,7 @@ const FLOW_STEPS = [
   },
 ] as const;
 
+/** Account and integration settings form. */
 export function SettingsView() {
   const { user } = useAuth();
   const [emailAlerts, setEmailAlerts] = useState(false);

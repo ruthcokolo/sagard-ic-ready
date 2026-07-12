@@ -1,5 +1,8 @@
+/** Side panel listing contradictions found across source documents. */
+
 import type { AnalysisResult } from "@/lib/types";
 
+/** Renders the conflicts panel UI. */
 export function ConflictsPanel({
   analysis,
   loading,

@@ -1,8 +1,12 @@
 "use client";
 
+/**
+ * Overview card listing expected metrics and how many companies report them.
+ */
 import Link from "next/link";
 import type { ExpectedMetricCoverageRow } from "@/lib/portfolio/overview-selectors";
 
+/** Card listing expected metrics and company coverage. */
 export function ExpectedMetricsCoverageCard({ rows }: { rows: ExpectedMetricCoverageRow[] }) {
   const hasData = rows.some((r) => r.expectedCount > 0);
 

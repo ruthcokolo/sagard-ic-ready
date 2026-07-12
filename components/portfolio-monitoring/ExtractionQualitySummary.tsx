@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Summary stats for overall extraction quality across the portfolio.
+ */
 import type { getExtractionQualitySummary } from "@/lib/portfolio/selectors";
 
+/** High-level extraction quality numbers for the portfolio. */
 export function ExtractionQualitySummary({
   summary,
 }: {

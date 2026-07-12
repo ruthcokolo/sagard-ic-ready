@@ -1,11 +1,14 @@
 "use client";
 
+/** Progress indicator and run button for the analysis pipeline. */
+
 import {
   NORTHWIND_PIPELINE_STEPS,
   pipelineProgress,
   type PipelineStep,
 } from "@/lib/analysis-pipeline";
 
+/** Shows pipeline step progress and triggers analysis runs. */
 export function AnalysisPipelineStatus({
   running,
   stepIndex,

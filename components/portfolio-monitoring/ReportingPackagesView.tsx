@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Manage uploaded reporting packages — upload, filter, and inspect PDFs.
+ */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { WorkflowExplainerCard } from "@/components/portfolio-monitoring/WorkflowExplainerCard";
@@ -29,6 +32,7 @@ import type { PackageSourceFormat, ReportingPackage } from "@/lib/portfolio/type
 import { detectMetadataFromFileName } from "@/lib/portfolio/reporting-packages-demo";
 import { companyIdFromName } from "@/lib/portfolio/company-from-upload";
 
+/** Brief success message that auto-hides after a few seconds. */
 function PackageToast({
   message,
   onDismiss,
@@ -62,6 +66,7 @@ function PackageToast({
   );
 }
 
+/** Page for uploading, filtering, and managing reporting packages. */
 export function ReportingPackagesView() {
   const {
     state,

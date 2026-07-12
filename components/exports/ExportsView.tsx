@@ -1,5 +1,6 @@
 "use client";
 
+/** Full exports page with summary cards, filters, and export history table. */
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -23,6 +24,7 @@ import { IconClock, IconSearch } from "@/components/ui/Icons";
 
 type FilterValue = "all" | ExportDecision;
 
+/** Full-page exports history with filters and pagination. */
 export function ExportsView() {
   const searchParams = useSearchParams();
   const { getExportHistory, hydrated } = useDecisions();

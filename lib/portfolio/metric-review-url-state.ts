@@ -1,3 +1,8 @@
+/**
+ * Read and write Metric Review page URL parameters (filters, scope, selected company).
+ * Keeps bookmarkable links in sync with the review landing and workspace views.
+ */
+
 import type { LandingFilters, LandingScopeTab, LandingSort } from "./metric-review-landing-selectors";
 import { DEFAULT_LANDING_FILTERS } from "./metric-review-landing-selectors";
 import type { ReviewQueueFilters } from "./metric-review-selectors";
@@ -36,6 +41,7 @@ function opt(value: string | null | undefined, fallback: string): string {
   return value && value.length > 0 ? value : fallback;
 }
 
+/** Parse the browser URL into Metric Review filter and selection state. */
 export function parseMetricReviewSearchParams(
   search: string | URLSearchParams
 ): MetricReviewUrlState {
@@ -97,6 +103,7 @@ export function parseMetricReviewSearchParams(
   };
 }
 
+/** Build URL search params from the current Metric Review UI state. */
 export function buildMetricReviewSearchParams(input: {
   scope: LandingScopeTab;
   landingFilters: LandingFilters;
@@ -134,6 +141,7 @@ export function buildMetricReviewSearchParams(input: {
   return params;
 }
 
+/** Build a full path + query string link to Metric Review with the given state. */
 export function metricReviewHref(input: {
   scope: LandingScopeTab;
   landingFilters: LandingFilters;
@@ -202,6 +210,7 @@ export function landingToQueueFilters(
   };
 }
 
+/** Count how many non-default filters are active in the review workspace. */
 export function countActiveQueueFilters(filters: ReviewQueueFilters): number {
   let n = 0;
   if (filters.search.trim()) n += 1;
@@ -216,6 +225,7 @@ export function countActiveQueueFilters(filters: ReviewQueueFilters): number {
   return n;
 }
 
+/** Build short text chips summarizing active workspace filters for the UI. */
 export function queueFilterSummaryChips(filters: ReviewQueueFilters): string[] {
   const chips: string[] = [];
   if (filters.search.trim()) chips.push(`“${filters.search.trim()}”`);

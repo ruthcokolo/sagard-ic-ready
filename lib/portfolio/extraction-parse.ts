@@ -1,3 +1,8 @@
+/**
+ * Turns raw text snippets from PDFs into numbers with units. Handles
+ * currency, percentages, headcount, and filters out values that look wrong.
+ */
+
 export type ParsedValue = {
   raw: string;
   normalized: number | null;
@@ -11,6 +16,7 @@ const CURRENCY_VALUE =
 const PERCENT_VALUE = /([\d,]+(?:\.\d+)?)\s*%/;
 const COUNT_VALUE = /([\d,]+(?:\.\d+)?)\s*(?:FTE|fte|employees|employee|people|headcount)?/i;
 
+/** Convert a dollar string (with M/B/K suffix) into a number and unit. */
 export function normalizeCurrency(raw: string, multiplier?: string): { value: number; unit: string } | null {
   const cleaned = raw.replace(/,/g, "");
   const num = parseFloat(cleaned);
@@ -33,6 +39,7 @@ export function normalizeCurrency(raw: string, multiplier?: string): { value: nu
   return { value: num, unit: "USD" };
 }
 
+/** True when a parsed number looks like a year or other false match, not a real metric. */
 export function isInvalidNumericValue(
   raw: string,
   normalized: number | null,
@@ -55,6 +62,7 @@ export function isInvalidNumericValue(
   return false;
 }
 
+/** Parse one text chunk into a raw value, normalized number, and unit for a metric. */
 export function parseValueFromSegment(segment: string, metricName: string): ParsedValue | null {
   const trimmed = segment.trim();
   if (!trimmed) return null;

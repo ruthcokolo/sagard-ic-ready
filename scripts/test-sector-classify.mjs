@@ -1,3 +1,4 @@
+/** CLI test: checks sector classification for sample company text and optional PDFs. */
 import { readFileSync } from "node:fs";
 import { classifyCompanySector, resolveCompanySector } from "../lib/portfolio/sector-classification.ts";
 

@@ -1,3 +1,4 @@
+/** CLI test: runs full PDF metric extraction on a sample portfolio report. */
 import { readFileSync } from "node:fs";
 import { extractMetricsFromPdfBuffer } from "../lib/portfolio/pdf-extract.ts";
 

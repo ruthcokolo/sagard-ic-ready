@@ -1,8 +1,12 @@
 "use client";
 
+/**
+ * Removable chips showing which companies are selected for comparison.
+ */
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
 import type { PortfolioCompany } from "@/lib/portfolio/types";
 
+/** Chips showing selected companies with remove buttons. */
 export function SelectedCompanyChips({
   companies,
   onRemove,

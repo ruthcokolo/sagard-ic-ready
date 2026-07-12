@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Demo checklist guiding users through the portfolio monitoring workflow.
+ */
 import { useState } from "react";
 import type { PortfolioState } from "@/lib/portfolio/types";
 
@@ -26,6 +29,7 @@ function buildChecklist(state: PortfolioState): ChecklistItem[] {
   ];
 }
 
+/** Interactive checklist for demo users to walk through key flows. */
 export function DemoFlowChecklist({ state }: { state: PortfolioState }) {
   const [open, setOpen] = useState(true);
   const items = buildChecklist(state);

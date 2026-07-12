@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Side drawer for editing a metric definition and its extraction settings.
+ */
 import { useEffect, useMemo, useRef, useState } from "react";
 import type {
   ExtractionRule,
@@ -13,6 +16,7 @@ import {
   unitsForType,
 } from "@/lib/portfolio/metric-definition-utils";
 
+/** Editable form values for a metric definition. */
 export type MetricDefinitionDraft = {
   metricName: string;
   description: string;
@@ -55,6 +59,7 @@ function draftFromRule(rule: ExtractionRule): MetricDefinitionDraft {
   };
 }
 
+/** Form drawer for editing a metric's extraction definition. */
 export function EditMetricDefinitionDrawer({
   open,
   mode,

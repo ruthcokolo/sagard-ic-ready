@@ -22,6 +22,7 @@ function openDb(): Promise<IDBDatabase> {
   });
 }
 
+/** Save one uploaded report PDF to browser storage so it survives a page refresh. */
 export async function putPackagePdf(key: string, file: File): Promise<void> {
   const db = await openDb();
   await new Promise<void>((resolve, reject) => {
@@ -33,6 +34,7 @@ export async function putPackagePdf(key: string, file: File): Promise<void> {
   db.close();
 }
 
+/** Load a previously saved report PDF from browser storage, or null if missing. */
 export async function getPackagePdf(key: string): Promise<File | null> {
   try {
     const db = await openDb();
@@ -52,6 +54,7 @@ export async function getPackagePdf(key: string): Promise<File | null> {
   }
 }
 
+/** Remove one saved report PDF from browser storage. */
 export async function deletePackagePdf(key: string): Promise<void> {
   try {
     const db = await openDb();
@@ -67,6 +70,7 @@ export async function deletePackagePdf(key: string): Promise<void> {
   }
 }
 
+/** Delete every saved report PDF from browser storage. */
 export async function clearPackagePdfStore(): Promise<void> {
   try {
     const db = await openDb();

@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Summary stat cards at the top of the companies directory.
+ */
+/** Stat cards summarizing the company directory. */
 export function CompanyDirectorySummary({
   total,
   sectors,

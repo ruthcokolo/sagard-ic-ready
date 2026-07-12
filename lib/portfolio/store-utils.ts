@@ -1,3 +1,8 @@
+/**
+ * Helpers for cleaning up saved portfolio data: dedupe reports, fix old records, and build lookup keys.
+ * Runs when the app loads stored state so duplicate uploads do not break the UI.
+ */
+
 import type { ExtractedMetric, MetricName, PortfolioState, ReportingPackage } from "./types";
 import {
   companyIdFromName,
@@ -7,15 +12,17 @@ import {
 } from "./company-from-upload";
 import { inferSourceFormatFromFileName } from "./sample-pdf-catalog";
 
+/** Build a unique key from company, period, and filename so we can match packages. */
 export function packageKey(pkg: Pick<ReportingPackage, "companyId" | "reportPeriod" | "fileName">) {
   return `${pkg.companyId}::${pkg.reportPeriod}::${pkg.fileName}`;
 }
 
-/** One active reporting package per company + period (filename may differ across uploads). */
+/** Build a key from company and period only (one active report per period). */
 export function periodPackageKey(pkg: Pick<ReportingPackage, "companyId" | "reportPeriod">) {
   return `${pkg.companyId}::${pkg.reportPeriod}`;
 }
 
+/** Build a key for one metric inside a specific report package. */
 export function metricKey(packageId: string, metricName: string) {
   return `${packageId}::${metricName}`;
 }
@@ -24,6 +31,7 @@ function processedTime(pkg: ReportingPackage) {
   return new Date(pkg.processedAt ?? pkg.uploadedAt).getTime();
 }
 
+/** Fill in missing company name, period, and source format from the PDF filename. */
 export function normalizePackage(pkg: ReportingPackage): ReportingPackage {
   const parsed = parsePdfFileName(pkg.fileName);
   const companyId = companyIdFromName(parsed.companyName);
@@ -39,6 +47,7 @@ export function normalizePackage(pkg: ReportingPackage): ReportingPackage {
   };
 }
 
+/** Find a saved package that matches a company + period + filename key. */
 export function findPackageByKey(
   packages: ReportingPackage[],
   key: string
@@ -46,6 +55,7 @@ export function findPackageByKey(
   return packages.find((p) => packageKey(p) === key);
 }
 
+/** Find the best package for a company and reporting period when filenames differ. */
 export function findPackageByCompanyPeriod(
   packages: ReportingPackage[],
   companyId: string,
@@ -201,6 +211,7 @@ export function migratePortfolioState(state: PortfolioState): PortfolioState {
   };
 }
 
+/** Build a sample PDF filename from a company name and report period. */
 export function sampleFileName(companyName: string, reportPeriod: string) {
   return `${companyName.replace(/\s+/g, "_")}_${reportPeriod.replace(/\s+/g, "_")}_Sample.pdf`;
 }

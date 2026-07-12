@@ -1,3 +1,7 @@
+/**
+ * Duplicate package detection by hash, fingerprint, filename, and period signals.
+ */
+
 import { normalizeFileName } from "./file-hashing";
 import { documentSimilarity } from "./document-fingerprint";
 import type {

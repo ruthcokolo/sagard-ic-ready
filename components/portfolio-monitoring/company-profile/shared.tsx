@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Shared UI pieces reused across company profile tabs (cards, pills, sparklines).
+ */
 import Link from "next/link";
 
+/** Formats a date string into a short readable form. */
 export function formatShortDate(iso: string | null | undefined): string {
   if (!iso) return "—";
   const d = new Date(iso);
@@ -13,6 +17,7 @@ export function formatShortDate(iso: string | null | undefined): string {
   });
 }
 
+/** Placeholder shown when metadata is not available. */
 export function MissingMeta({
   label,
   tooltip = "Not set in company profile",
@@ -27,6 +32,7 @@ export function MissingMeta({
   );
 }
 
+/** Empty state for a company profile tab with no data. */
 export function CompanyProfileEmptyState({
   title,
   copy,
@@ -74,6 +80,7 @@ export function CompanyProfileEmptyState({
   );
 }
 
+/** Card wrapper with title used on company profile tabs. */
 export function SectionCard({
   title,
   helper,
@@ -113,6 +120,7 @@ export function SectionCard({
   );
 }
 
+/** Tab button styled as a link on the company profile. */
 export function TabLinkButton({
   children,
   onClick,
@@ -133,6 +141,7 @@ export function TabLinkButton({
   );
 }
 
+/** Tiny inline chart showing a trend over recent values. */
 export function Sparkline({
   values,
   tone = "up",
@@ -166,6 +175,7 @@ export function Sparkline({
   );
 }
 
+/** Small colored pill for status labels on profile pages. */
 export function StatusPill({
   label,
   tone,
@@ -189,6 +199,7 @@ export function StatusPill({
   );
 }
 
+/** Circular gauge showing metric coverage percentage. */
 export function CoverageGauge({ value }: { value: number }) {
   const pct = Math.min(100, Math.max(0, value));
   const r = 36;

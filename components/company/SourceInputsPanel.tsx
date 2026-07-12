@@ -1,8 +1,11 @@
 "use client";
 
+/** Collapsible panel listing ingested source documents for analysis. */
+
 import { useState } from "react";
 import { NORTHWIND_SOURCE_DOCUMENTS } from "@/lib/northwind-sources";
 
+/** Expandable list of Northwind demo source inputs. */
 export function SourceInputsPanel({ defaultOpen = true }: { defaultOpen?: boolean }) {
   const [open, setOpen] = useState(defaultOpen);
 

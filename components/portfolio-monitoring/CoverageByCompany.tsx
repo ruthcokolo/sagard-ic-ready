@@ -1,5 +1,9 @@
+/**
+ * List showing metric coverage percentage for each company.
+ */
 type CoverageItem = { company: string; companyId: string; coverage: number };
 
+/** Shows coverage bars for each company. */
 export function CoverageByCompany({ items }: { items: CoverageItem[] }) {
   return (
     <div className="rounded-2xl border border-stone-200/70 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

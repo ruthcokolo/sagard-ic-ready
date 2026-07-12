@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Sidebar listing packages in the review queue with filters.
+ */
 import { useEffect, useMemo, useState } from "react";
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
 import { formatCompanyDisplayName } from "@/lib/portfolio/company-identity";
@@ -60,6 +63,7 @@ function companyQueueState(group: {
   return { label: "In queue", tone: "stone" };
 }
 
+/** Sidebar with package list and filters during review. */
 export function ReviewQueueSidebar({
   state,
   filters,

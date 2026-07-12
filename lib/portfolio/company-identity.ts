@@ -1,3 +1,8 @@
+/**
+ * Display helpers for portfolio companies: readable names, avatar colors,
+ * and initials shown in lists and review screens.
+ */
+
 export type CompanyAvatarPalette = {
   bgHex: string;
 };
@@ -51,6 +56,7 @@ export function getCompanyInitials(companyName: string): string {
   return `${parts[0][0] ?? ""}${parts[1][0] ?? ""}`.toUpperCase();
 }
 
+/** Bundle of display fields (name, initials, color) for one company. */
 export function getCompanyIdentity(companyId: string, companyName: string) {
   const palette = getCompanyAvatarColor(companyId, companyName);
   const displayName = formatCompanyDisplayName(companyName);

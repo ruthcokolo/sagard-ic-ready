@@ -1,5 +1,6 @@
 "use client";
 
+/** Table of deals waiting for IC committee review with status columns. */
 import Link from "next/link";
 import type { PipelineDeal } from "@/lib/deal-types";
 import { DEMO_DEAL_ID } from "@/lib/insights";
@@ -31,6 +32,7 @@ function StepIcon({ step }: { step: WorkflowStep }) {
   return <IconClipboardCheck className={cls} />;
 }
 
+/** Renders the review queue table UI. */
 export function ReviewQueueTable({
   deals,
   reviewerName,

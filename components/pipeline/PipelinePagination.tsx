@@ -1,5 +1,6 @@
 "use client";
 
+/** Pagination controls for the pipeline table. */
 function pageNumbers(current: number, total: number): (number | "ellipsis")[] {
   if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);
   if (current <= 4) return [1, 2, 3, 4, 5, "ellipsis", total];
@@ -7,6 +8,7 @@ function pageNumbers(current: number, total: number): (number | "ellipsis")[] {
   return [1, "ellipsis", current - 1, current, current + 1, "ellipsis", total];
 }
 
+/** Renders the pipeline pagination UI. */
 export function PipelinePagination({
   page,
   totalPages,

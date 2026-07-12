@@ -1,3 +1,8 @@
+/**
+ * Pre-extracted portfolio metrics from demo PDFs — types, sample reports,
+ * metric catalog, and normalized extraction records from the Python POC.
+ */
+
 export type PortfolioMetric = {
   company: string;
   reportingPeriod: string | null;

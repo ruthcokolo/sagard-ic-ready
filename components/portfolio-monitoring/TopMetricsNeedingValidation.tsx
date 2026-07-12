@@ -1,7 +1,11 @@
+/**
+ * Ranked list of metrics that most often need human validation.
+ */
 import Link from "next/link";
 
 type MetricCount = { metric: string; count: number };
 
+/** Lists metrics ranked by how many need validation. */
 export function TopMetricsNeedingValidation({ metrics }: { metrics: MetricCount[] }) {
   return (
     <div className="rounded-2xl border border-stone-200/70 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

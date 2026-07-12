@@ -1,3 +1,8 @@
+/**
+ * Rules that control when a user can submit a decision or download the IC package —
+ * blocks proceed when serious conflicts remain or required fields are missing.
+ */
+
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { AnalysisResult, Decision } from "@/lib/types";
 import { exportCopy } from "@/lib/plain-copy";
@@ -16,22 +21,26 @@ export type ExportLockState = {
   submitLabel: string;
 };
 
+/** True when any high-severity conflict is still unresolved. */
 export function hasMaterialConflicts(analysis: AnalysisResult): boolean {
   return analysis.contradictions.some(
     (c) => c.status === "unresolved" && c.severity === "high",
   );
 }
 
+/** True when the deal is clear enough to recommend to the investment committee. */
 export function canRecommendToCommittee(analysis: AnalysisResult): boolean {
   return !hasMaterialConflicts(analysis);
 }
 
+/** Counts how many high-severity conflicts are still open. */
 export function getMaterialConflictCount(analysis: AnalysisResult): number {
   return analysis.contradictions.filter(
     (c) => c.status === "unresolved" && c.severity === "high",
   ).length;
 }
 
+/** Computes what the user can and cannot do on the decision screen right now. */
 export function getExportLockState(
   analysis: AnalysisResult,
   deal: PipelineDeal,

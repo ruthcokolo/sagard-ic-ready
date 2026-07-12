@@ -1,3 +1,8 @@
+/**
+ * Builds the metric review queue: filters, sorting, package summaries, and
+ * navigation helpers for reviewers working through extracted metrics.
+ */
+
 import { inferReportType } from "./reporting-packages-demo";
 import { dedupeMetrics } from "./store-utils";
 import { getActivePortfolioSectors } from "./sector-classification";
@@ -111,14 +116,17 @@ const TERMINAL_STATUSES: MetricStatus[] = [
   "Missing from report",
 ];
 
+/** True when a metric has a final decision (approved, rejected, or marked missing). */
 export function isTerminalStatus(status: MetricStatus): boolean {
   return TERMINAL_STATUSES.includes(status);
 }
 
+/** True when a metric still needs a reviewer to approve or reject it. */
 export function isUnresolved(metric: ExtractedMetric): boolean {
   return metric.status === "Needs validation";
 }
 
+/** True when someone changed the extracted value but has not approved it yet. */
 export function isEditedPendingApproval(metric: ExtractedMetric): boolean {
   if (metric.status !== "Needs validation") return false;
   const orig = metric.originalExtractedValue ?? metric.extractedValue;
@@ -126,11 +134,13 @@ export function isEditedPendingApproval(metric: ExtractedMetric): boolean {
   return orig !== metric.extractedValue || origNorm !== metric.normalizedValue;
 }
 
+/** Status shown in the UI, including a special label for edited-but-unapproved metrics. */
 export function getDisplayMetricStatus(metric: ExtractedMetric): DisplayMetricStatus {
   if (isEditedPendingApproval(metric)) return "Edited — needs approval";
   return metric.status;
 }
 
+/** Sort metrics in the standard catalog order (Revenue, ARR, EBITDA, etc.). */
 export function metricSortOrder(a: ExtractedMetric, b: ExtractedMetric): number {
   const ai = ALL_METRICS.indexOf(a.metricName as (typeof ALL_METRICS)[number]);
   const bi = ALL_METRICS.indexOf(b.metricName as (typeof ALL_METRICS)[number]);
@@ -149,6 +159,7 @@ function ageInDays(iso: string): number {
   return Math.max(0, Math.floor(ms / (1000 * 60 * 60 * 24)));
 }
 
+/** Short label explaining why a metric needs review (low confidence, forecast, etc.). */
 export function inferReviewIssue(metric: ExtractedMetric): string {
   if (metric.confidence === "Low") return "Low extraction confidence";
   const evidence = metric.evidenceText.toLowerCase();
@@ -163,6 +174,7 @@ export function inferReviewIssue(metric: ExtractedMetric): string {
   return "Needs validation";
 }
 
+/** Higher score means review this package sooner (failed, old, or many open items). */
 export function getReviewPriorityScore(input: {
   pkg: ReportingPackage;
   metrics: ExtractedMetric[];
@@ -181,6 +193,7 @@ export function getReviewPriorityScore(input: {
   return score;
 }
 
+/** All metrics for one package, deduplicated and sorted by catalog order. */
 export function getPackageMetrics(
   state: PortfolioState,
   packageId: string
@@ -190,6 +203,7 @@ export function getPackageMetrics(
   );
 }
 
+/** Summary row for one package in the review queue navigator. */
 export function getPackageReviewItem(
   state: PortfolioState,
   packageId: string
@@ -215,6 +229,7 @@ export function getPackageReviewItem(
   };
 }
 
+/** Counts of approved, pending, missing, and rejected metrics for one package. */
 export function getPackageReviewSummary(
   state: PortfolioState,
   packageId: string
@@ -236,6 +251,7 @@ export function getPackageReviewSummary(
   };
 }
 
+/** Sector, period, and reviewer values available in the review filter dropdowns. */
 export function getAvailableReviewFilterOptions(state: PortfolioState) {
   const deduped = dedupeMetrics(state.metrics);
   const sectors = getActivePortfolioSectors(state.companies);
@@ -258,6 +274,7 @@ function matchesSearch(haystack: string, search: string): boolean {
   return haystack.toLowerCase().includes(search.trim().toLowerCase());
 }
 
+/** True when a package and its metrics pass all active review queue filters. */
 function packageMatchesFilters(
   pkg: ReportingPackage,
   metrics: ExtractedMetric[],
@@ -316,6 +333,7 @@ function packageMatchesFilters(
   return true;
 }
 
+/** Groups filtered packages by company for the review queue sidebar. */
 export function buildCompanyReviewGroups(
   state: PortfolioState,
   filters: ReviewQueueFilters,
@@ -395,6 +413,7 @@ export function getQueueQuickViewCounts(
   };
 }
 
+/** Sort company groups for the review navigator (priority, name, age, etc.). */
 function sortCompanyGroups(groups: CompanyReviewGroup[], sort: NavigatorSort): CompanyReviewGroup[] {
   const copy = [...groups];
   switch (sort) {
@@ -424,10 +443,12 @@ function sortCompanyGroups(groups: CompanyReviewGroup[], sort: NavigatorSort): C
   return copy;
 }
 
+/** Total count of metrics across the portfolio that still need validation. */
 export function getTotalUnresolvedCount(state: PortfolioState): number {
   return dedupeMetrics(state.metrics).filter(isUnresolved).length;
 }
 
+/** Flat list of individual metrics needing review, sorted by priority. */
 export function getReviewQueueItems(
   state: PortfolioState,
   filters: ReviewQueueFilters
@@ -457,6 +478,7 @@ export function getReviewQueueItems(
   return items.sort((a, b) => b.priorityScore - a.priorityScore);
 }
 
+/** Metrics for one package filtered by the active review tab (all, low confidence, etc.). */
 export function getFilteredPackageMetrics(
   packageId: string,
   state: PortfolioState,
@@ -477,6 +499,7 @@ export function getFilteredPackageMetrics(
   }
 }
 
+/** Number of metrics in each review tab for one package. */
 export function getTabCounts(
   packageId: string,
   state: PortfolioState
@@ -491,6 +514,7 @@ export function getTabCounts(
   };
 }
 
+/** Next unresolved metric in a package, optionally preferring low-confidence items. */
 export function getNextUnresolvedMetric(
   packageId: string,
   state: PortfolioState,
@@ -508,6 +532,7 @@ export function getNextUnresolvedMetric(
   return pool[idx + 1] ?? pool[0];
 }
 
+/** Previous unresolved metric in a package for back navigation. */
 export function getPreviousUnresolvedMetric(
   packageId: string,
   state: PortfolioState,
@@ -521,6 +546,7 @@ export function getPreviousUnresolvedMetric(
   return pool[idx - 1];
 }
 
+/** Previous metric in catalog order within the same package (any status). */
 export function getPreviousMetric(
   packageId: string,
   state: PortfolioState,
@@ -532,6 +558,7 @@ export function getPreviousMetric(
   return pool[idx - 1];
 }
 
+/** Flat ordered list of packages matching current filters and sort. */
 export function getOrderedReviewPackages(
   state: PortfolioState,
   filters: ReviewQueueFilters,
@@ -540,6 +567,7 @@ export function getOrderedReviewPackages(
   return buildCompanyReviewGroups(state, filters, sort).flatMap((g) => g.packages);
 }
 
+/** Next package in the filtered review queue after the current one. */
 export function getNextReviewPackage(
   state: PortfolioState,
   currentPackageId: string | null,
@@ -553,6 +581,7 @@ export function getNextReviewPackage(
   return items[idx + 1] ?? null;
 }
 
+/** Previous package in the filtered review queue before the current one. */
 export function getPreviousReviewPackage(
   state: PortfolioState,
   currentPackageId: string,
@@ -565,6 +594,7 @@ export function getPreviousReviewPackage(
   return items[idx - 1];
 }
 
+/** Most recent approved value for the same metric from an earlier reporting period. */
 export function getComparablePreviousMetric(
   metric: ExtractedMetric,
   allMetrics: ExtractedMetric[]
@@ -583,6 +613,7 @@ export function getComparablePreviousMetric(
   return approved[0];
 }
 
+/** Recent metric review decisions from the audit log, newest first. */
 export function getRecentlyReviewedMetrics(
   state: PortfolioState,
   decisionFilter: "all" | MetricAuditEntry["action"] = "all"
@@ -609,10 +640,12 @@ export function getRecentlyReviewedMetrics(
   });
 }
 
+/** True when at least one package has finished or failed processing. */
 export function hasProcessedPackages(state: PortfolioState): boolean {
   return state.packages.some((p) => p.status === "Processed" || p.status === "Failed");
 }
 
+/** Split evidence text into before/highlight/after so the UI can bold the value. */
 export function highlightEvidenceExcerpt(
   evidenceText: string,
   extractedValue: string
@@ -710,6 +743,7 @@ export function getMetricComparableHistory(
     }));
 }
 
+/** Format an ISO timestamp for display in evidence panels. */
 export function formatEvidenceDateTime(iso: string | undefined | null): string {
   if (!iso) return "—";
   const d = new Date(iso);

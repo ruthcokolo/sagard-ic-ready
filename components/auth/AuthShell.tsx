@@ -1,7 +1,10 @@
 "use client";
 
+/** Shared layout and form primitives for login and onboarding screens. */
+
 import Link from "next/link";
 
+/** Two-column auth layout with marketing aside and form area. */
 export function AuthShell({
   children,
   title,
@@ -56,6 +59,7 @@ export function AuthShell({
   );
 }
 
+/** Labeled text input styled for auth forms. */
 export function AuthField({
   label,
   id,
@@ -92,6 +96,7 @@ export function AuthField({
   );
 }
 
+/** Primary or secondary full-width auth action button. */
 export function AuthButton({
   children,
   type = "button",
@@ -119,6 +124,7 @@ export function AuthButton({
   );
 }
 
+/** Horizontal rule with centered label (e.g. "or continue with"). */
 export function AuthDivider({ label }: { label: string }) {
   return (
     <div className="relative my-6">
@@ -130,6 +136,7 @@ export function AuthDivider({ label }: { label: string }) {
   );
 }
 
+/** Footer prompt linking to sign-up or sign-in. */
 export function AuthFooterLink({
   prompt,
   href,

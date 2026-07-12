@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Panels for suggesting metric applicability and missing-metric follow-up sections.
+ */
 import { useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -11,6 +14,7 @@ import {
   MissingMetricCard,
 } from "@/components/portfolio-monitoring/communications/MissingMetricFollowUp";
 
+/** Suggests marking a metric as not applicable with a reason. */
 export function MetricApplicabilitySuggestionCard({
   companyId,
   companyName,
@@ -104,6 +108,7 @@ export function MetricApplicabilitySuggestionCard({
   );
 }
 
+/** Section for drafting follow-up emails about missing metrics. */
 export function MissingMetricFollowUpSection({
   companyId,
   companyName,

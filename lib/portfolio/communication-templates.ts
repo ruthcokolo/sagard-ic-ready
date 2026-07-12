@@ -1,3 +1,7 @@
+/**
+ * Default and CRUD helpers for portfolio communication email templates.
+ */
+
 import type {
   CommunicationTemplate,
   CommunicationTemplateCategory,
@@ -47,6 +51,7 @@ Thank you,
   updatedAt: new Date(0).toISOString(),
 };
 
+/** Seed default outbound communication email templates. */
 export function createDefaultCommunicationTemplates(): CommunicationTemplate[] {
   const now = new Date().toISOString();
   const base = (partial: Partial<CommunicationTemplate> & { category: CommunicationTemplateCategory; name: string; subject: string; body: string }): CommunicationTemplate => ({
@@ -110,6 +115,7 @@ export function createDefaultCommunicationTemplates(): CommunicationTemplate[] {
   ];
 }
 
+/** Find a communication template by id. */
 export function getCommunicationTemplate(
   templates: CommunicationTemplate[],
   category: CommunicationTemplateCategory
@@ -117,6 +123,7 @@ export function getCommunicationTemplate(
   return templates.find((t) => t.category === category && t.active) ?? null;
 }
 
+/** Parse {{variable}} placeholders from template body/subject. */
 export function extractTemplateVariables(text: string): string[] {
   const found = new Set<string>();
   const re = /\{\{\s*([a-z0-9_]+)\s*\}\}/gi;
@@ -125,6 +132,7 @@ export function extractTemplateVariables(text: string): string[] {
   return [...found];
 }
 
+/** Validate template for unknown or unclosed variables. */
 export function validateTemplateSyntax(subject: string, body: string): TemplateValidationIssue[] {
   const issues: TemplateValidationIssue[] = [];
   const combined = `${subject}\n${body}`;
@@ -147,6 +155,7 @@ export function validateTemplateSyntax(subject: string, body: string): TemplateV
   return issues;
 }
 
+/** Validate rendered context against available template variables. */
 export function validateTemplateContext(
   subject: string,
   body: string,
@@ -170,6 +179,7 @@ export function validateTemplateContext(
   return issues;
 }
 
+/** Substitute template variables with render context values. */
 export function renderCommunicationTemplate(
   template: Pick<CommunicationTemplate, "subject" | "body">,
   context: TemplateRenderContext,
@@ -193,6 +203,7 @@ export function renderCommunicationTemplate(
   return { subject: replace(template.subject).replace(/\s+/g, " ").trim(), body };
 }
 
+/** Restore a template to its built-in default content. */
 export function resetTemplateToDefault(
   category: CommunicationTemplateCategory
 ): CommunicationTemplate | null {

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Modal for assigning multiple review items to a reviewer at once.
+ */
 import { useEffect, useMemo, useState } from "react";
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
 import { formatCompanyDisplayName } from "@/lib/portfolio/company-identity";
@@ -14,6 +17,7 @@ import {
 import type { CompanyReviewLandingRow } from "@/lib/portfolio/metric-review-landing-selectors";
 import type { PortfolioState } from "@/lib/portfolio/types";
 
+/** Modal to bulk-assign review items to a reviewer. */
 export function BulkAssignmentModal({
   open,
   rows,

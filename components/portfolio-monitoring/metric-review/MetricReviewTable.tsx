@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Detailed table of individual metrics inside a package review.
+ */
 import { useState } from "react";
 import type { ExtractedMetric } from "@/lib/portfolio/types";
 import { isUnresolved } from "@/lib/portfolio/metric-review-selectors";
@@ -119,6 +122,7 @@ function MetricDecisionMenu({
   );
 }
 
+/** Table of individual metrics inside package review. */
 export function MetricReviewTable({
   metrics,
   selectedIds,

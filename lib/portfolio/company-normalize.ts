@@ -1,3 +1,8 @@
+/**
+ * Normalize company names and website domains so duplicate detection
+ * can compare them fairly across spelling differences.
+ */
+
 import type { PortfolioCompany } from "./types";
 
 const LEGAL_SUFFIXES =
@@ -66,6 +71,7 @@ function levenshtein(a: string, b: string): number {
   return row[b.length];
 }
 
+/** Find existing companies that might be the same as a new name or website. */
 export function findPotentialDuplicateCompanies(
   input: { name: string; websiteUrl?: string },
   existingCompanies: PortfolioCompany[]

@@ -1,6 +1,9 @@
+/** Score and breakdown of how ready the IC package is for committee review. */
+
 import type { ICPackageSection } from "@/lib/types";
 import { packageStatusLabels } from "@/lib/plain-copy";
 
+/** Renders the icpackage readiness UI. */
 export function ICPackageReadiness({ sections }: { sections: ICPackageSection[] }) {
   return (
     <section className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

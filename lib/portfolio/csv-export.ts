@@ -1,3 +1,7 @@
+/**
+ * Exports approved metrics to CSV and triggers a browser download of the file.
+ */
+
 import type { ExtractedMetric, PortfolioState } from "./types";
 
 const CSV_HEADERS = [
@@ -29,6 +33,7 @@ function escapeCsv(value: string | number | null | undefined): string {
   return str;
 }
 
+/** Turn extracted metrics into a CSV string with standard export columns. */
 export function metricsToCsv(
   metrics: ExtractedMetric[],
   state?: PortfolioState
@@ -54,6 +59,7 @@ export function metricsToCsv(
   return [CSV_HEADERS.join(","), ...rows].join("\n");
 }
 
+/** Save a CSV string as a file download in the browser. */
 export function downloadCsv(content: string, filename: string) {
   const blob = new Blob([content], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);

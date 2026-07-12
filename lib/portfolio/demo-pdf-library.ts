@@ -113,8 +113,10 @@ const ICREADY_TEMPLATE: DemoPdfLibraryItem[] = [
   ),
 ];
 
+/** Master list of all demo and sample PDFs available in the upload drawer. */
 export const DEMO_PDF_LIBRARY: DemoPdfLibraryItem[] = [...COMPANY_FORMATTED, ...ICREADY_TEMPLATE];
 
+/** Split the demo PDF list into company-formatted and ICReady template groups. */
 export function getDemoPdfLibraryGrouped(): {
   companyFormatted: DemoPdfLibraryItem[];
   icreadyTemplate: DemoPdfLibraryItem[];
@@ -135,6 +137,7 @@ export function encodePublicPath(publicPath: string): string {
   return encoded.startsWith("/") ? encoded : `/${encoded}`;
 }
 
+/** Download one demo PDF from the public folder and wrap it as a File object. */
 export async function fetchDemoPdfAsFile(entry: DemoPdfLibraryItem): Promise<File | null> {
   const res = await fetch(encodePublicPath(entry.publicPath));
   if (!res.ok) return null;
@@ -142,6 +145,7 @@ export async function fetchDemoPdfAsFile(entry: DemoPdfLibraryItem): Promise<Fil
   return new File([blob], entry.fileName, { type: "application/pdf" });
 }
 
+/** Download several demo PDFs and report any that could not be loaded. */
 export async function fetchDemoPdfsAsFiles(
   entries: DemoPdfLibraryItem[]
 ): Promise<{ files: File[]; missing: string[] }> {

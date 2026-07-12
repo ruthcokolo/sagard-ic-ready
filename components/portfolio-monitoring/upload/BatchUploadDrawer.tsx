@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Slide-out drawer for uploading multiple reporting package PDFs at once.
+ */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -26,6 +29,7 @@ import { UploadBatchSummary, UploadFileQueue } from "./UploadBatchSummary";
 
 const PROCESS_CONCURRENCY = 3;
 
+/** Drawer UI for selecting and uploading many PDFs at once. */
 export function BatchUploadDrawer({
   open,
   onClose,
@@ -586,6 +590,7 @@ export function BatchUploadDrawer({
         </footer>
       </aside>
 
+      {/* Pop-up dialogs for duplicates, company/period confirmation, and close warning */}
       {closeConfirm ? (
         <div className="fixed inset-0 z-[75] flex items-center justify-center bg-stone-900/40 px-4">
           <div className="w-full max-w-md rounded-2xl border border-stone-200 bg-white p-5 shadow-2xl">

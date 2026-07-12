@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Edit email templates used when following up with companies about missing metrics.
+ */
 import { useMemo, useState } from "react";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
@@ -12,6 +15,7 @@ import {
 import type { CommunicationTemplate } from "@/lib/portfolio/monitoring-phase-types";
 import { hasPortfolioPermission } from "@/lib/portfolio/portfolio-permissions";
 
+/** Page for editing outbound email templates. */
 export function CommunicationTemplatesView() {
   const { user } = useAuth();
   const { state, saveCommunicationTemplate } = usePortfolio();

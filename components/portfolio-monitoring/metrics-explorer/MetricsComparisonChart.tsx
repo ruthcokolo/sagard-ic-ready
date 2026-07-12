@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Bar chart comparing metric values across selected companies.
+ */
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
 import type { ComparableMetricRow, ComparisonSort } from "@/lib/portfolio/metrics-explorer-selectors";
 import { metricRowDedupeKey } from "@/lib/portfolio/metrics-explorer-selectors";
@@ -61,6 +64,7 @@ function ChartEmptyState({
   );
 }
 
+/** Bar chart comparing one metric across companies. */
 export function MetricsComparisonChart({
   metricName,
   periodLabel,

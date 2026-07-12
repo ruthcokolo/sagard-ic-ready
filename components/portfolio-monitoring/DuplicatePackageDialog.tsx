@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Dialog shown when an uploaded package matches an existing one.
+ */
 import type { ReportingPackage } from "@/lib/portfolio/types";
 
+/** Asks the user how to handle a duplicate reporting package upload. */
 export function DuplicatePackageDialog({
   existing,
   onViewExisting,

@@ -1,11 +1,15 @@
 "use client";
 
+/**
+ * Export portfolio data to CSV files for offline analysis.
+ */
 import Link from "next/link";
 import { useState } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { downloadCsv } from "@/lib/portfolio/csv-export";
 import { EmptyState } from "@/components/portfolio-monitoring/PortfolioShared";
 
+/** Page for downloading portfolio data as CSV files. */
 export function ExportsView() {
   const { state, exportCsv } = usePortfolio();
   const [message, setMessage] = useState<string | null>(null);

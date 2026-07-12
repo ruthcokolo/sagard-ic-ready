@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Header section on the metric review landing page.
+ */
+/** Title and stats header on the review landing page. */
 export function MetricReviewLandingHeader({
   totalCompanies,
   assignedCount,

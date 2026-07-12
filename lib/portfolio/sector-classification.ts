@@ -1,3 +1,8 @@
+/**
+ * Sector labels, aliases, and rules for guessing a company's industry from
+ * its name and the text inside uploaded PDF reports.
+ */
+
 /** Canonical portfolio sector labels used in filters and company profiles. */
 export const PORTFOLIO_SECTORS = [
   "Healthcare",
@@ -138,6 +143,7 @@ const SECTOR_RULES: SectorRule[] = [
   },
 ];
 
+/** Look up a sector name and return the standard label, or null if unknown. */
 export function normalizePortfolioSector(value: string | undefined | null): PortfolioSector | null {
   if (!value?.trim()) return null;
   const trimmed = value.trim();
@@ -148,6 +154,7 @@ export function normalizePortfolioSector(value: string | undefined | null): Port
   return alias ?? null;
 }
 
+/** True when a sector is a real category we can show in the UI (not a placeholder). */
 export function isDisplayablePortfolioSector(sector: string | undefined | null): sector is PortfolioSector {
   if (!sector?.trim()) return false;
   return sector !== "Portfolio" && sector !== "Unclassified";
@@ -228,6 +235,7 @@ export const KNOWN_COMPANY_SECTORS: Record<string, PortfolioSector> = {
   "stonegate-properties": "Real Estate",
 };
 
+/** Pick the best sector for a company, using known catalog ids when available. */
 export function resolveCompanySector(input: {
   companyId: string;
   companyName: string;

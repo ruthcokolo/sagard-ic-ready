@@ -1,10 +1,13 @@
 "use client";
 
+/** Banner shown after an IC decision is recorded, linking to exports. */
+
 import Link from "next/link";
 import { decisionToExportDecision } from "@/lib/decision-records";
 import type { RecordedDecision } from "@/lib/decision-records";
 import { EXPORT_DECISION_LABELS } from "@/lib/exports-mock";
 
+/** Confirms submitted decision with label and link to export history. */
 export function SubmittedDecisionBanner({ submission }: { submission: RecordedDecision }) {
   const exportDecision = decisionToExportDecision(submission.decision);
   const label = EXPORT_DECISION_LABELS[exportDecision];

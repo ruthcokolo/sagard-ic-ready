@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Table cell showing reviewer assignee and due date for a review row.
+ */
 function formatDate(iso: string) {
   try {
     return new Date(iso).toLocaleDateString("en-US", {
@@ -12,6 +15,7 @@ function formatDate(iso: string) {
   }
 }
 
+/** Table cell showing reviewer name and due date. */
 export function AssigneeDueDateCell({
   assigneeName,
   dueDate,

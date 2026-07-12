@@ -1,3 +1,8 @@
+/**
+ * Server-side PDF reading and metric extraction. Runs PDF parsing in Node
+ * so the browser never has to load the PDF library directly.
+ */
+
 import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 import { pdfItemsToPageText } from "./pdf-text";
 import {
@@ -27,12 +32,12 @@ export type PdfExtractionResult = {
 };
 
 /**
- * pdfjs-dist 5.x uses a process-wide PagesMapper singleton. Concurrent
- * getDocument/getPage calls overwrite each other's page counts and throw
- * "Invalid page request." Serialize all Node extractions in this process.
+ * Only one PDF can be read at a time in this process.
+ * If two run together, the PDF library can mix up page counts and crash.
  */
 let pdfExtractQueue: Promise<void> = Promise.resolve();
 
+/** Run one PDF read at a time so the PDF library does not mix up page counts. */
 function withPdfExtractLock<T>(fn: () => Promise<T>): Promise<T> {
   const run = pdfExtractQueue.then(fn, fn);
   pdfExtractQueue = run.then(

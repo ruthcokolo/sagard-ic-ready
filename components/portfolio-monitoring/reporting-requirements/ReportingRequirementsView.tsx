@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Page for configuring which metrics each company must report.
+ */
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -29,6 +32,7 @@ type ViewMode = "company" | "sector";
 
 const PAGE_SIZES = [10, 20, 50] as const;
 
+/** Page for managing per-company metric reporting requirements. */
 export function ReportingRequirementsView() {
   const router = useRouter();
   const pathname = usePathname();

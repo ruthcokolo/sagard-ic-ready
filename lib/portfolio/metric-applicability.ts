@@ -1,3 +1,7 @@
+/**
+ * Metric applicability labels, suggestions, and requirement display helpers.
+ */
+
 import type { ConfidenceLevel } from "./types";
 import type {
   MetricApplicabilitySuggestion,
@@ -80,6 +84,7 @@ export function suggestMetricApplicability(input: {
   return null;
 }
 
+/** Human-readable label for a MetricRequirement enum value. */
 export function requirementLabel(requirement: MetricRequirement): string {
   switch (requirement) {
     case "required":

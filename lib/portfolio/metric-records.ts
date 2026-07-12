@@ -1,3 +1,8 @@
+/**
+ * Turn raw extraction results into full metric records, including placeholders
+ * for metrics that were expected but not found in the PDF.
+ */
+
 import type { MetricName, MetricStatus } from "./types";
 import { ALL_METRICS } from "./types";
 import type { ExtractedMetric } from "./types";
@@ -8,6 +13,7 @@ import {
   getMetricExpectation,
 } from "./metric-expectations";
 
+/** Build a stable id for a metric row from its package and metric name. */
 export function metricRecordId(packageId: string, metricName: string) {
   return `m-${packageId}-${metricName.toLowerCase().replace(/\s+/g, "-")}`;
 }
@@ -38,6 +44,7 @@ function resolutionToMetricStatus(resolution: string): MetricStatus {
   }
 }
 
+/** Create the full set of metric rows for one uploaded report after PDF extraction. */
 export function buildMetricsFromExtraction(
   packageId: string,
   companyId: string,

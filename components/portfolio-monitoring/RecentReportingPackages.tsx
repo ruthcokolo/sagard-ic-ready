@@ -1,3 +1,6 @@
+/**
+ * Compact list of the most recently uploaded reporting packages.
+ */
 import Link from "next/link";
 
 type RecentReport = {
@@ -19,6 +22,7 @@ function companyInitials(name: string) {
     .toUpperCase();
 }
 
+/** Compact list of recently uploaded packages. */
 export function RecentReportingPackages({ reports }: { reports: RecentReport[] }) {
   return (
     <div className="flex h-full flex-col rounded-2xl border border-stone-200/70 bg-white p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

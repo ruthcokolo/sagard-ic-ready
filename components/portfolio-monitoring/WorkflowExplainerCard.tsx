@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Card explaining the upload-to-review workflow steps.
+ */
 import Link from "next/link";
 
 const STEPS = [
@@ -104,6 +107,7 @@ function StepCard({
   );
 }
 
+/** Visual step-by-step guide for the upload and review process. */
 export function WorkflowExplainerCard({ compact = false }: { compact?: boolean }) {
   if (!compact) {
     return (

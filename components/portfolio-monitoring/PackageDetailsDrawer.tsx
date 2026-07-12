@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Side drawer with full details for a single reporting package.
+ */
 import Link from "next/link";
 import {
   CoverageBar,
@@ -33,6 +36,7 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
+/** Slide-out panel with metadata and metrics for one package. */
 export function PackageDetailsDrawer({
   row,
   onClose,

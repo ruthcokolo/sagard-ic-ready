@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Main companies directory page with filters, table, and add/export actions.
+ */
 import { useEffect, useMemo, useState } from "react";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { getActivePortfolioSectors } from "@/lib/portfolio/sector-classification";
@@ -26,6 +29,7 @@ import {
 
 const BANNER_KEY = "icready-companies-banner-dismissed";
 
+/** Main page for browsing and managing all portfolio companies. */
 export function CompaniesView() {
   const { state, hydrated, addCompany } = usePortfolio();
   const [filters, setFilters] = useState<CompanyDirectoryFilters>(

@@ -1,3 +1,4 @@
+/** Root layout: fonts, global styles, and auth/decision providers for every page. */
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Instrument_Serif } from "next/font/google";
@@ -21,11 +22,13 @@ const instrumentSerif = Instrument_Serif({
   weight: "400",
 });
 
+/** Browser tab title and description for the whole app. */
 export const metadata: Metadata = {
   title: "ICReady AI",
   description: "Investment diligence copilot for pipeline to IC readiness",
 };
 
+/** Wraps every page with fonts, auth state, and IC decision state. */
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Table of company reporting submissions with status and coverage on the overview.
+ */
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -76,6 +79,7 @@ function filterRows(rows: CompanySubmissionRow[], filters: Filters) {
   });
 }
 
+/** Sortable table of company submissions on the overview page. */
 export function CompanySubmissionTable({
   rows,
   sectors,

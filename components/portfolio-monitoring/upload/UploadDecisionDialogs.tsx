@@ -1,8 +1,12 @@
 "use client";
 
+/**
+ * Dialogs that ask the user to confirm company, period, and metadata during upload.
+ */
 import { useState } from "react";
 import type { DuplicateDetectionResult } from "@/lib/portfolio/monitoring-phase-types";
 
+/** Asks the user to confirm which company a PDF belongs to. */
 export function CompanyConfirmationDialog({
   companyName,
   confidence,
@@ -109,6 +113,7 @@ export function CompanyConfirmationDialog({
   );
 }
 
+/** Asks the user to confirm the reporting period for a PDF. */
 export function ReportingPeriodConfirmationDialog({
   detectedPeriod,
   otherPeriod,
@@ -188,6 +193,7 @@ export function ReportingPeriodConfirmationDialog({
   );
 }
 
+/** Asks whether a PDF is related to an existing package. */
 export function RelatedDocumentDialog({
   fileName,
   duplicate,
@@ -251,6 +257,7 @@ export function RelatedDocumentDialog({
   );
 }
 
+/** Warns when extracted metadata conflicts with user input. */
 export function MetadataConflictDialog({
   fileName,
   selectedCompany,
@@ -326,6 +333,7 @@ export function MetadataConflictDialog({
   );
 }
 
+/** Notice shown when a PDF is password protected. */
 export function PasswordProtectedNotice({
   fileName,
   onSkip,
@@ -362,6 +370,7 @@ export function PasswordProtectedNotice({
   );
 }
 
+/** Notice shown when a scanned PDF needs OCR processing. */
 export function OcrRequiredNotice({ fileName }: { fileName: string }) {
   return (
     <div className="rounded-xl border border-sky-200 bg-sky-50/80 p-4">

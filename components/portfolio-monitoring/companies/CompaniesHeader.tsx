@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Page header for the companies directory with main action buttons.
+ */
 import { useEffect, useRef, useState } from "react";
 
+/** Page title and action buttons for the companies page. */
 export function CompaniesHeader({
   onOpenGuide,
   onAddCompany,

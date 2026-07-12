@@ -1,18 +1,26 @@
+/**
+ * Builds fake analysis results for any pipeline deal — pending, completed,
+ * or the full Northwind showcase — so the UI can render before live AI runs.
+ */
+
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { AnalysisResult, ChecklistItem, Contradiction } from "@/lib/types";
 import { enrichAnalysis, enrichContradiction } from "@/lib/enrich-analysis";
 import { northwindAnalysis } from "@/lib/mock-deal";
 
+/** Parses a dollar string like "$12.0M" into a number of millions. */
 function parseArrM(arr: string): number {
   return parseFloat(arr.replace(/[^0-9.]/g, "")) || 0;
 }
 
+/** Turns a deal id into a stable number seed for repeatable fake conflicts. */
 function seedFromId(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) | 0;
   return Math.abs(h);
 }
 
+/** Picks a repeatable pseudo-random number from a seed and index. */
 function rand(seed: number, n: number): number {
   const x = Math.sin(seed * 9999 + n * 7919) * 10000;
   return x - Math.floor(x);
@@ -155,6 +163,7 @@ const CONFLICT_SCENARIOS: ScenarioBuilder[] = [
   },
 ];
 
+/** Picks a random subset of conflict scenarios so each deal gets varied mismatches. */
 function pickScenarios(count: number, seed: number): ScenarioBuilder[] {
   const pool = [...CONFLICT_SCENARIOS];
   const picked: ScenarioBuilder[] = [];
@@ -167,6 +176,7 @@ function pickScenarios(count: number, seed: number): ScenarioBuilder[] {
   return picked;
 }
 
+/** Creates the list of cross-source conflicts for a deal based on its conflict count. */
 function buildContradictions(deal: PipelineDeal, seed: number): Contradiction[] {
   if (deal.conflictCount === 0) return [];
 
@@ -180,6 +190,7 @@ function buildContradictions(deal: PipelineDeal, seed: number): Contradiction[] 
   });
 }
 
+/** Builds open diligence checklist items sized to the deal's open-item count. */
 function buildChecklist(deal: PipelineDeal, seed: number): ChecklistItem[] {
   const count = Math.max(3, Math.min(10, deal.openItems + 2));
   const pool = [...CHECKLIST_TEMPLATES];
@@ -260,6 +271,7 @@ export function buildPendingNorthwindAnalysis(deal: PipelineDeal): AnalysisResul
   return buildPendingAnalysis(deal);
 }
 
+/** Returns the full Northwind showcase analysis with deal-specific scores layered in. */
 export function buildNorthwindAnalysisResult(deal: PipelineDeal): AnalysisResult {
   return enrichAnalysis(deal, {
     ...northwindAnalysis,
@@ -281,6 +293,7 @@ export function buildNorthwindAnalysisResult(deal: PipelineDeal): AnalysisResult
   });
 }
 
+/** Builds a finished analysis with fake conflicts and checklist for non-Northwind deals. */
 export function buildCompletedAnalysis(deal: PipelineDeal): AnalysisResult {
   if (deal.id === "northwind-logistics") {
     return buildNorthwindAnalysisResult(deal);

@@ -1,3 +1,8 @@
+/**
+ * Runs AI diligence on deal documents — calls Claude when an API key exists,
+ * otherwise falls back to the Northwind demo analysis.
+ */
+
 import type { AnalysisResult } from "./types";
 import { enrichAnalysis, enrichContradiction } from "./enrich-analysis";
 import { northwindAnalysis } from "./mock-deal";
@@ -19,6 +24,7 @@ Analyze deal inputs and return ONLY valid JSON matching this schema:
   "checklist": [{ "id": string, "label": string, "priority": "high"|"medium"|"low", "linkedRisk": string, "done": false }]
 }`;
 
+/** Runs diligence analysis — live AI when configured, demo data otherwise. */
 export async function runAnalysis(): Promise<AnalysisResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
 
@@ -98,6 +104,7 @@ type ContradictionLike = {
   status?: "unresolved" | "resolved" | "acknowledged";
 };
 
+/** Builds the text prompt sent to Claude using Northwind sample documents. */
 function buildPromptFromMock(): string {
   return `Analyze this deal for IC readiness.
 
@@ -119,6 +126,7 @@ Financial Model:
 Find contradictions, draft a one-pager, readiness score, and checklist.`;
 }
 
+/** Turns analysis plus a human decision into a markdown IC package for download. */
 export function buildExportMarkdown(
   analysis: AnalysisResult,
   decision: string,

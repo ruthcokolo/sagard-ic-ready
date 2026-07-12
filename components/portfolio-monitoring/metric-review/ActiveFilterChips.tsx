@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Removable chips showing which review filters are currently active.
+ */
 import {
   DEFAULT_LANDING_FILTERS,
   type LandingFilters,
@@ -118,6 +121,7 @@ function buildChips(filters: LandingFilters, tab: LandingScopeTab): Chip[] {
   return chips;
 }
 
+/** Removable chips for active review landing filters. */
 export function ActiveFilterChips({
   filters,
   tab,

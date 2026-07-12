@@ -1,9 +1,13 @@
 "use client";
 
+/**
+ * Row action menu and modals for reassign, due date, and priority changes.
+ */
 import { useEffect, useRef, useState } from "react";
 import type { CompanyReviewLandingRow } from "@/lib/portfolio/metric-review-landing-selectors";
 import type { ReviewPriority } from "@/lib/portfolio/types";
 
+/** Action types available in the review row menu. */
 export type RowMenuAction =
   | "assignToMe"
   | "reassign"
@@ -18,6 +22,7 @@ export type RowMenuAction =
   | "retryProcessing"
   | "viewAudit";
 
+/** Per-row action menu during metric review. */
 export function ReviewRowActionsMenu({
   row,
   isCurrentAssignee,
@@ -98,6 +103,7 @@ export function ReviewRowActionsMenu({
   );
 }
 
+/** Modal to change who is assigned to review a package. */
 export function ReassignReviewerModal({
   open,
   currentName,
@@ -146,6 +152,7 @@ export function ReassignReviewerModal({
   );
 }
 
+/** Modal to change the due date on a review item. */
 export function ChangeDueDateModal({
   open,
   currentDueDate,
@@ -196,6 +203,7 @@ export function ChangeDueDateModal({
   );
 }
 
+/** Modal to change the priority on a review item. */
 export function ChangePriorityModal({
   open,
   current,

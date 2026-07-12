@@ -1,3 +1,8 @@
+/**
+ * Core metric extraction from PDF page text. Searches for metric labels,
+ * scores matches, and picks the best value per metric from company reports.
+ */
+
 import type {
   ConfidenceLevel,
   ExtractionCandidate,
@@ -391,6 +396,7 @@ export function extractMetricsFromPages(
   return extractMetricsFlexible(pages, rules, reportPeriod);
 }
 
+/** Metric names from enabled rules that were not found in the extracted candidates. */
 export function buildMissingCandidates(
   extracted: ExtractionCandidate[],
   rules: ExtractionRule[]

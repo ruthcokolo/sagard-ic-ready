@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Toolbar and modals for bulk due-date and priority changes during review.
+ */
 import { useEffect, useRef, useState } from "react";
 import {
   endOfWeekIso,
@@ -9,6 +12,7 @@ import {
 import type { CompanyReviewLandingRow } from "@/lib/portfolio/metric-review-landing-selectors";
 import type { ReviewPriority } from "@/lib/portfolio/types";
 
+/** Toolbar shown when multiple review rows are selected. */
 export function BulkSelectionToolbar({
   selectedRows,
   pageAssignableCount,
@@ -141,8 +145,10 @@ export function BulkSelectionToolbar({
   );
 }
 
+/** Preset options for setting bulk due dates. */
 export type BulkDueDatePreset = "none" | "today" | "tomorrow" | "week" | "custom";
 
+/** Modal for setting a due date on selected reviews. */
 export function BulkDueDateModal({
   open,
   count,
@@ -207,6 +213,7 @@ export function BulkDueDateModal({
   );
 }
 
+/** Modal for changing priority on selected reviews. */
 export function BulkPriorityModal({
   open,
   count,

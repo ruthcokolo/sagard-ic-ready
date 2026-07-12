@@ -1,3 +1,8 @@
+/**
+ * Catalog of sample PDFs bundled with the demo: company-formatted reports
+ * and ICReady template files, with paths and metadata for each entry.
+ */
+
 import { TEMPLATE_COMPANY_SPECS, toQ1TemplateSpec } from "./template-companies";
 
 export type SamplePdfSource = "company-formatted" | "template";
@@ -172,6 +177,7 @@ export const MESSY_PDF_CATALOG = COMPANY_FORMATTED_PDF_CATALOG;
 /** @deprecated Use COMPANY_FORMATTED_PDF_CATALOG */
 export const SAMPLE_PDF_CATALOG = COMPANY_FORMATTED_PDF_CATALOG;
 
+/** Find a sample PDF entry for a company, optionally for a specific period. */
 export function getSamplePdfForCompany(
   companyId: string,
   source: SamplePdfSource = "company-formatted",
@@ -187,6 +193,7 @@ export function getSamplePdfForCompany(
   return catalog.find((e) => e.companyId === companyId);
 }
 
+/** Guess source format from filename patterns (ICReady template vs company PDF). */
 export function inferSourceFormatFromFileName(fileName: string): SamplePdfEntry["sourceFormat"] {
   if (fileName.includes("ICReady_Template") || fileName.includes("ICReady Template")) {
     return "ICReady template";

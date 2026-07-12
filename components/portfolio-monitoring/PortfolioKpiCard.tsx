@@ -1,5 +1,9 @@
+/**
+ * Single KPI card with icon, value, helper text, and optional trend indicator.
+ */
 type TrendDirection = "up" | "down" | "flat" | null;
 
+/** Shape of a single KPI card's data (label, value, helper, trend). */
 export type SimpleKpi = {
   id: string;
   label: string;
@@ -84,6 +88,7 @@ function KpiIcon({ id }: { id: string }) {
   return icons[id] ?? icons.companies;
 }
 
+/** Displays one KPI number with label, icon, and trend. */
 export function PortfolioKpiCard({ kpi }: { kpi: SimpleKpi }) {
   return (
     <div className="rounded-2xl border border-stone-200/70 bg-white p-4 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

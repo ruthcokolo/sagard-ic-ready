@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Shared helpers for formatting and displaying activity events on the overview.
+ */
 import type { ActivityEvent } from "@/lib/portfolio/overview-selectors";
 
+/** Turns a timestamp into a friendly relative time string. */
 export function formatActivityTime(iso: string) {
   const date = new Date(iso);
   const now = new Date();
@@ -21,6 +25,7 @@ export function formatActivityTime(iso: string) {
   });
 }
 
+/** Icon matching the type of activity event. */
 export function ActivityIcon({ type }: { type: ActivityEvent["type"] }) {
   const shell = "flex h-7 w-7 shrink-0 items-center justify-center rounded-full";
   const iconProps = {
@@ -90,6 +95,7 @@ export function ActivityIcon({ type }: { type: ActivityEvent["type"] }) {
   }
 }
 
+/** Human-readable labels for each activity event type. */
 export const ACTIVITY_TYPE_LABELS: Record<ActivityEvent["type"], string> = {
   uploaded: "Uploaded",
   processing: "Processing",

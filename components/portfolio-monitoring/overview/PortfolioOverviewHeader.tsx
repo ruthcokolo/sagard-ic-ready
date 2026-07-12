@@ -1,10 +1,14 @@
 "use client";
 
+/**
+ * Page header and empty state for the portfolio overview dashboard.
+ */
 import Link from "next/link";
 import { useAuth } from "@/components/auth/AuthProvider";
 import { ProductModeSwitch } from "@/components/portfolio-monitoring/PortfolioModeHeader";
 import { firstName } from "@/lib/auth-session";
 
+/** Title and subtitle header for the overview page. */
 export function PortfolioOverviewHeader() {
   const { user } = useAuth();
   const name = user ? firstName(user.name) : "there";
@@ -29,6 +33,7 @@ export function PortfolioOverviewHeader() {
   );
 }
 
+/** Shown when the portfolio has no companies or packages yet. */
 export function PortfolioOverviewEmptyState() {
   return (
     <div className="mx-4 mt-6 rounded-2xl border border-dashed border-stone-300 bg-white px-8 py-16 text-center sm:mx-6 lg:mx-8">

@@ -1,5 +1,6 @@
 /**
- * Display helpers for Reporting Requirements (effective rule, labels, sources).
+ * Build the rows shown on Reporting Requirements screens: what each company
+ * must report, where the rule comes from, and why it applies.
  */
 import type { ExtractionRule, MetricName } from "./types";
 import { ALL_METRICS } from "./types";
@@ -56,6 +57,7 @@ const SECTOR_RATIONALE: Partial<Record<MetricName, string>> = {
   Churn: "Retention quality for recurring businesses.",
 };
 
+/** Turn an internal reason code into a short label for the UI. */
 export function rationaleSourceLabel(source: DisplayRationaleSource | string): string {
   switch (source) {
     case "sector_policy":
@@ -80,6 +82,7 @@ export function rationaleSourceLabel(source: DisplayRationaleSource | string): s
   }
 }
 
+/** Map stored reason codes to the labels shown in requirement tables. */
 export function toDisplayRationaleSource(
   source: MetricExpectationReasonSource | string | undefined,
   kind: RequirementRuleSourceKind
@@ -123,6 +126,7 @@ function describeMetric(metricName: string, rules?: ExtractionRule[]) {
   return getMetricDescription(metricName, rules);
 }
 
+/** Look up the sector-level rule for one metric (required, optional, or not applicable). */
 export function getSectorRequirement(
   expectations: MetricExpectation[],
   sector: string,
@@ -151,6 +155,7 @@ export function getSectorRequirement(
   );
 }
 
+/** Find a company-specific override for one metric, if any. */
 export function getCompanyOverride(
   expectations: MetricExpectation[],
   companyId: string,
@@ -163,6 +168,7 @@ export function getCompanyOverride(
   );
 }
 
+/** Build one display row showing the final rule for a metric at one company. */
 export function buildEffectiveRequirementRow(input: {
   expectations: MetricExpectation[];
   companyId: string;
@@ -244,6 +250,7 @@ export function buildEffectiveRequirementRow(input: {
   };
 }
 
+/** Build requirement rows for every metric at one company. */
 export function buildCompanyRequirementRows(input: {
   expectations: MetricExpectation[];
   companyId: string;
@@ -262,6 +269,7 @@ export function buildCompanyRequirementRows(input: {
   );
 }
 
+/** Build requirement rows for every metric under one sector's defaults. */
 export function buildSectorRequirementRows(
   expectations: MetricExpectation[],
   sector: string,

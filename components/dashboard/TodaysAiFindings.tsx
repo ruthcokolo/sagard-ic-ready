@@ -1,5 +1,6 @@
 "use client";
 
+/** Carousel of today's AI-detected issues and opportunities across deals. */
 import Link from "next/link";
 import {
   IconAlertTriangle,
@@ -12,6 +13,7 @@ import { DEMO_DEAL_ID, getAiFindings } from "@/lib/insights";
 import { getDealById } from "@/lib/deals-pipeline";
 import { useDecisions } from "@/components/decisions/DecisionProvider";
 
+/** Renders the todays ai findings UI. */
 export function TodaysAiFindings() {
   const ai = getAiFindings();
   const { getWorkloadCounts, isInActiveQueue, nextQueueDealId, hydrated } = useDecisions();

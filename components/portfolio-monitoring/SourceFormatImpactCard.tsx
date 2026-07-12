@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Card showing how PDF source format affects extraction quality.
+ */
 import { SAMPLE_PDF_SOURCE_COPY } from "@/lib/portfolio/sample-pdf-catalog";
 
+/** Shows how different PDF formats affect extraction accuracy. */
 export function SourceFormatImpactCard() {
   const rows = [
     { ...SAMPLE_PDF_SOURCE_COPY["company-formatted"], tone: "stone" as const },

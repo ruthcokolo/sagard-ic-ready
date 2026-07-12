@@ -1,5 +1,6 @@
 "use client";
 
+/** Summary stat cards (total exports, recent, by type) on the exports page. */
 import Link from "next/link";
 import { useDecisions } from "@/components/decisions/DecisionProvider";
 import { getExportSummary as getBaseExportSummary } from "@/lib/exports-mock";
@@ -39,6 +40,7 @@ const cards = [
   },
 ];
 
+/** Renders the exports summary cards UI. */
 export function ExportsSummaryCards() {
   const { getExportSummary, hydrated } = useDecisions();
   const m = hydrated ? getExportSummary() : getBaseExportSummary();

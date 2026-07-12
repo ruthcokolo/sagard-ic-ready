@@ -21,6 +21,7 @@ export const PIPELINE_TOP_IDS = [
   "brightcart",
 ] as const;
 
+/** Puts the demo's hand-picked deals at the top of a pipeline table list. */
 export function prioritizePipelineDeals<T extends { id: string }>(deals: T[]): T[] {
   const top = PIPELINE_TOP_IDS.map((id) => deals.find((d) => d.id === id)).filter(
     (d): d is T => Boolean(d),
@@ -31,6 +32,7 @@ export function prioritizePipelineDeals<T extends { id: string }>(deals: T[]): T
   return [...top, ...rest];
 }
 
+/** Puts all curated showcase deals first, then the rest in original order. */
 export function prioritizeCuratedDeals<T extends { id: string }>(deals: T[]): T[] {
   const curated = CURATED_DEAL_IDS.map((id) => deals.find((d) => d.id === id)).filter(
     (d): d is T => Boolean(d),

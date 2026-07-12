@@ -4,6 +4,7 @@
  */
 import type { CompanyFormattedReportSpec } from "./company-formatted-report-types";
 
+/** Q1 2026 demo report content used by the sample PDF generator. */
 export const Q1_COMPANY_FORMATTED_REPORTS: CompanyFormattedReportSpec[] = [
   {
     fileName: "Northwind Logistics - Q1 2026 Operations Pack.pdf",

@@ -1,4 +1,9 @@
-/** Reconstruct readable lines from PDF.js text items (group by vertical position). */
+/**
+ * Helpers for turning PDF text into lines and short evidence snippets
+ * that reviewers can see next to each extracted metric.
+ */
+
+/** Turn PDF.js text fragments into readable lines grouped by vertical position. */
 export function pdfItemsToPageText(items: unknown[]): string {
   type Row = { y: number; x: number; str: string };
 

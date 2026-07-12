@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Overview card summarizing extraction success rates and failures.
+ */
 import type { ExtractionPerformance } from "@/lib/portfolio/overview-selectors";
 
 function formatDuration(ms: number | null): string {
@@ -11,6 +14,7 @@ function formatDuration(ms: number | null): string {
   return `${minutes}m ${seconds.toString().padStart(2, "0")}s`;
 }
 
+/** Card with extraction success rate and error counts. */
 export function ExtractionPerformanceCard({ stats }: { stats: ExtractionPerformance }) {
   const rows = [
     { label: "Packages processed", value: stats.packagesProcessed.toLocaleString() },

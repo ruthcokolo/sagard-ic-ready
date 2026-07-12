@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Link to download the original source PDF for a metric.
+ */
 import { resolveSourceDownload, triggerSourceDownload } from "@/lib/portfolio/source-download";
 
+/** Clickable link to download the source PDF. */
 export function DownloadSourceLink({
   sourceFile,
   companyId,

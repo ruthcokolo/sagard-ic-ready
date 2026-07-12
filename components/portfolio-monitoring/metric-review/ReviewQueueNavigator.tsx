@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Previous/next controls for moving through the review queue.
+ */
 import { useMemo, useState } from "react";
 import { CompanyAvatar } from "@/components/portfolio-monitoring/company-identity";
 import {
@@ -15,6 +18,7 @@ import type { PortfolioState } from "@/lib/portfolio/types";
 
 const NAVIGATOR_PAGE_SIZE = 30;
 
+/** Previous/next buttons to move through the queue. */
 export function ReviewQueueNavigator({
   state,
   filters,

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Full company profile page with tabs for overview, reports, risks, and more.
+ */
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -43,6 +46,7 @@ const VALID_TABS: CompanyProfileTab[] = [
   "notes",
 ];
 
+/** Renders the full company profile with header, tabs, and tab content. */
 export function CompanyDetailView({ companyId }: { companyId: string }) {
   const { user } = useAuth();
   const searchParams = useSearchParams();
@@ -175,6 +179,7 @@ export function CompanyDetailView({ companyId }: { companyId: string }) {
 
         <CompanyProfileTabs active={tab} onChange={setTab} />
 
+        {/* Tab content — overview, performance, reports, risks, activity, notes */}
         <div className="pt-0.5">
           {tab === "overview" ? (
             <div className="space-y-4">

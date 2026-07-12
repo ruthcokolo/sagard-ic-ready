@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * Button that navigates back to the metric review landing page.
+ */
+/** Link button back to the review landing page. */
 export function BackToMetricReviewButton({
   onClick,
   className = "",

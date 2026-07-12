@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Filter bar for searching and narrowing the companies directory.
+ */
 import type {
   CompanyDirectoryFilters,
   CompanyDirectorySort,
@@ -25,6 +28,7 @@ const SORT_OPTIONS: { value: CompanyDirectorySort; label: string }[] = [
   { value: "reporting_health", label: "Sort by: Reporting health" },
 ];
 
+/** Search and filter controls for the companies table. */
 export function CompanyDirectoryFiltersBar({
   filters,
   sectors,

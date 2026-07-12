@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Inline PDF preview highlighting the evidence page for a metric.
+ */
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { resolveSourceDownload, triggerSourceDownload } from "@/lib/portfolio/source-download";
 import {
@@ -169,6 +172,7 @@ function chipsFromPhraseMatch(
 const toolbarBtn =
   "inline-flex h-9 items-center justify-center rounded-lg border border-stone-200 bg-white text-[12px] font-medium text-stone-700 transition hover:bg-stone-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[#7a3344] disabled:cursor-not-allowed disabled:opacity-40";
 
+/** Embedded PDF viewer highlighting evidence for a metric. */
 export function PdfEvidencePreview({
   sourceFile,
   companyId,

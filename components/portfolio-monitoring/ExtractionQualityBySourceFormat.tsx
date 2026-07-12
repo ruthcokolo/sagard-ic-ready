@@ -1,7 +1,11 @@
 "use client";
 
+/**
+ * Breakdown of extraction quality grouped by PDF source format.
+ */
 import type { ExtractionQualityRow } from "@/lib/portfolio/selectors";
 
+/** Extraction quality broken down by PDF source format. */
 export function ExtractionQualityBySourceFormat({
   rows,
 }: {

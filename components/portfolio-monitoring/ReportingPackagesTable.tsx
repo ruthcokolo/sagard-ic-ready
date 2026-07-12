@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Filterable table of reporting packages with row actions.
+ */
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -14,6 +17,7 @@ import { CompanyIdentity } from "@/components/portfolio-monitoring/company-ident
 import { getActivePortfolioSectors } from "@/lib/portfolio/sector-classification";
 import { getPackageOpsStatus } from "@/lib/portfolio/reporting-packages-selectors";
 
+/** Shape of the filter state for the packages table. */
 export type PackageFiltersState = {
   search: string;
   sector: string;
@@ -27,6 +31,7 @@ export type PackageFiltersState = {
   highRetryOnly: boolean;
 };
 
+/** Default filter values for the packages table. */
 export const DEFAULT_PACKAGE_FILTERS: PackageFiltersState = {
   search: "",
   sector: "all",
@@ -70,6 +75,7 @@ function hasActiveFilters(filters: PackageFiltersState) {
   );
 }
 
+/** Filters package rows based on search and status filters. */
 export function filterPackageRows(
   rows: ReportingPackageRow[],
   filters: PackageFiltersState
@@ -106,6 +112,7 @@ export function filterPackageRows(
   });
 }
 
+/** Filter controls above the reporting packages table. */
 export function PackageFilters({
   rows,
   filters,
@@ -402,6 +409,7 @@ type TableProps = {
   className?: string;
 };
 
+/** Table listing all reporting packages with filters. */
 export function ReportingPackagesTable({
   rows,
   filters,

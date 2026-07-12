@@ -1,5 +1,6 @@
 "use client";
 
+/** Reusable filter bar for deal list pages. */
 import { categories } from "@/lib/categories";
 import type { DealFilters, SortField } from "@/lib/deal-query";
 import type { DealStage } from "@/lib/deal-types";
@@ -13,6 +14,7 @@ const stages: { id: DealStage; label: string }[] = [
   { id: "passed", label: "Passed on" },
 ];
 
+/** Renders the deal filter bar UI. */
 export function DealFilterBar({
   filters,
   onChange,

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Collapsible filter panel for narrowing the review queue.
+ */
 import {
   DEFAULT_REVIEW_FILTERS,
   type NavigatorSort,
@@ -70,6 +73,7 @@ function buildRemovableChips(filters: ReviewQueueFilters): Chip[] {
   return chips;
 }
 
+/** Expandable filter section in the review queue sidebar. */
 export function QueueFiltersAccordion({
   expanded,
   onExpandedChange,

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Table of companies assigned to the current reviewer on the landing page.
+ */
 import { useMemo, useRef } from "react";
 import { CompanyIdentity } from "@/components/portfolio-monitoring/company-identity/CompanyIdentity";
 import { isLandingRowAssignable } from "@/lib/portfolio/bulk-assignment";
@@ -16,6 +19,7 @@ import {
 } from "./ReviewRowActionsMenu";
 import { ReviewStatusDisplay } from "./ReviewStatusDisplay";
 
+/** Table of companies assigned to the current user. */
 export function AssignedCompanyTable({
   rows,
   currentReviewerId,

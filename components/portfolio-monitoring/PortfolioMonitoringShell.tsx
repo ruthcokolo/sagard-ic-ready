@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Main layout shell for portfolio monitoring: sidebar navigation and page content area.
+ */
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { createContext, useContext, useState } from "react";
@@ -21,14 +24,17 @@ const SidebarContext = createContext<SidebarContextValue>({
   toggle: () => {},
 });
 
+/** Hook to check if the sidebar is hidden and to toggle it open/closed. */
 export function usePortfolioSidebar() {
   return useContext(SidebarContext);
 }
 
+/** Shortens large badge numbers (e.g. 1500 becomes "1k"). */
 function formatBadge(value: number) {
   return value > 999 ? `${Math.floor(value / 1000)}k` : value.toLocaleString();
 }
 
+/** One sidebar link with icon, label, and optional notification badge. */
 function NavLink({
   item,
   pathname,
@@ -65,6 +71,7 @@ function NavLink({
   );
 }
 
+/** Renders the sidebar and main content area for all portfolio pages. */
 export function PortfolioMonitoringShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);

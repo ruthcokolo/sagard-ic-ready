@@ -1,3 +1,5 @@
+/** Timeline of human and AI actions taken on a deal. */
+
 import type { AuditEvent } from "@/lib/types";
 
 const typeLabels: Record<AuditEvent["type"], string> = {
@@ -7,6 +9,7 @@ const typeLabels: Record<AuditEvent["type"], string> = {
   human: "You",
 };
 
+/** Renders the audit trail UI. */
 export function AuditTrail({ events }: { events: AuditEvent[] }) {
   return (
     <section className="rounded-2xl border border-stone-200/70 bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">

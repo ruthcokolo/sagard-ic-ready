@@ -1,3 +1,8 @@
+/**
+ * Display helpers for the reporting packages list: report type labels,
+ * validation status, row formatting, and filename-based metadata detection.
+ */
+
 import type { ExtractedMetric, PackageStatus, ReportingPackage } from "./types";
 import { countByStatus } from "./selectors";
 
@@ -27,6 +32,7 @@ export type ReportingPackageStats = {
 import { getCompanyAvatarColor, getCompanyInitials } from "./company-identity";
 import { computeReportingPackageOpsStats } from "./reporting-packages-selectors";
 
+/** Avatar color and initials for a company in package list rows. */
 export function getCompanyMeta(companyId: string, companyName: string) {
   const palette = getCompanyAvatarColor(companyId, companyName);
   return {
@@ -37,6 +43,7 @@ export function getCompanyMeta(companyId: string, companyName: string) {
   };
 }
 
+/** Short report type label from filename and source format (Board Pack, Earnings, etc.). */
 export function inferReportType(fileName: string, sourceFormat: ReportingPackage["sourceFormat"]) {
   if (sourceFormat === "ICReady template") return "ICReady Template";
   const lower = fileName.toLowerCase();
@@ -62,6 +69,7 @@ export function formatPackagePeriodTitle(
   return `${period} ${type}`;
 }
 
+/** Whether a processed package still needs validation, is fully approved, or partial. */
 export function deriveValidationStatus(
   pkg: Pick<ReportingPackage, "status" | "needsValidation" | "metricsExtracted">,
   metrics?: ExtractedMetric[]
@@ -81,6 +89,7 @@ export function deriveValidationStatus(
   return null;
 }
 
+/** Enrich a package with sector, report type, and validation status for the UI table. */
 export function toReportingPackageRow(
   pkg: ReportingPackage,
   metrics: ExtractedMetric[] = [],
@@ -99,6 +108,7 @@ export function toReportingPackageRow(
   };
 }
 
+/** Counts of total, processed, failed, and needs-attention packages. */
 export function computeReportingPackageStats(
   packages: ReportingPackage[],
   _metrics?: ExtractedMetric[]
@@ -108,6 +118,7 @@ export function computeReportingPackageStats(
 
 import { companyIdFromName, parsePdfFileName } from "./company-from-upload";
 
+/** Guess company and period from a filename, matching existing portfolio companies when possible. */
 export function detectMetadataFromFileName(
   fileName: string,
   companies: { id: string; name: string }[] = []

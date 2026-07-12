@@ -1,8 +1,12 @@
 "use client";
 
+/**
+ * Empty states when no companies, sector, or comparable data is available.
+ */
 import Link from "next/link";
 import { EmptyState } from "@/components/portfolio-monitoring/PortfolioShared";
 
+/** Default empty state when no data to explore. */
 export function MetricsExplorerEmptyState() {
   return (
     <EmptyState
@@ -20,6 +24,7 @@ export function MetricsExplorerEmptyState() {
   );
 }
 
+/** Empty state when the chosen sector has no companies. */
 export function NoCompaniesInSectorState({ onClearSector }: { onClearSector: () => void }) {
   return (
     <EmptyState
@@ -38,6 +43,7 @@ export function NoCompaniesInSectorState({ onClearSector }: { onClearSector: () 
   );
 }
 
+/** Empty state when selected companies lack comparable metrics. */
 export function NoComparableDataState({
   metricName,
   onChooseMetric,

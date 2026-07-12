@@ -1,3 +1,8 @@
+/**
+ * Display helpers for the assigned review queue — curated headlines,
+ * priority badges, and step labels for each deal row.
+ */
+
 import type { PipelineDeal } from "@/lib/deal-types";
 import type { WorkflowStep } from "@/lib/deal-query";
 import { ASSIGNED_STEP_COUNTS, getAssignedStep } from "@/lib/assigned-queue";
@@ -77,6 +82,7 @@ const ISSUE_TEMPLATES = {
   ],
 } as const;
 
+/** Turns a deal id into a stable index for picking issue headline templates. */
 function seedFromId(id: string): number {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = h * 31 + id.charCodeAt(i);
@@ -88,10 +94,12 @@ export function getQueueStep(deal: PipelineDeal): WorkflowStep {
   return getAssignedStep(deal.id) ?? "draft";
 }
 
+/** Readiness score for queue display, preferring curated overrides when set. */
 export function getQueueReadiness(deal: PipelineDeal): number {
   return CURATED_DISPLAY[deal.id]?.readiness ?? deal.readinessScore;
 }
 
+/** Headline and detail text for the key issue column in the review queue. */
 export function getQueueKeyIssue(deal: PipelineDeal): { headline: string; detail: string } {
   const curated = CURATED_DISPLAY[deal.id];
   if (curated) return { headline: curated.headline, detail: curated.detail };
@@ -102,6 +110,7 @@ export function getQueueKeyIssue(deal: PipelineDeal): { headline: string; detail
   return pick;
 }
 
+/** Priority tier for queue row styling based on step and readiness. */
 export function getQueuePriority(deal: PipelineDeal): QueuePriority {
   const curated = CURATED_DISPLAY[deal.id];
   if (curated) return curated.priority;
@@ -113,6 +122,7 @@ export function getQueuePriority(deal: PipelineDeal): QueuePriority {
   return "medium";
 }
 
+/** Short label for a workflow step badge. */
 export function queueStepLabel(step: WorkflowStep): string {
   const map: Record<WorkflowStep, string> = {
     conflicts: "Resolve blockers",
@@ -122,6 +132,7 @@ export function queueStepLabel(step: WorkflowStep): string {
   return map[step];
 }
 
+/** Longer hint text explaining what the user should do at each step. */
 export function queueStepHint(step: WorkflowStep): string {
   const map: Record<WorkflowStep, string> = {
     conflicts: "Fix conflicts and missing evidence",
@@ -131,6 +142,7 @@ export function queueStepHint(step: WorkflowStep): string {
   return map[step];
 }
 
+/** Verb for the primary action button on a queue row. */
 export function queueActionLabel(step: WorkflowStep): string {
   const map: Record<WorkflowStep, string> = {
     conflicts: "Resolve",
@@ -140,6 +152,7 @@ export function queueActionLabel(step: WorkflowStep): string {
   return map[step];
 }
 
+/** Tailwind classes for priority badge styling. */
 export function priorityClass(priority: QueuePriority): string {
   const map: Record<QueuePriority, string> = {
     critical: "bg-red-50 text-red-700 ring-red-100",
@@ -149,6 +162,7 @@ export function priorityClass(priority: QueuePriority): string {
   return map[priority];
 }
 
+/** Display label for a priority tier. */
 export function priorityLabel(priority: QueuePriority): string {
   const map: Record<QueuePriority, string> = {
     critical: "Critical",
@@ -158,6 +172,7 @@ export function priorityLabel(priority: QueuePriority): string {
   return map[priority];
 }
 
+/** Tailwind classes for workflow step badge styling. */
 export function stepBadgeClass(step: WorkflowStep): string {
   const map: Record<WorkflowStep, string> = {
     conflicts: "bg-red-50 text-red-700",

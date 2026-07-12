@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Dropdown menu with actions for a company row (view, assign, etc.).
+ */
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
@@ -8,6 +11,7 @@ import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvide
 
 type MenuPosition = { top: number; left: number };
 
+/** Dropdown actions menu on a company table row. */
 export function CompanyActionsMenu({
   row,
   onAssignOwner,

@@ -1,10 +1,12 @@
 "use client";
 
+/** Reusable table of deals with links to company detail pages. */
 import Link from "next/link";
 import type { PipelineDeal } from "@/lib/deal-types";
 import { DEMO_DEAL_ID, stageLabel } from "@/lib/insights";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 
+/** Type shape used by deal table mode. */
 export type DealTableMode = "pipeline" | "ic";
 
 function scoreClass(score: number) {
@@ -27,6 +29,7 @@ function blockerLabel(count: number) {
   return `${count} open issue${count > 1 ? "s" : ""}`;
 }
 
+/** Renders the deal table UI. */
 export function DealTable({
   deals,
   mode,

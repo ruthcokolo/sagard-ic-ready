@@ -1,3 +1,7 @@
+/**
+ * Detect when a company communication implies a follow-up or outbound request.
+ */
+
 import type { CompanyCommunication } from "./monitoring-phase-types";
 
 /**
@@ -27,6 +31,7 @@ export function findOpenMissingMetricRequests(
   });
 }
 
+/** Describe a duplicate-detection scenario for user messaging. */
 export function describeDuplicateRequest(existing: CompanyCommunication[]): string {
   if (existing.length === 0) return "";
   const latest = existing[0];

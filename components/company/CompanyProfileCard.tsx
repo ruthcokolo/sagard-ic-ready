@@ -1,7 +1,10 @@
+/** Compact company summary card for pipeline and list views. */
+
 import type { PipelineDeal } from "@/lib/deal-types";
 import { formatAskStage } from "@/lib/company-sources";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 
+/** Card showing company name, sector tags, and synced source count. */
 export function CompanyProfileCard({ deal }: { deal: PipelineDeal }) {
   const tags = [
     formatAskStage(deal),

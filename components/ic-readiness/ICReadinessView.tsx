@@ -1,5 +1,6 @@
 "use client";
 
+/** IC review queue page with filters, table, and pagination. */
 import { useMemo, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/auth/AuthProvider";
@@ -24,6 +25,7 @@ const icDefaults: DealFilters = {
 
 const PAGE_SIZE = 5;
 
+/** IC review queue page with banner, filters, and table. */
 export function ICReadinessView() {
   const searchParams = useSearchParams();
   const { user } = useAuth();

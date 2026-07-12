@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Tab view showing recent activity for a single company.
+ */
 import {
   CompanyProfileEmptyState,
   SectionCard,
@@ -7,6 +10,7 @@ import {
 } from "@/components/portfolio-monitoring/company-profile/shared";
 import type { CompanyActivityEvent } from "@/lib/portfolio/company-profile-selectors";
 
+/** Activity history tab on the company profile. */
 export function CompanyActivityView({ events }: { events: CompanyActivityEvent[] }) {
   if (events.length === 0) {
     return (

@@ -1,8 +1,11 @@
+/** Company profile panel with sector, stage, and key metadata. */
+
 import type { Category } from "@/lib/categories";
 import type { PipelineDeal } from "@/lib/deals-pipeline";
 import type { AnalysisResult } from "@/lib/types";
 import { CompanyLogo } from "@/components/ui/CompanyLogo";
 
+/** Renders the company profile UI. */
 export function CompanyProfile({
   deal,
   category,

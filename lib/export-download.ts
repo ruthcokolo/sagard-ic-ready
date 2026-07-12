@@ -1,3 +1,8 @@
+/**
+ * Client-side export download helpers — re-exports HTML builders
+ * and provides search matching for the exports archive.
+ */
+
 import { buildExportArchiveHtml, downloadExportArchivePdf, downloadExportArchiveWord } from "@/lib/export-document";
 import type { ExportHistoryItem } from "@/lib/exports-mock";
 
@@ -31,10 +36,12 @@ This is a compliance archive copy. Source contradictions, checklist items, and o
 `;
 }
 
+/** Opens the browser print dialog for a saved export archive entry. */
 export function downloadExportArchive(item: ExportHistoryItem): void {
   downloadExportArchivePdf(item);
 }
 
+/** Case-insensitive search across company, owner, rationale, and decision. */
 export function matchesExportSearch(item: ExportHistoryItem, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;

@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Main table listing companies with status, coverage, and row actions.
+ */
 import Link from "next/link";
 import { CompanyIdentity } from "@/components/portfolio-monitoring/company-identity";
 import { CoverageBar } from "@/components/portfolio-monitoring/PortfolioShared";
@@ -44,6 +47,7 @@ function HealthBadge({ health }: { health: DirectoryReportingHealth }) {
   );
 }
 
+/** Paginated table of companies with actions per row. */
 export function CompanyDirectoryTable({
   rows,
   onAssignOwner,

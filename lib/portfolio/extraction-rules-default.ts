@@ -1,3 +1,8 @@
+/**
+ * Default rules that tell the extractor which labels to look for and what
+ * unit each standard metric (Revenue, ARR, EBITDA, etc.) should use.
+ */
+
 import type { ExtractionRule, MetricDataType, MetricValueContext } from "./types";
 import { METRIC_DEFINITION_META } from "./metric-definitions";
 import type { MetricName } from "./types";
@@ -19,6 +24,7 @@ function rule(
   };
 }
 
+/** Built-in extraction rules for the six standard portfolio metrics. */
 export const DEFAULT_EXTRACTION_RULES: ExtractionRule[] = [
   rule(
     "Revenue",

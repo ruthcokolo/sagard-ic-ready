@@ -1,9 +1,11 @@
 "use client";
 
+/** Page wrapper with title, subtitle, and optional action slot. */
 import Link from "next/link";
 import { IconBriefcase, IconCheck, IconClock } from "@/components/ui/Icons";
 import { pipelineDeals } from "@/lib/deals-pipeline";
 
+/** Renders the kpi strip UI. */
 export function KpiStrip() {
   const total = pipelineDeals.length;
   const needsReview = pipelineDeals.filter((d) => d.readinessStatus === "blocked").length;
@@ -63,6 +65,7 @@ function KpiCard({
   );
 }
 
+/** Renders the page header UI. */
 export function PageHeader({
   eyebrow,
   title,
@@ -84,6 +87,7 @@ export function PageHeader({
   );
 }
 
+/** Renders the open icreadiness button UI. */
 export function OpenICReadinessButton() {
   return (
     <Link

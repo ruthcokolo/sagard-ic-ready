@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Tab view listing risk flags and issues for a company.
+ */
 import { useState } from "react";
 import {
   CompanyProfileEmptyState,
@@ -30,6 +33,7 @@ type Props = {
   currentUserName: string;
 };
 
+/** Risk flags tab on the company profile. */
 export function CompanyRisksView({
   risks,
   candidates,

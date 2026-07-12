@@ -1,5 +1,7 @@
 "use client";
 
+/** Standalone portfolio-metrics demo: batch extraction, coverage matrix, and human review table. */
+
 import { useMemo, useState } from "react";
 import {
   GITHUB_POC_URL,
@@ -38,6 +40,7 @@ function ConfidencePill({ confidence }: { confidence: number }) {
   );
 }
 
+/** Full-page portfolio metrics workflow with simulated PDF extraction and review filters. */
 export function PortfolioMetricsView() {
   const [processed, setProcessed] = useState(false);
   const [processing, setProcessing] = useState(false);

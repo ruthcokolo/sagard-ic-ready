@@ -1,9 +1,13 @@
 "use client";
 
+/**
+ * Shared badges, icons, and row styles used across metric review components.
+ */
 import type { ConfidenceLevel } from "@/lib/portfolio/types";
 import { getDisplayMetricStatus } from "@/lib/portfolio/metric-review-selectors";
 import type { ExtractedMetric } from "@/lib/portfolio/types";
 
+/** Status badge styled for the metric review table. */
 export function MetricReviewStatusBadge({ metric }: { metric: ExtractedMetric }) {
   const status = getDisplayMetricStatus(metric);
   const styles: Record<string, string> = {
@@ -22,6 +26,7 @@ export function MetricReviewStatusBadge({ metric }: { metric: ExtractedMetric })
   );
 }
 
+/** Small pill showing extraction confidence level. */
 export function ConfidencePill({
   confidence,
   showTooltip = false,
@@ -57,6 +62,7 @@ const METRIC_ICONS: Record<string, string> = {
   Churn: "%",
 };
 
+/** Icon representing a metric type by name. */
 export function MetricIcon({ name }: { name: string }) {
   return (
     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-stone-100 text-[11px] font-semibold text-stone-600">
@@ -65,6 +71,7 @@ export function MetricIcon({ name }: { name: string }) {
   );
 }
 
+/** CSS classes for highlighting selected or resolved review rows. */
 export function rowStateClass(metric: ExtractedMetric, selected: boolean): string {
   if (selected) {
     return "bg-[#fdf2f4] shadow-[inset_3px_0_0_0_#7a3344]";

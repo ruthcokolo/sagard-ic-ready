@@ -1,5 +1,6 @@
 "use client";
 
+/** Standalone demo page: runs AI analysis and shows the IC readiness dashboard for one deal. */
 import { useCallback, useEffect, useState } from "react";
 import { Sidebar } from "@/components/Sidebar";
 import { ICReadyDashboard } from "@/components/ICReadyDashboard";
@@ -7,6 +8,7 @@ import { downloadIcPackagePdf } from "@/lib/export-document";
 import { northwindAnalysis } from "@/lib/mock-deal";
 import type { AnalysisResult, Decision } from "@/lib/types";
 
+/** Full-page demo that fetches AI analysis and renders ICReadyDashboard. */
 export function DealReadinessPage() {
   const [analysis, setAnalysis] = useState<AnalysisResult>(northwindAnalysis);
   const [loading, setLoading] = useState(false);

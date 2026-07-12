@@ -1,10 +1,14 @@
 "use client";
 
+/**
+ * Table of packages that were recently finished reviewing.
+ */
 import { CompanyIdentity } from "@/components/portfolio-monitoring/company-identity";
 import type { PortfolioState } from "@/lib/portfolio/types";
 import { getRecentlyReviewedMetrics } from "@/lib/portfolio/metric-review-selectors";
 import type { MetricAuditEntry } from "@/lib/portfolio/types";
 
+/** Table of packages finished reviewing recently. */
 export function RecentlyReviewedTable({
   state,
   decisionFilter,

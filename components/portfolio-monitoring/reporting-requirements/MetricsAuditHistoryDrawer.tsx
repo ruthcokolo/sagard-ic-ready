@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Side drawer showing audit history for metric requirement changes.
+ */
 import { useMemo, useState } from "react";
 import type { PortfolioAuditEvent } from "@/lib/portfolio/monitoring-phase-types";
 import { requirementLabel } from "@/lib/portfolio/metric-applicability";
@@ -49,6 +52,7 @@ function reqLabel(value: unknown) {
   }
 }
 
+/** Audit log drawer for global metrics configuration. */
 export function MetricsAuditHistoryDrawer({
   open,
   onClose,
@@ -233,6 +237,7 @@ export function MetricsAuditHistoryDrawer({
   );
 }
 
+/** Audit log drawer for a single company's requirements. */
 export function MetricRequirementHistoryDrawer({
   open,
   onClose,

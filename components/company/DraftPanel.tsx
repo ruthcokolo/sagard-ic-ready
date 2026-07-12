@@ -1,7 +1,10 @@
+/** Editable draft sections of the IC memo with source citations. */
+
 import type { AnalysisResult } from "@/lib/types";
 import { ChecklistTable } from "@/components/company/ChecklistTable";
 import { ConflictsSummary } from "@/components/company/ConflictsSummary";
 
+/** Renders the draft panel UI. */
 export function DraftPanel({ analysis }: { analysis: AnalysisResult }) {
   const { onePager, checklist, contradictions } = analysis;
 

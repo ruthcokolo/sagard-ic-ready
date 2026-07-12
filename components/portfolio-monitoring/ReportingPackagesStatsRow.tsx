@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Summary stat cards for reporting package counts by status.
+ */
 import type { ReportingPackageStats } from "@/lib/portfolio/reporting-packages-demo";
 
 function pct(part: number, total: number) {

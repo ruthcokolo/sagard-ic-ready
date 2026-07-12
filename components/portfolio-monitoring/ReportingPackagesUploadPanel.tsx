@@ -1,5 +1,8 @@
 "use client";
 
+/**
+ * Upload area and queue for adding new reporting package PDFs.
+ */
 import { useEffect, useMemo, useState } from "react";
 import {
   COMPANY_FORMATTED_PDF_CATALOG,
@@ -64,6 +67,7 @@ function formatBytes(size: number) {
   return `${(size / (1024 * 1024)).toFixed(1)} MB`;
 }
 
+/** Drag-and-drop upload zone and file queue for new packages. */
 export function ReportingPackagesUploadPanel({
   preferSample = false,
   companies,

@@ -1,3 +1,8 @@
+/**
+ * Guess company name, report period, and other details from a PDF filename
+ * and a small text sample before full extraction runs.
+ */
+
 import type { DetectedPackageMetadata } from "./monitoring-phase-types";
 import {
   extractCompanyNameFromFileName,
@@ -106,6 +111,7 @@ export function detectPackageMetadata(input: {
   };
 }
 
+/** Return true when two period strings clearly refer to different reporting periods. */
 export function periodsConflict(a?: string, b?: string): boolean {
   if (!a || !b) return false;
   const na = a.toLowerCase().replace(/\s+/g, "");

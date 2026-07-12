@@ -1,3 +1,4 @@
+/** Shared paths and helper to save sample PDFs to disk and public folder. */
 import fs from "node:fs";
 import path from "node:path";
 
@@ -14,6 +15,7 @@ export function writeSamplePdf(relativePath: string, bytes: Uint8Array) {
   fs.writeFileSync(publicPath, bytes);
 }
 
+/** Returns the sample and public folder paths for generated PDFs. */
 export function samplePdfRoots() {
   return { SAMPLE_ROOT, PUBLIC_ROOT };
 }

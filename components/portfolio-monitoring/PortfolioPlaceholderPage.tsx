@@ -1,5 +1,9 @@
+/**
+ * Placeholder screen for portfolio pages that are not built yet in the demo.
+ */
 import Link from "next/link";
 
+/** Shows a "coming soon" message with a link back to the overview. */
 export function PortfolioPlaceholderPage({
   title,
   description,

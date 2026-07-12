@@ -66,7 +66,8 @@ class DomMatrixShim {
 export function ensureDomMatrix(): void {
   const g = globalThis as typeof globalThis & { DOMMatrix?: unknown };
   if (typeof g.DOMMatrix === "undefined") {
-    g.DOMMatrix = DomMatrixShim;
+    // pdf.js only needs a constructor-shaped stand-in in Node; not a full browser DOMMatrix.
+    g.DOMMatrix = DomMatrixShim as unknown;
   }
 }
 

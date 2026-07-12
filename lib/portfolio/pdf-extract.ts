@@ -3,6 +3,7 @@
  * so the browser never has to load the PDF library directly.
  */
 
+import "./dom-matrix-polyfill";
 import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 import { pdfItemsToPageText } from "./pdf-text";
 import {

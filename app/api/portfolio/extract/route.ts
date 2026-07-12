@@ -1,4 +1,5 @@
 /** POST /api/portfolio/extract — extract metrics from an uploaded PDF. */
+import "@/lib/portfolio/dom-matrix-polyfill";
 import { NextRequest, NextResponse } from "next/server";
 import { DEFAULT_EXTRACTION_RULES } from "@/lib/portfolio/extraction-rules-default";
 import {

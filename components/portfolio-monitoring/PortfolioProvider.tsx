@@ -450,7 +450,17 @@ function applyDerived(state: PortfolioState): PortfolioState {
 
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  const actorName = user?.name?.trim() || "Associate";
+  const actorName =
+    user?.name?.trim() ||
+    (user?.email
+      ? user.email
+          .split("@")[0]
+          .split(/[._-]/)
+          .filter(Boolean)
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join(" ")
+      : "") ||
+    "Unknown reviewer";
   const [state, setState] = useState<PortfolioState>(createSeedPortfolioState);
   const [hydrated, setHydrated] = useState(false);
   const processingKeysRef = useRef(new Set<string>());

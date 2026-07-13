@@ -4,6 +4,7 @@
  */
 
 import type { ExtractedMetric, MetricName, PortfolioState, ReportingPackage } from "./types";
+import { isPlaceholderActorName, resolvePersonActorName } from "./actor-names";
 import {
   companyIdFromName,
   parsePdfFileName,
@@ -183,17 +184,37 @@ export function migratePortfolioState(state: PortfolioState): PortfolioState {
     )
   );
 
-  return {
-    ...state,
-    companies,
-    packages: dedupedPackages,
-    metrics: dedupeMetrics(metricsForSurvivors).map((metric) => ({
+  const metricsHealed = dedupeMetrics(metricsForSurvivors).map((metric) => {
+    const base = {
       ...metric,
       originalExtractedValue: metric.originalExtractedValue ?? metric.extractedValue,
       originalNormalizedValue:
         metric.originalNormalizedValue ?? metric.normalizedValue,
-    })),
-    metricAuditLog: state.metricAuditLog ?? [],
+    };
+    if (!isPlaceholderActorName(base.reviewedBy)) return base;
+    const pkg = packageById.get(base.packageId);
+    const healed = resolvePersonActorName(pkg?.uploadedBy, pkg?.assignedReviewerName);
+    return healed ? { ...base, reviewedBy: healed } : base;
+  });
+
+  const metricAuditLog = (state.metricAuditLog ?? []).map((entry) => {
+    if (!isPlaceholderActorName(entry.reviewer)) return entry;
+    const pkg = packageById.get(entry.packageId);
+    const metric = metricsHealed.find((m) => m.id === entry.metricId);
+    const healed = resolvePersonActorName(
+      metric?.reviewedBy,
+      pkg?.uploadedBy,
+      pkg?.assignedReviewerName
+    );
+    return healed ? { ...entry, reviewer: healed } : entry;
+  });
+
+  return {
+    ...state,
+    companies,
+    packages: dedupedPackages,
+    metrics: metricsHealed,
+    metricAuditLog,
     assignmentAuditLog: state.assignmentAuditLog ?? [],
     companyAuditLog: state.companyAuditLog ?? [],
     reviewWaitlist: state.reviewWaitlist ?? [],

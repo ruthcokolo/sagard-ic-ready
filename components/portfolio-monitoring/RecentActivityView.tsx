@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import {
   ACTIVITY_TYPE_LABELS,
@@ -27,9 +28,16 @@ const TYPE_FILTERS: { id: "all" | ActivityEventType; label: string }[] = [
 
 export function RecentActivityView() {
   const { state, hydrated } = usePortfolio();
+  const { user } = useAuth();
   const [typeFilter, setTypeFilter] = useState<"all" | ActivityEventType>("all");
 
-  const events = useMemo(() => getRecentActivity(state, 500), [state]);
+  const events = useMemo(
+    () =>
+      getRecentActivity(state, 500, {
+        currentUserName: user?.name?.trim() || undefined,
+      }),
+    [state, user?.name]
+  );
   const filtered = useMemo(
     () => (typeFilter === "all" ? events : events.filter((e) => e.type === typeFilter)),
     [events, typeFilter]

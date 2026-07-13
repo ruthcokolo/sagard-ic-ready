@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { getActivePortfolioSectors } from "@/lib/portfolio/sector-classification";
 import {
@@ -27,6 +28,7 @@ import {
 const BANNER_KEY = "icready-companies-banner-dismissed";
 
 export function CompaniesView() {
+  const { user } = useAuth();
   const { state, hydrated, addCompany } = usePortfolio();
   const [filters, setFilters] = useState<CompanyDirectoryFilters>(
     DEFAULT_COMPANY_DIRECTORY_FILTERS
@@ -47,7 +49,14 @@ export function CompaniesView() {
     }
   }, []);
 
-  const summary = useMemo(() => getCompanyDirectorySummary(state), [state]);
+  const summary = useMemo(
+    () =>
+      getCompanyDirectorySummary(state, {
+        currentUserId: user?.id,
+        currentUserName: user?.name,
+      }),
+    [state, user?.id, user?.name]
+  );
   const sectors = useMemo(
     () => getActivePortfolioSectors(state.companies),
     [state.companies]

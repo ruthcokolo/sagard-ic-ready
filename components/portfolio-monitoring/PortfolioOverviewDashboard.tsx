@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { getOverviewSnapshot } from "@/lib/portfolio/overview-selectors";
 import { getActivePortfolioSectors } from "@/lib/portfolio/sector-classification";
@@ -22,8 +23,15 @@ import { CompanySubmissionTable } from "@/components/portfolio-monitoring/overvi
 
 export function PortfolioOverviewDashboard() {
   const { state, hydrated } = usePortfolio();
+  const { user } = useAuth();
 
-  const snapshot = useMemo(() => getOverviewSnapshot(state), [state]);
+  const snapshot = useMemo(
+    () =>
+      getOverviewSnapshot(state, {
+        currentUserName: user?.name?.trim() || undefined,
+      }),
+    [state, user?.name]
+  );
   const sectors = useMemo(
     () => getActivePortfolioSectors(state.companies),
     [state.companies]

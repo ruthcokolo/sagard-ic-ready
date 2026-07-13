@@ -3,6 +3,8 @@
 export function CompanyDirectorySummary({
   total,
   sectors,
+  assignedToYou,
+  assignedToYouPct,
   active,
   activePct,
   needsAttention,
@@ -10,6 +12,8 @@ export function CompanyDirectorySummary({
 }: {
   total: number;
   sectors: number;
+  assignedToYou: number;
+  assignedToYouPct: number;
   active: number;
   activePct: number;
   needsAttention: number;
@@ -31,16 +35,19 @@ export function CompanyDirectorySummary({
       ),
     },
     {
-      id: "sectors",
-      label: "Sectors",
-      value: sectors,
-      helper: "Active sectors",
+      id: "assigned",
+      label: "Assigned to You",
+      value: assignedToYou,
+      helper:
+        assignedToYou === 0
+          ? "No companies assigned to you"
+          : `${assignedToYouPct}% of portfolio`,
       iconBg: "bg-emerald-50 text-emerald-700",
       icon: (
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
-          d="M11 3v18M5 8l6-3 6 3M5 14l6-3 6 3"
+          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
         />
       ),
     },

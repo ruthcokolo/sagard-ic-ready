@@ -1,4 +1,5 @@
 import { deriveValidationStatus, getCompanyMeta, inferReportType } from "./reporting-packages-demo";
+import { resolvePersonActorName } from "./actor-names";
 import { countByStatus } from "./selectors";
 import { getApprovedMetricChanges } from "./metric-comparison";
 import { ALL_METRICS } from "./types";
@@ -373,15 +374,47 @@ export function getNeedsAttentionItems(state: PortfolioState): NeedsAttentionIte
   return items.sort((a, b) => b.sortScore - a.sortScore);
 }
 
-export function getRecentActivity(state: PortfolioState, limit = 8): ActivityEvent[] {
+export function getRecentActivity(
+  state: PortfolioState,
+  limit = 8,
+  options?: { currentUserName?: string }
+): ActivityEvent[] {
   const events: ActivityEvent[] = [];
+  const packageById = new Map(state.packages.map((pkg) => [pkg.id, pkg]));
+  const companyById = new Map(state.companies.map((c) => [c.id, c]));
+
+  function actorForMetric(metric: ExtractedMetric): string | null {
+    const pkg = packageById.get(metric.packageId);
+    const company = companyById.get(metric.companyId);
+    const fromAudit = (state.metricAuditLog ?? [])
+      .filter((entry) => entry.metricId === metric.id)
+      .sort(
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+      )
+      .map((entry) => entry.reviewer);
+    return resolvePersonActorName(
+      metric.reviewedBy,
+      ...fromAudit,
+      pkg?.uploadedBy,
+      pkg?.assignedReviewerName,
+      company?.assignedAssociateName,
+      options?.currentUserName
+    );
+  }
 
   for (const pkg of state.packages) {
+    const uploader = resolvePersonActorName(
+      pkg.uploadedBy,
+      options?.currentUserName
+    );
     events.push({
       id: `upload-${pkg.id}`,
       timestamp: pkg.uploadedAt,
       type: "uploaded",
-      description: `${pkg.companyName} ${pkg.reportPeriod} report uploaded`,
+      description: uploader
+        ? `${uploader} uploaded ${pkg.companyName} ${pkg.reportPeriod} report`
+        : `${pkg.companyName} ${pkg.reportPeriod} report uploaded`,
       context: pkg.fileName,
     });
 
@@ -416,11 +449,15 @@ export function getRecentActivity(state: PortfolioState, limit = 8): ActivityEve
     }
   }
 
-  const approvalGroups = new Map<string, { count: number; ts: string; company: string; period: string; by: string }>();
+  const approvalGroups = new Map<
+    string,
+    { count: number; ts: string; company: string; period: string; by: string | null }
+  >();
   for (const m of state.metrics) {
     if (m.status !== "Approved for reporting" || !m.reviewedAt) continue;
+    const by = actorForMetric(m);
     const day = m.reviewedAt.slice(0, 16);
-    const key = `${m.companyId}::${m.reportPeriod}::${day}::${m.reviewedBy ?? "Alex Rivera"}`;
+    const key = `${m.companyId}::${m.reportPeriod}::${day}::${by ?? "unknown"}`;
     const existing = approvalGroups.get(key);
     if (existing) {
       existing.count += 1;
@@ -430,7 +467,7 @@ export function getRecentActivity(state: PortfolioState, limit = 8): ActivityEve
         ts: m.reviewedAt,
         company: m.companyName,
         period: m.reportPeriod,
-        by: m.reviewedBy ?? "Alex Rivera",
+        by,
       });
     }
   }
@@ -440,17 +477,25 @@ export function getRecentActivity(state: PortfolioState, limit = 8): ActivityEve
       id: `approve-${key}`,
       timestamp: group.ts,
       type: "approved",
-      description: `${group.by} approved ${group.count} metric${group.count === 1 ? "" : "s"} for ${group.company} ${group.period}`,
+      description: group.by
+        ? `${group.by} approved ${group.count} metric${group.count === 1 ? "" : "s"} for ${group.company} ${group.period}`
+        : `${group.count} metric${group.count === 1 ? "" : "s"} approved for ${group.company} ${group.period}`,
       context: group.company,
     });
   }
 
   for (const exp of state.exportHistory) {
+    const exporter = resolvePersonActorName(
+      exp.createdBy,
+      options?.currentUserName
+    );
     events.push({
       id: `export-${exp.id}`,
       timestamp: exp.createdAt,
       type: "export",
-      description: `${exp.createdBy} generated export ${exp.exportName}`,
+      description: exporter
+        ? `${exporter} generated export ${exp.exportName}`
+        : `Export ${exp.exportName} generated`,
       context: `${exp.metricsIncluded} metrics`,
     });
   }
@@ -632,12 +677,15 @@ export function getCompanySubmissionRows(state: PortfolioState): CompanySubmissi
     });
 }
 
-export function getOverviewSnapshot(state: PortfolioState) {
+export function getOverviewSnapshot(
+  state: PortfolioState,
+  options?: { currentUserName?: string }
+) {
   return {
     cycle: getActiveReportingCycle(state),
     kpis: getOverviewKpis(state),
     needsAttention: getNeedsAttentionItems(state),
-    recentActivity: getRecentActivity(state, 100),
+    recentActivity: getRecentActivity(state, 100, options),
     reportingProgress: getReportingProgress(state),
     workflowHealth: getPortfolioWorkflowHealth(state),
     expectedCoverage: getExpectedMetricCoverage(state),

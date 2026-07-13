@@ -47,6 +47,8 @@ export type CompanyDirectoryRow = {
   displayName: string;
   descriptor?: string;
   sector: string;
+  assignedAssociateId: string | null;
+  assignedAssociateName: string | null;
   latestReportPeriod: string | null;
   latestFileReceivedAt: string | null;
   reportsReceived: number;
@@ -170,16 +172,43 @@ export function companyNeedsAttention(
   return false;
 }
 
+/**
+ * Resolve who owns the company for directory display.
+ * Prefer company profile assignment; fall back to the latest package reviewer.
+ */
+export function resolveCompanyAssignee(
+  state: PortfolioState,
+  company: PortfolioCompany
+): { id: string | null; name: string | null } {
+  const fromCompanyName = company.assignedAssociateName?.trim() || null;
+  const fromCompanyId = company.assignedAssociateId?.trim() || null;
+  if (fromCompanyName || fromCompanyId) {
+    return { id: fromCompanyId, name: fromCompanyName };
+  }
+
+  const latest = getCompanyLatestPackage(state, company.id);
+  const fromPackageName = latest?.assignedReviewerName?.trim() || null;
+  const fromPackageId = latest?.assignedReviewerId?.trim() || null;
+  if (fromPackageName || fromPackageId) {
+    return { id: fromPackageId, name: fromPackageName };
+  }
+
+  return { id: null, name: null };
+}
+
 export function buildCompanyDirectoryRow(
   state: PortfolioState,
   company: PortfolioCompany
 ): CompanyDirectoryRow {
   const latest = getCompanyLatestPackage(state, company.id);
+  const assignee = resolveCompanyAssignee(state, company);
   return {
     company,
     displayName: formatCompanyDisplayName(company.name),
     descriptor: company.descriptor,
     sector: company.sector,
+    assignedAssociateId: assignee.id,
+    assignedAssociateName: assignee.name,
     latestReportPeriod: latest?.reportPeriod ?? null,
     latestFileReceivedAt: latest?.uploadedAt ?? null,
     reportsReceived: getCompanyReportsReceivedCount(state, company.id),
@@ -191,7 +220,10 @@ export function buildCompanyDirectoryRow(
   };
 }
 
-export function getCompanyDirectorySummary(state: PortfolioState) {
+export function getCompanyDirectorySummary(
+  state: PortfolioState,
+  options?: { currentUserId?: string; currentUserName?: string }
+) {
   const companies = state.companies;
   const total = companies.length;
   const sectors = getActivePortfolioSectors(companies).length;
@@ -199,11 +231,27 @@ export function getCompanyDirectorySummary(state: PortfolioState) {
   const needsAttention = companies.filter((c) =>
     companyNeedsAttention(state, c.id)
   ).length;
+  const normalize = (value: string) =>
+    value.trim().toLowerCase().replace(/\s+/g, " ");
+  const currentId = options?.currentUserId?.trim() || null;
+  const currentName = options?.currentUserName?.trim()
+    ? normalize(options.currentUserName)
+    : null;
+  const assignedToYou = companies.filter((company) => {
+    const assignee = resolveCompanyAssignee(state, company);
+    if (currentId && assignee.id && assignee.id === currentId) return true;
+    if (currentName && assignee.name && normalize(assignee.name) === currentName) {
+      return true;
+    }
+    return false;
+  }).length;
   const pct = (n: number) => (total > 0 ? Math.round((n / total) * 100) : 0);
 
   return {
     total,
     sectors,
+    assignedToYou,
+    assignedToYouPct: pct(assignedToYou),
     active,
     activePct: pct(active),
     needsAttention,
@@ -218,6 +266,7 @@ function matchesSearch(row: CompanyDirectoryRow, search: string): boolean {
     row.displayName,
     row.company.name,
     row.sector,
+    row.assignedAssociateName,
     row.company.websiteDomain,
     row.company.websiteUrl,
     row.latestReportPeriod,
@@ -323,7 +372,7 @@ export function buildCompanyDirectoryCsv(rows: CompanyDirectoryRow[]): string {
         row.coverage ?? "",
         row.needsValidation,
         row.reportingHealth,
-        row.company.assignedAssociateName ?? "",
+        row.assignedAssociateName ?? "",
         row.websiteUrl ?? "",
         row.company.createdAt ?? "",
       ]

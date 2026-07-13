@@ -165,6 +165,8 @@ export type ReportingPackage = {
   fileName: string;
   reportPeriod: string;
   uploadedAt: string;
+  /** Display name of who uploaded/processed this package. */
+  uploadedBy?: string;
   processedAt?: string;
   runCount: number;
   status: PackageStatus;

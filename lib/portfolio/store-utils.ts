@@ -10,6 +10,7 @@ import {
   refreshLegacyCompanySectors,
   syncCompaniesWithPackages,
 } from "./company-from-upload";
+import { applyDemoCompanyProfiles } from "./demo-company-profiles";
 import { inferSourceFormatFromFileName } from "./sample-pdf-catalog";
 
 export function packageKey(pkg: Pick<ReportingPackage, "companyId" | "reportPeriod" | "fileName">) {
@@ -176,8 +177,10 @@ export function migratePortfolioState(state: PortfolioState): PortfolioState {
       };
     });
 
-  const companies = refreshLegacyCompanySectors(
-    syncCompaniesWithPackages(state.companies ?? [], dedupedPackages)
+  const companies = applyDemoCompanyProfiles(
+    refreshLegacyCompanySectors(
+      syncCompaniesWithPackages(state.companies ?? [], dedupedPackages)
+    )
   );
 
   return {

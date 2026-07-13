@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useAuth } from "@/components/auth/AuthProvider";
 import { usePortfolio } from "@/components/portfolio-monitoring/PortfolioProvider";
 import { WorkflowExplainerCard } from "@/components/portfolio-monitoring/WorkflowExplainerCard";
 import { ReportingPackagesStatsRow } from "@/components/portfolio-monitoring/ReportingPackagesStatsRow";
@@ -63,6 +64,7 @@ function PackageToast({
 }
 
 export function ReportingPackagesView() {
+  const { user } = useAuth();
   const {
     state,
     uploadAndProcessPdf,
@@ -92,6 +94,7 @@ export function ReportingPackagesView() {
     };
   } | null>(null);
   const uploadMenuRef = useRef<HTMLDivElement>(null);
+  const uploaderName = user?.name?.trim() || "Associate";
 
   const isDemo =
     typeof process !== "undefined" && process.env.NODE_ENV !== "production";
@@ -108,7 +111,7 @@ export function ReportingPackagesView() {
       const row = toReportingPackageRow(
         pkg,
         state.metrics,
-        "Alex Rivera",
+        pkg.uploadedBy ?? uploaderName,
         companySectorById.get(pkg.companyId) ?? "Unclassified"
       );
       const catalog = getSamplePdfForCompany(pkg.companyId, "company-formatted");
@@ -122,7 +125,7 @@ export function ReportingPackagesView() {
         fileUrl: match?.publicPath,
       };
     });
-  }, [livePackages, state.metrics, companySectorById]);
+  }, [livePackages, state.metrics, companySectorById, uploaderName]);
 
   const stats = useMemo(
     () => computeReportingPackageStats(livePackages),

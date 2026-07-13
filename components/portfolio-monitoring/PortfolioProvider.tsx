@@ -104,7 +104,6 @@ import type {
 import { ALL_METRICS } from "@/lib/portfolio/types";
 
 const STORAGE_KEY = "icready-portfolio-state";
-const REVIEWER = "Alex Rivera";
 
 type EditMetricInput = {
   extractedValue: string;
@@ -119,6 +118,7 @@ function createAuditEntry(
   action: MetricAuditAction,
   previousStatus: ExtractedMetric["status"],
   newStatus: ExtractedMetric["status"],
+  reviewer: string,
   patch: Partial<MetricAuditEntry> = {}
 ): MetricAuditEntry {
   return {
@@ -133,7 +133,7 @@ function createAuditEntry(
     originalValue: metric.originalExtractedValue ?? metric.extractedValue,
     finalValue: patch.finalValue ?? metric.extractedValue,
     unit: patch.unit ?? metric.unit,
-    reviewer: REVIEWER,
+    reviewer,
     timestamp: new Date().toISOString(),
     sourcePage: metric.sourcePage,
     ...patch,
@@ -450,6 +450,7 @@ function applyDerived(state: PortfolioState): PortfolioState {
 
 export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
+  const actorName = user?.name?.trim() || "Associate";
   const [state, setState] = useState<PortfolioState>(createSeedPortfolioState);
   const [hydrated, setHydrated] = useState(false);
   const processingKeysRef = useRef(new Set<string>());
@@ -627,6 +628,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                       fileName,
                       fileHash: input.fileHash ?? p.fileHash,
                       fileSize: input.file?.size ?? p.fileSize,
+                      uploadedBy: actorName,
                     }
                   : p
               ),
@@ -643,6 +645,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                 fileName,
                 reportPeriod: effectivePeriod,
                 uploadedAt: now,
+                uploadedBy: actorName,
                 processedAt: undefined,
                 runCount: 1,
                 status: "Processing",
@@ -831,7 +834,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                   companyId,
                   action: "website_extracted",
                   timestamp: processedAt,
-                  actorName: REVIEWER,
+                  actorName: actorName,
                   details: {
                     websiteUrl: extractedWebsite.url,
                     packageId: targetId,
@@ -844,7 +847,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                   companyId,
                   action: "website_conflict",
                   timestamp: processedAt,
-                  actorName: REVIEWER,
+                  actorName: actorName,
                   details: {
                     pendingWebsiteUrl: extractedWebsite.url,
                     packageId: targetId,
@@ -968,7 +971,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         processingKeysRef.current.delete(periodKey);
       }
     },
-    [setDerived]
+    [setDerived, actorName]
   );
 
   const ensureDemoSagardAutoPackage = useCallback(async () => {
@@ -981,7 +984,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       return packages;
     }
 
-    const seeded = createSagardAutoDemoPackage(REVIEWER);
+    const seeded = createSagardAutoDemoPackage(actorName);
     let fileHash = existing?.fileHash;
     try {
       const res = await fetch(
@@ -1256,13 +1259,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       setDerived((prev) => {
         const metric = prev.metrics.find((m) => m.id === id);
         if (!metric) return prev;
-        const audit = createAuditEntry(
-          metric,
-          "approved",
-          metric.status,
-          "Approved for reporting",
-          { finalValue: metric.extractedValue, timestamp: now }
-        );
+        const audit = createAuditEntry(metric, "approved", metric.status, "Approved for reporting", actorName, { finalValue: metric.extractedValue, timestamp: now });
         return {
           ...prev,
           metrics: prev.metrics.map((m) =>
@@ -1270,7 +1267,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
               ? {
                   ...m,
                   status: "Approved for reporting" as const,
-                  reviewedBy: REVIEWER,
+                  reviewedBy: actorName,
                   reviewedAt: now,
                 }
               : m
@@ -1291,7 +1288,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         const newStatus = input.approve
           ? ("Approved for reporting" as const)
           : ("Needs validation" as const);
-        const audit = createAuditEntry(metric, "edited", metric.status, newStatus, {
+        const audit = createAuditEntry(metric, "edited", metric.status, newStatus, actorName, {
           finalValue: input.extractedValue,
           unit: input.unit,
           timestamp: now,
@@ -1311,7 +1308,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                     m.originalExtractedValue ?? m.extractedValue,
                   originalNormalizedValue:
                     m.originalNormalizedValue ?? m.normalizedValue,
-                  reviewedBy: input.approve ? REVIEWER : m.reviewedBy,
+                  reviewedBy: input.approve ? actorName : m.reviewedBy,
                   reviewedAt: input.approve ? now : m.reviewedAt,
                 }
               : m
@@ -1329,7 +1326,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       setDerived((prev) => {
         const metric = prev.metrics.find((m) => m.id === id);
         if (!metric) return prev;
-        const audit = createAuditEntry(metric, "rejected", metric.status, "Rejected", {
+        const audit = createAuditEntry(metric, "rejected", metric.status, "Rejected", actorName, {
           reason,
           timestamp: now,
         });
@@ -1337,7 +1334,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
           ...prev,
           metrics: prev.metrics.map((m) =>
             m.id === id
-              ? { ...m, status: "Rejected" as const, reviewedBy: REVIEWER, reviewedAt: now }
+              ? { ...m, status: "Rejected" as const, reviewedBy: actorName, reviewedAt: now }
               : m
           ),
           metricAuditLog: [audit, ...prev.metricAuditLog],
@@ -1353,13 +1350,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       setDerived((prev) => {
         const metric = prev.metrics.find((m) => m.id === id);
         if (!metric) return prev;
-        const audit = createAuditEntry(
-          metric,
-          "marked_missing",
-          metric.status,
-          "Missing from report",
-          { reason, finalValue: "", timestamp: now }
-        );
+        const audit = createAuditEntry(metric, "marked_missing", metric.status, "Missing from report", actorName, { reason, finalValue: "", timestamp: now });
         return {
           ...prev,
           metrics: prev.metrics.map((m) =>
@@ -1370,7 +1361,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                   extractedValue: "",
                   normalizedValue: null,
                   evidenceText: `${m.metricName} marked as missing from report.`,
-                  reviewedBy: REVIEWER,
+                  reviewedBy: actorName,
                   reviewedAt: now,
                 }
               : m
@@ -1433,7 +1424,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             entityId: metricName.toLowerCase().replace(/\s+/g, "-"),
             eventType: "alias_added",
             actorId: "user",
-            actorName: REVIEWER,
+            actorName: actorName,
             timestamp: new Date().toISOString(),
             metadata: { metricName, alias: trimmed },
           },
@@ -1460,7 +1451,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             entityId: metricName.toLowerCase().replace(/\s+/g, "-"),
             eventType: "alias_removed",
             actorId: "user",
-            actorName: REVIEWER,
+            actorName: actorName,
             timestamp: new Date().toISOString(),
             metadata: { metricName, alias },
           },
@@ -1721,7 +1712,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         id: uid("export"),
         exportName: name,
         createdAt: new Date().toISOString(),
-        createdBy: REVIEWER,
+        createdBy: actorName,
         metricsIncluded: exportRows.length,
         companiesIncluded: companies,
         format: "CSV" as const,
@@ -1798,19 +1789,35 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
 
   const assignPackageToReviewer = useCallback(
     (packageId: string, reviewerId: string, reviewerName: string) => {
-      setDerived((prev) => ({
-        ...prev,
-        packages: prev.packages.map((p) =>
-          p.id === packageId
-            ? {
-                ...p,
-                assignedReviewerId: reviewerId,
-                assignedReviewerName: reviewerName,
-                assignedAt: new Date().toISOString(),
-              }
-            : p
-        ),
-      }));
+      setDerived((prev) => {
+        const target = prev.packages.find((p) => p.id === packageId);
+        const now = new Date().toISOString();
+        return {
+          ...prev,
+          packages: prev.packages.map((p) =>
+            p.id === packageId
+              ? {
+                  ...p,
+                  assignedReviewerId: reviewerId,
+                  assignedReviewerName: reviewerName,
+                  assignedAt: now,
+                }
+              : p
+          ),
+          companies: target
+            ? prev.companies.map((c) =>
+                c.id === target.companyId
+                  ? {
+                      ...c,
+                      assignedAssociateId: reviewerId,
+                      assignedAssociateName: reviewerName,
+                      updatedAt: now,
+                    }
+                  : c
+              )
+            : prev.companies,
+        };
+      });
     },
     [setDerived]
   );
@@ -1905,6 +1912,28 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         return {
           ...prev,
           packages,
+          companies: prev.companies.map((c) => {
+            if (!payload.companyIds.includes(c.id)) return c;
+            // Keep company "Assigned to" in sync with package review assignment.
+            if (payload.reviewerId === null && payload.reviewerName === null) {
+              return {
+                ...c,
+                assignedAssociateId: undefined,
+                assignedAssociateName: undefined,
+                updatedAt: timestamp,
+              };
+            }
+            if (payload.reviewerId || payload.reviewerName) {
+              return {
+                ...c,
+                assignedAssociateId: payload.reviewerId ?? c.assignedAssociateId,
+                assignedAssociateName:
+                  payload.reviewerName ?? c.assignedAssociateName,
+                updatedAt: timestamp,
+              };
+            }
+            return c;
+          }),
           assignmentAuditLog: [...auditEntries, ...(prev.assignmentAuditLog ?? [])],
         };
       });
@@ -1934,9 +1963,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       }
 
       const byPackage = new Map(entries.map((e) => [e.packageId, e]));
-      setDerived((prev) => ({
-        ...prev,
-        packages: prev.packages.map((pkg) => {
+      setDerived((prev) => {
+        const packages = prev.packages.map((pkg) => {
           const entry = byPackage.get(pkg.id);
           if (!entry) return pkg;
           return {
@@ -1955,8 +1983,27 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                 ? entry.previousPriority
                 : pkg.reviewPriority,
           };
-        }),
-      }));
+        });
+
+        const companyIds = new Set(entries.map((e) => e.companyId));
+        const now = new Date().toISOString();
+        return {
+          ...prev,
+          packages,
+          companies: prev.companies.map((c) => {
+            if (!companyIds.has(c.id)) return c;
+            // Prefer the restored assignee from the latest package for this company.
+            const pkg = packages.find((p) => p.companyId === c.id && p.activeVersion !== false);
+            if (!pkg) return c;
+            return {
+              ...c,
+              assignedAssociateId: pkg.assignedReviewerId,
+              assignedAssociateName: pkg.assignedReviewerName,
+              updatedAt: now,
+            };
+          }),
+        };
+      });
 
       return {
         success: true,
@@ -1976,9 +2023,13 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
         assignedReviewerName?: string | null;
       }
     ) => {
-      setDerived((prev) => ({
-        ...prev,
-        packages: prev.packages.map((p) => {
+      setDerived((prev) => {
+        const target = prev.packages.find((p) => p.id === packageId);
+        const assigneeChanged =
+          patch.assignedReviewerId !== undefined ||
+          patch.assignedReviewerName !== undefined;
+        const now = new Date().toISOString();
+        const packages = prev.packages.map((p) => {
           if (p.id !== packageId) return p;
           const next = { ...p };
           if (patch.dueDate !== undefined) {
@@ -1994,14 +2045,34 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
               next.assignedAt = undefined;
             } else if (patch.assignedReviewerName !== undefined) {
               next.assignedReviewerName = patch.assignedReviewerName ?? undefined;
-              next.assignedAt = new Date().toISOString();
+              next.assignedAt = now;
             }
           } else if (patch.assignedReviewerName !== undefined) {
             next.assignedReviewerName = patch.assignedReviewerName ?? undefined;
           }
           return next;
-        }),
-      }));
+        });
+
+        if (!assigneeChanged || !target) {
+          return { ...prev, packages };
+        }
+
+        const updatedPkg = packages.find((p) => p.id === packageId);
+        return {
+          ...prev,
+          packages,
+          companies: prev.companies.map((c) =>
+            c.id === target.companyId
+              ? {
+                  ...c,
+                  assignedAssociateId: updatedPkg?.assignedReviewerId,
+                  assignedAssociateName: updatedPkg?.assignedReviewerName,
+                  updatedAt: now,
+                }
+              : c
+          ),
+        };
+      });
     },
     [setDerived]
   );
@@ -2274,7 +2345,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
                   companyId,
                   action: c.websiteUrl ? "website_replaced" : "website_added",
                   timestamp: new Date().toISOString(),
-                  actorName: REVIEWER,
+                  actorName: actorName,
                   details: { websiteUrl: next.websiteUrl },
                 });
               }
@@ -2292,7 +2363,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
               companyId,
               action: "owner_assigned",
               timestamp: new Date().toISOString(),
-              actorName: REVIEWER,
+              actorName: actorName,
               details: {
                 ownerId: next.assignedAssociateId,
                 ownerName: next.assignedAssociateName,
@@ -2305,20 +2376,38 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
               companyId,
               action: "sector_changed",
               timestamp: new Date().toISOString(),
-              actorName: REVIEWER,
+              actorName: actorName,
               details: { from: c.sector, to: patch.sector },
             });
           }
           return next;
         });
+        const assigneeChanged =
+          patch.assignedAssociateId !== undefined ||
+          patch.assignedAssociateName !== undefined;
+        const updatedCompany = companies.find((c) => c.id === companyId);
         return {
           ...prev,
           companies,
+          packages: assigneeChanged
+            ? prev.packages.map((p) =>
+                p.companyId === companyId
+                  ? {
+                      ...p,
+                      assignedReviewerId: updatedCompany?.assignedAssociateId,
+                      assignedReviewerName: updatedCompany?.assignedAssociateName,
+                      assignedAt: updatedCompany?.assignedAssociateId
+                        ? new Date().toISOString()
+                        : undefined,
+                    }
+                  : p
+              )
+            : prev.packages,
           companyAuditLog: [...(prev.companyAuditLog ?? []), ...audits],
         };
       });
     },
-    [setDerived]
+    [setDerived, actorName]
   );
 
   const addCompany = useCallback(
@@ -2370,7 +2459,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
           companyId: company.id,
           action: "company_created",
           timestamp: new Date().toISOString(),
-          actorName: REVIEWER,
+          actorName: actorName,
           details: { name, sector: input.sector },
         },
       ];
@@ -2380,7 +2469,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
           companyId: company.id,
           action: "duplicate_override",
           timestamp: new Date().toISOString(),
-          actorName: REVIEWER,
+          actorName: actorName,
           details: { matchedCompanyIds: input.matchedCompanyIds ?? [] },
         });
       }
@@ -2390,7 +2479,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
           companyId: company.id,
           action: "website_added",
           timestamp: new Date().toISOString(),
-          actorName: REVIEWER,
+          actorName: actorName,
           details: { websiteUrl },
         });
       }
@@ -2406,7 +2495,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             id: uid("note"),
             companyId: company.id,
             authorId: "alex-rivera",
-            authorName: REVIEWER,
+            authorName: actorName,
             body: input.notes.trim(),
             createdAt: new Date().toISOString(),
           };
@@ -2463,7 +2552,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
             companyId,
             action: decision === "keep" ? ("website_kept" as const) : ("website_replaced" as const),
             timestamp: new Date().toISOString(),
-            actorName: REVIEWER,
+            actorName: actorName,
           },
         ],
       }));

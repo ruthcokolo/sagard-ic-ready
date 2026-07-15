@@ -13,6 +13,7 @@
     "generate:template-pdfs": "tsx scripts/generate-template-pdfs.ts",
     "generate:demo-reports": "tsx scripts/generate-demo-reports.ts",
     "generate:all-pdfs": "npm run generate:sample-pdfs && npm run generate:template-pdfs && npm run generate:demo-reports",
+    "generate:processed-demo-seed": "tsx scripts/generate-processed-demo-seed.ts",
     "test:monitoring": "tsx scripts/test-monitoring-phase.ts"
   },
   "dependencies": {

@@ -410,6 +410,11 @@ function loadState(): PortfolioState {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return createSeedPortfolioState();
     const parsed = JSON.parse(raw) as PortfolioState;
+    // Empty portfolio (no packages) → ship the processed 12-PDF demo seed.
+    // Covers first visits and legacy localStorage that only had placeholder companies.
+    if (!(parsed.packages && parsed.packages.length > 0)) {
+      return createSeedPortfolioState();
+    }
     const merged: PortfolioState = {
       companies: parsed.companies ?? createSeedPortfolioState().companies,
       packages: parsed.packages ?? createSeedPortfolioState().packages,
